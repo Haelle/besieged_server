@@ -37,6 +37,7 @@ group :development, :test do
   # RSpec
   gem 'rspec-rails'
   gem 'rspec-its'
+  gem 'shoulda-matchers'
 
   # ruby syntax analyze
   gem 'rubocop', require: false
