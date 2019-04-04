@@ -40,6 +40,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'rspec-its'
   gem 'shoulda-matchers'
+  gem 'factory_bot_rails'
 
   # ruby syntax analyze
   gem 'rubocop', require: false

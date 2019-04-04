@@ -26,7 +26,7 @@ class AccountsController < ApplicationController
 
   # PATCH/PUT /accounts/1
   def update
-    if @account.update(account_params)
+    if @account.update_with_password(account_params)
       render json: @account
     else
       render json: @account.errors, status: :unprocessable_entity
@@ -46,6 +46,6 @@ class AccountsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def account_params
-      params.require(:account).permit(:email, :password)
+      params.require(:account).permit(:email, :password, :current_password)
     end
 end

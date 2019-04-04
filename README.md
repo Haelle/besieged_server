@@ -37,3 +37,6 @@ rspec
 mina setup
 mina deploy
 ```
+
+# TODO:
+Add role to account (Pundit?)
