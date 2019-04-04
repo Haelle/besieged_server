@@ -1,6 +1,6 @@
 require 'mina/rails'
 require 'mina/git'
- require 'mina/rbenv'  # for rbenv support. (https://rbenv.org)
+require 'mina/rbenv'  # for rbenv support. (https://rbenv.org)
 
 # Basic settings:
 #   domain       - The hostname to SSH to.
@@ -13,6 +13,7 @@ set :domain, 'sw.alxs.fr'
 set :deploy_to, '/var/www/shared_world_production'
 set :repository, 'git@github.com:Haelle/shared_world.git'
 set :branch, 'master'
+set :rbenv_path, '/usr/local/rbenv'
 
 # Optional settings:
 #   set :user, 'foobar'          # Username in the server to SSH to.
@@ -24,6 +25,9 @@ set :branch, 'master'
 # run `mina -d` to see all folders and files already included in `shared_dirs` and `shared_files`
 # set :shared_dirs, fetch(:shared_dirs, []).push('public/assets')
 # set :shared_files, fetch(:shared_files, []).push('config/database.yml', 'config/secrets.yml')
+set :shared_files, fetch(:shared_files, []).push(
+  'config/master.key'
+)
 
 # This task is the environment that is loaded for all remote run commands, such as
 # `mina deploy` or `mina rake`.
@@ -50,7 +54,6 @@ task :deploy do
     invoke :'deploy:link_shared_paths'
     invoke :'bundle:install'
     invoke :'rails:db_migrate'
-    invoke :'rails:assets_precompile'
     invoke :'deploy:cleanup'
 
     on :launch do
