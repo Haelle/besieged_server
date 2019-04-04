@@ -3,6 +3,10 @@
 Ruby version: 2.6.2
 
 # Configuration
+Need to have pgcrypto extention to be installed
+```
+sudo apt-get install postgresql-contrib
+```
 
 # Database creation
 
