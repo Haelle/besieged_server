@@ -6,16 +6,30 @@ Ruby version: 2.6.2
 
 # Database creation
 
+Create role with an account with sufficient rights:
+```
+psql -f setup_postgres.sql
+```
+
+Create database:
+```
+rake db:setup
+rails db:migrate
+```
+
 ## Database initialization
 
 # How to run the test suite
+
+```
+rspec
+```
 
 # Services (job queues, cache servers, search engines, etc.)
 
 # Deployment instructions
 
-# TODO
-
-- RSpec
-- Mina
-- Postgres
+```
+mina setup
+mina deploy
+```
