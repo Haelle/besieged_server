@@ -1,0 +1,1 @@
+CREATE ROLE shared_world WITH LOGIN CREATEDB PASSWORD 'password';
