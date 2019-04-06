@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe AccountsController, type: :controller do
+RSpec.describe Resources::AccountsController, type: :controller do
 
   let(:valid_attributes) { attributes_for :account }
 
