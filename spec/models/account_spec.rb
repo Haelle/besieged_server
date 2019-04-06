@@ -25,4 +25,10 @@ RSpec.describe Account, type: :model do
     expect(invalid_account).to be_invalid
     expect(invalid_account.errors.messages).to include email: ['has already been taken']
   end
+
+  it 'needs a password' do
+    invalid_account = build :account, password: nil
+    expect(invalid_account).to be_invalid
+    expect(invalid_account.errors.messages).to include password: ["can't be blank"]
+  end
 end
