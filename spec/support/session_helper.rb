@@ -7,6 +7,12 @@ module SessionHelper
     valid_tokens[:refresh]
   end
 
+  def valid_headers
+    {
+      "#{JWTSessions.access_header}": valid_access
+    }
+  end
+
   def valid_tokens
     account = create :account
     payload = { account_id: account.id }

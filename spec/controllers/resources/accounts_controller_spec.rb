@@ -14,6 +14,12 @@ RSpec.describe Resources::AccountsController, type: :controller do
         }.to change(Account, :count).by(1)
       end
 
+      it 'creates a non admin Account' do
+        post :create, params: { account: valid_attributes }
+        new_account = Account.find response_json[:id]
+        expect(new_account).to have_attributes admin: false
+      end
+
       it "renders a JSON response with the new account" do
         post :create, params: {account: valid_attributes}
         expect(response).to have_http_status(:created)
