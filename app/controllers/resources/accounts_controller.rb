@@ -1,4 +1,6 @@
 class Resources::AccountsController < ApplicationController
+  # allow access without tokens only for create action
+  before_action :authorize_access_request!, only: [:index, :show, :update, :destroy]
   before_action :set_account, only: [:show, :update, :destroy]
 
   # GET /accounts
