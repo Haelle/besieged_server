@@ -39,4 +39,5 @@ mina deploy
 ```
 
 # TODO:
-Add role to account (Pundit?)
+Add admin:true/false to account with Pundit & authorize :admin
+Add concern to check_user_belongs_to_account?
