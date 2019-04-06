@@ -12,7 +12,7 @@ RSpec.describe LoginController, type: :controller do
 
         it 'has expected JSON keys' do
           subject
-          expect(response_json.keys.sort).to eq ['access', 'access_expires_at', 'csrf', 'refresh', 'refresh_expires_at']
+          expect(response_json.keys.sort).to eq %i[access access_expires_at csrf refresh refresh_expires_at]
         end
       end
 
