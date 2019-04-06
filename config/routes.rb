@@ -5,5 +5,6 @@ Rails.application.routes.draw do
   scope module: 'resources' do
     resources :accounts
     resources :characters
+    resources :siege_weapons
   end
 end
