@@ -17,6 +17,7 @@ RSpec.describe Resources::AccountsController, type: :controller do
         post :create, params: { account: valid_attributes }
         new_account = Account.find response_json[:id]
         expect(new_account).to have_attributes admin: false
+        expect(response_json).to include email: 'email@example.com'
       end
 
       it 'renders a JSON response with the new account' do
@@ -53,6 +54,7 @@ RSpec.describe Resources::AccountsController, type: :controller do
         Account.create! valid_attributes
         get :index, params: {}
         expect(response).to be_successful
+        expect(response_json).to be_an Array
       end
     end
 
@@ -61,6 +63,7 @@ RSpec.describe Resources::AccountsController, type: :controller do
         account = Account.create! valid_attributes
         get :show, params: { id: account.to_param }
         expect(response).to be_successful
+        expect(response_json).to include email: 'email@example.com'
       end
     end
 
@@ -77,6 +80,7 @@ RSpec.describe Resources::AccountsController, type: :controller do
           expect(response).to have_http_status :ok
           expect(account).to have_attributes email: 'new@email.com'
           expect(account.authenticate('still valid')).to be_truthy
+          expect(response_json).to include email: 'new@email.com'
         end
 
         it 'renders a JSON response with the account' do
@@ -89,6 +93,7 @@ RSpec.describe Resources::AccountsController, type: :controller do
           expect(response).to have_http_status(:ok)
           expect(response.content_type).to eq('application/json')
           expect(response.body).not_to include 'password'
+          expect(response_json).to include email: 'email@example.com'
         end
       end
 

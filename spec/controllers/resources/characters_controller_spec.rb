@@ -17,6 +17,7 @@ RSpec.describe Resources::CharactersController, type: :controller do
         Character.create! valid_attributes
         get :index, params: {}
         expect(response).to be_successful
+        expect(response_json).to be_an Array
       end
     end
 
@@ -25,6 +26,7 @@ RSpec.describe Resources::CharactersController, type: :controller do
         character = Character.create! valid_attributes
         get :show, params: { id: character.to_param }
         expect(response).to be_successful
+        expect(response_json).to include pseudonyme: 'Kevin'
       end
     end
 
@@ -41,6 +43,7 @@ RSpec.describe Resources::CharactersController, type: :controller do
           expect(response).to have_http_status(:created)
           expect(response.content_type).to eq('application/json')
           expect(response.location).to eq(character_url(Character.last))
+          expect(response_json).to include pseudonyme: 'Kevin'
         end
       end
 
@@ -63,6 +66,7 @@ RSpec.describe Resources::CharactersController, type: :controller do
           put :update, params: { id: character.to_param, character: new_attributes }
           character.reload
           expect(character).to have_attributes pseudonyme: 'new pseudonyme'
+          expect(response_json).to include pseudonyme: 'new pseudonyme'
         end
 
         it 'renders a JSON response with the character' do
@@ -71,6 +75,8 @@ RSpec.describe Resources::CharactersController, type: :controller do
           put :update, params: { id: character.to_param, character: valid_attributes }
           expect(response).to have_http_status(:ok)
           expect(response.content_type).to eq('application/json')
+          expect(response_json).to include pseudonyme: 'Kevin'
+          expect(character).to have_attributes pseudonyme: 'Kevin'
         end
       end
 
@@ -81,6 +87,7 @@ RSpec.describe Resources::CharactersController, type: :controller do
           put :update, params: { id: character.to_param, character: invalid_attributes }
           expect(response).to have_http_status(:unprocessable_entity)
           expect(response.content_type).to eq('application/json')
+          expect(response_json).to include pseudonyme: ["can't be blank"]
         end
       end
     end
