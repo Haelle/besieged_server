@@ -1,0 +1,28 @@
+AllCops:
+  Exclude:
+    - 'bin/**/*'
+    - 'db/**/*'
+    - 'log/**/*'
+    - 'vendor/**/*'
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 100
+  Exclude:
+    - 'config/**/*'
+  IgnoredPatterns: ['\A#']
+
+Style/Documentation:
+  Enabled: false
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
+
+Style/ClassAndModuleChildren:
+  EnforcedStyle: compact
+  Exclude:
+    - 'app/channels/**/*'
+    - 'config/application.rb'
