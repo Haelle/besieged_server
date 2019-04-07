@@ -21,6 +21,18 @@ require 'rspec/rails'
 
 Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
 
+# Test coverage options (activated only if rspec is run without arguments)
+if ARGV.grep(/spec\.rb/).empty?
+  require 'simplecov'
+  require 'simplecov-console'
+  SimpleCov.formatter = SimpleCov.formatter = SimpleCov::Formatter::Console
+  SimpleCov.start 'rails' do
+    add_filter '/app/channels/'
+    add_filter '/app/jobs/application_job.rb'
+    add_filter '/app/mailers/application_mailer.rb'
+  end
+end
+
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest

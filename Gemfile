@@ -42,6 +42,10 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'shoulda-matchers'
 
+  # Code coverage
+  gem 'simplecov'
+  gem 'simplecov-console'
+
   # ruby syntax analyze
   gem 'rubocop', require: false
   gem 'rubocop-checkstyle_formatter', require: false
