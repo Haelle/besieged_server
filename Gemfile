@@ -38,6 +38,7 @@ group :development, :test do
 
   # RSpec
   gem 'factory_bot_rails'
+  gem 'mutant-rspec'
   gem 'rspec-its'
   gem 'rspec-rails'
   gem 'shoulda-matchers'
@@ -49,6 +50,7 @@ group :development, :test do
   # ruby syntax analyze
   gem 'rubocop', require: false
   gem 'rubocop-checkstyle_formatter', require: false
+  gem 'rubocop-performance', require: false
   gem 'rubocop-rspec', require: false
 end
 

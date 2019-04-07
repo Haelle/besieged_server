@@ -39,8 +39,7 @@ mina deploy
 ```
 
 # TODO:
-Setup CI with RSpec & Rubocop
-Setup code coverage
+Run mutant !
 
 Add 'arm' action to siege weapon
 Add admin:true/false to account with Pundit & authorize :admin
