@@ -8,11 +8,11 @@ class Account < ApplicationRecord
   def update_with_password(account_params)
     current_password = account_params.delete(:current_password)
 
-    if self.authenticate(current_password)
-      self.update(account_params)
+    if authenticate(current_password)
+      update(account_params)
       true
     else
-      self.errors.add(:current_password, current_password.blank? ? :blank : :invalid)
+      errors.add(:current_password, current_password.blank? ? :blank : :invalid)
       false
     end
   end

@@ -7,7 +7,7 @@ RSpec.describe Character, type: :model do
   it { is_expected.to have_db_column(:updated_at).of_type(:datetime) }
 
   it 'is valid' do
-    expect(build :character).to be_valid
+    expect(build(:character)).to be_valid
   end
 
   it 'has nil pseudonyme' do

@@ -9,7 +9,7 @@ RSpec.describe Account, type: :model do
   it { is_expected.to have_db_column(:updated_at).of_type(:datetime) }
 
   it 'is valid' do
-    expect(build :account).to be_valid
+    expect(build(:account)).to be_valid
   end
 
   it 'has invalid email' do

@@ -1,6 +1,6 @@
 class Resources::SiegeWeaponsController < ApplicationController
   before_action :authorize_access_request!
-  before_action :set_siege_weapon, only: [:show, :update, :destroy]
+  before_action :set_siege_weapon, only: %i[show update destroy]
 
   # GET /siege_weapons
   def index
@@ -40,13 +40,14 @@ class Resources::SiegeWeaponsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_siege_weapon
-      @siege_weapon = SiegeWeapon.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def siege_weapon_params
-      params.require(:siege_weapon).permit(:damage)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_siege_weapon
+    @siege_weapon = SiegeWeapon.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def siege_weapon_params
+    params.require(:siege_weapon).permit(:damage)
+  end
 end

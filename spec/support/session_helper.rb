@@ -26,6 +26,7 @@ module SessionHelper
     email = 'uniq@example.com'
     existing_account = Account.find_by email: email
     return existing_account unless existing_account.nil?
+
     create :account, email: email
   end
 end

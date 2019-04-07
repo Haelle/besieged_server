@@ -39,6 +39,10 @@ mina deploy
 ```
 
 # TODO:
+Setup CI with RSpec & Rubocop
+Setup code coverage
+
+Add 'arm' action to siege weapon
 Add admin:true/false to account with Pundit & authorize :admin
 Add concern to check_user_belongs_to_account?
 Test forged token !
