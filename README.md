@@ -29,6 +29,12 @@ rails db:migrate
 rspec
 ```
 
+## Mutant
+
+```
+RAILS_ENV=test bundle exec mutant -r ./config/environment --use rspec ClassName
+```
+
 # Services (job queues, cache servers, search engines, etc.)
 
 # Deployment instructions
