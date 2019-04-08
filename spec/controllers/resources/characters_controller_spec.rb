@@ -66,6 +66,7 @@ RSpec.describe Resources::CharactersController, type: :controller do
           put :update, params: { id: character.to_param, character: new_attributes }
           character.reload
           expect(character).to have_attributes pseudonyme: 'new pseudonyme'
+          expect(response).to have_http_status(:ok)
           expect(response_json).to include pseudonyme: 'new pseudonyme'
         end
 

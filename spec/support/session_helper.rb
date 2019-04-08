@@ -20,6 +20,10 @@ module SessionHelper
     session.login
   end
 
+  def valid_account
+    find_or_create_account
+  end
+
   private
 
   def find_or_create_account

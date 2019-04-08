@@ -15,11 +15,19 @@ RSpec.describe LoginController, type: :controller do
           expect(response_json.keys.sort)
             .to eq %i[access access_expires_at csrf refresh refresh_expires_at]
         end
+
+        it 'has valid access token' do
+          subject
+          access_token = response_json[:access]
+          decoded_token = JWTSessions::Token.decode(access_token).first
+          expect(decoded_token["account_id"]).to eq Account.last.id
+        end
       end
 
       it 'has 401 response code when password is invalid' do
         get :create, params: { email: 'email@example.com', password: 'invalid password' }
         expect(response).to have_http_status :unauthorized
+        expect(response_json).to include error: 'Invalid user'
       end
     end
 

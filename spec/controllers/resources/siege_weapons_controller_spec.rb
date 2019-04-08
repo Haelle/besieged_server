@@ -17,6 +17,7 @@ RSpec.describe Resources::SiegeWeaponsController, type: :controller do
         SiegeWeapon.create! valid_attributes
         get :index, params: {}
         expect(response).to be_successful
+        expect(response_json).to be_an Array
       end
     end
 
@@ -25,6 +26,7 @@ RSpec.describe Resources::SiegeWeaponsController, type: :controller do
         siege_weapon = SiegeWeapon.create! valid_attributes
         get :show, params: { id: siege_weapon.to_param }
         expect(response).to be_successful
+        expect(response_json).to include damage: 1
       end
     end
 
@@ -41,6 +43,7 @@ RSpec.describe Resources::SiegeWeaponsController, type: :controller do
           expect(response).to have_http_status(:created)
           expect(response.content_type).to eq('application/json')
           expect(response.location).to eq(siege_weapon_url(SiegeWeapon.last))
+          expect(response_json).to include damage: 1
         end
       end
 
@@ -49,6 +52,7 @@ RSpec.describe Resources::SiegeWeaponsController, type: :controller do
           post :create, params: { siege_weapon: invalid_attributes }
           expect(response).to have_http_status(:unprocessable_entity)
           expect(response.content_type).to eq('application/json')
+          expect(response_json).to include damage: ["can't be blank"]
         end
       end
     end
@@ -62,6 +66,8 @@ RSpec.describe Resources::SiegeWeaponsController, type: :controller do
           put :update, params: { id: siege_weapon.to_param, siege_weapon: new_attributes }
           siege_weapon.reload
           expect(siege_weapon).to have_attributes damage: 10
+          expect(response).to have_http_status(:ok)
+          expect(response_json).to include damage: 10
         end
 
         it 'renders a JSON response with the siege_weapon' do
@@ -70,6 +76,8 @@ RSpec.describe Resources::SiegeWeaponsController, type: :controller do
           put :update, params: { id: siege_weapon.to_param, siege_weapon: valid_attributes }
           expect(response).to have_http_status(:ok)
           expect(response.content_type).to eq('application/json')
+          expect(response_json).to include damage: 1
+          expect(siege_weapon).to have_attributes damage: 1
         end
       end
 
@@ -80,6 +88,7 @@ RSpec.describe Resources::SiegeWeaponsController, type: :controller do
           put :update, params: { id: siege_weapon.to_param, siege_weapon: invalid_attributes }
           expect(response).to have_http_status(:unprocessable_entity)
           expect(response.content_type).to eq('application/json')
+          expect(response_json).to include damage: ["can't be blank"]
         end
       end
     end

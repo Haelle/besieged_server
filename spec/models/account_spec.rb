@@ -31,4 +31,51 @@ RSpec.describe Account, type: :model do
     expect(invalid_account).to be_invalid
     expect(invalid_account.errors.messages).to include password: ["can't be blank"]
   end
+
+  it 'never returns password_digest in as_json' do
+    account = create :account
+    expect(account.as_json.key?('password_digest')).to be_falsey
+    expect(account.as_json.key?(:password_digest)).to be_falsey
+  end
+
+  describe '#update_with_password' do
+    let(:account) { create :account }
+    let(:account_attributes) do
+      account.attributes.symbolize_keys.tap do |h|
+        h.delete :password_digest
+      end
+    end
+
+    it 'updates data when password is valid' do
+      account_attributes[:current_password] = 'password'
+      account_attributes[:email] = 'new@email.com'
+
+      result = account.update_with_password account_attributes
+      account.reload
+      expect(result).to be_truthy
+      expect(account).to have_attributes email: 'new@email.com'
+    end
+
+    it 'returns false when data are invalids' do
+      account_attributes[:current_password] = 'password'
+      account_attributes[:email] = 'wrong email'
+
+      result = account.update_with_password account_attributes
+      expect(result).to be_falsey
+    end
+
+    it 'does not update data when password is invalid' do
+      account_attributes[:current_password] = 'wrong password'
+
+      result = account.update_with_password account_attributes
+      expect(result).to be_falsey
+      expect(account.errors.messages).to include current_password: ['is invalid']
+    end
+
+    it 'does not update data when password is blank' do
+      result = account.update_with_password account_attributes
+      expect(result).to be_falsey
+      expect(account.errors.messages).to include current_password: ['can\'t be blank']
+    end
+  end
 end

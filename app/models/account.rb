@@ -10,7 +10,6 @@ class Account < ApplicationRecord
 
     if authenticate(current_password)
       update(account_params)
-      true
     else
       errors.add(:current_password, current_password.blank? ? :blank : :invalid)
       false
@@ -18,6 +17,7 @@ class Account < ApplicationRecord
   end
 
   def as_json(options = {})
-    super.tap { |h| h.delete('password_digest') }
+    options[:except] ||= :password_digest
+    super
   end
 end
