@@ -17,6 +17,7 @@ class Resources::CharactersController < ApplicationController
   # POST /characters
   def create
     @character = Character.new(character_params)
+    @character.account = found_account
 
     if @character.save
       render json: @character, status: :created, location: @character

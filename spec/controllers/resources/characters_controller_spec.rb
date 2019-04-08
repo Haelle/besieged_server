@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Resources::CharactersController, type: :controller do
   it_behaves_like 'unauthorized resource'
 
-  let(:valid_attributes) { attributes_for :character }
+  let(:valid_attributes) { attributes_for :character, account_id: create(:account).id }
 
   let(:invalid_attributes) { attributes_for :invalid_character }
 

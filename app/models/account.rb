@@ -5,6 +5,8 @@ class Account < ApplicationRecord
   validates :email, uniqueness: true
   validates_format_of :email, with: /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/
 
+  has_many :characters
+
   def update_with_password(account_params)
     current_password = account_params.delete(:current_password)
 

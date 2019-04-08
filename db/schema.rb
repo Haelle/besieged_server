@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_06_091118) do
+ActiveRecord::Schema.define(version: 2019_04_08_160724) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -28,6 +28,8 @@ ActiveRecord::Schema.define(version: 2019_04_06_091118) do
     t.string "pseudonyme"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "account_id"
+    t.index ["account_id"], name: "index_characters_on_account_id"
   end
 
   create_table "siege_weapons", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -36,4 +38,5 @@ ActiveRecord::Schema.define(version: 2019_04_06_091118) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "characters", "accounts"
 end
