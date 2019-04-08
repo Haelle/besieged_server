@@ -45,12 +45,9 @@ mina deploy
 ```
 
 # TODO:
-Run mutant !
-
 Add 'arm' action to siege weapon
 Add admin:true/false to account with Pundit & authorize :admin
 Add concern to check_user_belongs_to_account?
-Test forged token !
 Create association between Accounts & Characters
 Add back office to manager resources !!!
 Add seed task to init basic fight
