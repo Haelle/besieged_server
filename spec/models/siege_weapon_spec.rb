@@ -6,6 +6,8 @@ RSpec.describe SiegeWeapon, type: :model do
   it { is_expected.to have_db_column(:created_at).of_type(:datetime) }
   it { is_expected.to have_db_column(:updated_at).of_type(:datetime) }
 
+  it { is_expected.to belong_to :camp }
+
   it 'is valid' do
     expect(build(:siege_weapon)).to be_valid
   end

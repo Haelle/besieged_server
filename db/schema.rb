@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_08_160724) do
+ActiveRecord::Schema.define(version: 2019_04_08_171138) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -24,19 +24,37 @@ ActiveRecord::Schema.define(version: 2019_04_08_160724) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "camps", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "castles", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.integer "health_points"
+    t.uuid "camp_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["camp_id"], name: "index_castles_on_camp_id"
+  end
+
   create_table "characters", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "pseudonyme"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.uuid "account_id"
+    t.uuid "camp_id"
     t.index ["account_id"], name: "index_characters_on_account_id"
+    t.index ["camp_id"], name: "index_characters_on_camp_id"
   end
 
   create_table "siege_weapons", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.integer "damage"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "camp_id"
+    t.index ["camp_id"], name: "index_siege_weapons_on_camp_id"
   end
 
+  add_foreign_key "castles", "camps"
   add_foreign_key "characters", "accounts"
 end

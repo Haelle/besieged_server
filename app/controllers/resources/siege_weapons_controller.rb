@@ -48,6 +48,6 @@ class Resources::SiegeWeaponsController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def siege_weapon_params
-    params.require(:siege_weapon).permit(:damage)
+    params.require(:siege_weapon).permit(:damage, :camp_id)
   end
 end

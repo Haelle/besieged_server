@@ -49,6 +49,6 @@ class Resources::CharactersController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def character_params
-    params.require(:character).permit(:pseudonyme)
+    params.require(:character).permit(:pseudonyme, :camp_id)
   end
 end
