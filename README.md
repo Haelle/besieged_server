@@ -45,8 +45,10 @@ mina deploy
 ```
 
 # TODO:
-Move requests specs in resources folder
 Add 'arm' action to siege weapon
+
+REST API only show and list
+the rest is TRB components...
 
 Add admin:true/false to account with Pundit & authorize :admin
   only YOU or admin can upate an account
@@ -55,6 +57,4 @@ Add admin:true/false to account with Pundit & authorize :admin
     => trailblazer operation should handle all creations with contracts & cie
 
 Add concern to check_user_belongs_to_account?
-Add back office to manager resources !!!
-Add seed task to init basic fight
 Add Sidekiq-cron to handle PA regen & Raid attacks
