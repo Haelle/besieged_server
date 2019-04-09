@@ -3,10 +3,11 @@ require 'rails_helper'
 RSpec.describe LoginController, type: :controller do
   describe '#create' do
     context 'when user exists' do
-      before { create :account }
+      let(:account) { create :account }
+      before { account }
 
       context 'when password is valid' do
-        subject { get :create, params: { email: 'email@example.com', password: 'password' } }
+        subject { get :create, params: { email: account.email, password: 'password' } }
 
         its(:status) { is_expected.to eq 200 }
 
@@ -32,7 +33,7 @@ RSpec.describe LoginController, type: :controller do
       end
 
       it 'has 401 response code when password is invalid' do
-        get :create, params: { email: 'email@example.com', password: 'invalid password' }
+        get :create, params: { email: account.email, password: 'invalid password' }
         expect(response).to have_http_status :unauthorized
         expect(response_json).to include error: 'Invalid user'
       end

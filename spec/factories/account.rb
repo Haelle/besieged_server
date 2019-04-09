@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :account do
-    email { 'email@example.com' }
+    sequence(:email) { |n| "email_#{n}@example.com" }
     password { 'password' }
 
     factory :invalid_account do

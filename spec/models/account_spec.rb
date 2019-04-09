@@ -21,9 +21,10 @@ RSpec.describe Account, type: :model do
   end
 
   example 'email already exists' do
-    create :account
+    duplicate_email = 'test@email.com'
+    create :account, email: duplicate_email
 
-    invalid_account = build :account
+    invalid_account = build :account, email: duplicate_email
     expect(invalid_account).to be_invalid
     expect(invalid_account.errors.messages).to include email: ['has already been taken']
   end

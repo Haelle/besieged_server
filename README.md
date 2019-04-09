@@ -49,9 +49,11 @@ Move requests specs in resources folder
 Add 'arm' action to siege weapon
 
 Add admin:true/false to account with Pundit & authorize :admin
+  only YOU or admin can upate an account
   a lot of actions should only be performed by admin !!!
   ALL resources actions should only be done by admin
     => trailblazer operation should handle all creations with contracts & cie
+
 Add concern to check_user_belongs_to_account?
 Add back office to manager resources !!!
 Add seed task to init basic fight
