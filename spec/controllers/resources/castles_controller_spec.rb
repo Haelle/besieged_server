@@ -61,7 +61,6 @@ RSpec.describe Resources::CastlesController, type: :controller do
     end
   end
 
-
   describe 'PUT #update' do
     context 'with valid params' do
       let(:new_attributes) { { health_points: 1000 } }
