@@ -28,3 +28,7 @@ Style/ClassAndModuleChildren:
   Exclude:
     - 'app/channels/**/*'
     - 'config/application.rb'
+
+Style/BlockDelimiters:
+  Exclude:
+    - 'spec/controllers/resources/**'
