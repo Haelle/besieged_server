@@ -1,6 +1,6 @@
 class Resources::CastlesController < ApplicationController
   before_action :authorize_access_request!
-  before_action :set_castle, only: [:show, :update, :destroy]
+  before_action :set_castle, only: %i[show update destroy]
 
   # GET /castles
   def index
@@ -40,13 +40,14 @@ class Resources::CastlesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_castle
-      @castle = Castle.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def castle_params
-      params.require(:castle).permit(:health_points, :camp_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_castle
+    @castle = Castle.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def castle_params
+    params.require(:castle).permit(:health_points, :camp_id)
+  end
 end

@@ -8,7 +8,7 @@ RSpec.describe Castle, type: :model do
   it { is_expected.to belong_to(:camp) }
 
   it 'is valid' do
-    expect(build :castle).to be_valid
+    expect(build(:castle)).to be_valid
   end
 
   it 'has nil health_points' do

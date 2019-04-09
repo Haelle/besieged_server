@@ -10,7 +10,7 @@ RSpec.describe Resources::CampsController, type: :controller do
 
   let(:invalid_attributes) {
     # currently a camp cannot be invalid
-    skip("Add a hash of attributes valid for your model")
+    skip('Add a hash of attributes valid for your model')
   }
 
   context 'with access token' do
@@ -18,16 +18,16 @@ RSpec.describe Resources::CampsController, type: :controller do
       request.headers[JWTSessions.access_header] = valid_access
     end
 
-    describe "POST #create: when no camp exists" do
-      context "with valid params" do
-        it "creates a new Camp" do
+    describe 'POST #create: when no camp exists' do
+      context 'with valid params' do
+        it 'creates a new Camp' do
           expect {
-            post :create, params: {camp: valid_attributes}
+            post :create, params: { camp: valid_attributes }
           }.to change(Camp, :count).by(1)
         end
 
-        it "renders a JSON response with the new camp" do
-          post :create, params: {camp: valid_attributes}
+        it 'renders a JSON response with the new camp' do
+          post :create, params: { camp: valid_attributes }
           expect(response).to have_http_status(:created)
           expect(response.content_type).to eq('application/json')
           expect(response.location).to eq(camp_url(Camp.last))
@@ -35,9 +35,9 @@ RSpec.describe Resources::CampsController, type: :controller do
         end
       end
 
-      context "with invalid params" do
-        it "renders a JSON response with errors for the new camp" do
-          post :create, params: {camp: invalid_attributes}
+      context 'with invalid params' do
+        it 'renders a JSON response with errors for the new camp' do
+          post :create, params: { camp: invalid_attributes }
           expect(response).to have_http_status(:unprocessable_entity)
           expect(response.content_type).to eq('application/json')
           # not validation constrain here
@@ -49,26 +49,26 @@ RSpec.describe Resources::CampsController, type: :controller do
       let!(:camp) { create :camp }
       let(:valid_attributes) { camp.attributes }
 
-      describe "GET #index" do
-        it "returns a success response" do
+      describe 'GET #index' do
+        it 'returns a success response' do
           get :index, params: {}
           expect(response).to be_successful
           expect(response_json).to be_an Array
         end
       end
 
-      describe "GET #show" do
-        it "returns a success response" do
-          get :show, params: {id: camp.to_param}
+      describe 'GET #show' do
+        it 'returns a success response' do
+          get :show, params: { id: camp.to_param }
           expect(response).to be_successful
           # not data in this object
         end
       end
 
-      describe "DELETE #destroy" do
-        it "destroys the requested camp" do
+      describe 'DELETE #destroy' do
+        it 'destroys the requested camp' do
           expect {
-            delete :destroy, params: {id: camp.to_param}
+            delete :destroy, params: { id: camp.to_param }
           }.to change(Camp, :count).by(-1)
         end
       end
