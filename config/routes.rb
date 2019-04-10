@@ -5,10 +5,9 @@ Rails.application.routes.draw do
 
   scope module: 'resources' do
     resources :accounts
-    # cannot update camp there is no attributes
-    resources :camps, only: %i[index show create destroy]
-    resources :castles
-    resources :characters
-    resources :siege_weapons
+    resources :camps, only: %i[index show]
+    resources :castles, only: %i[index show]
+    resources :characters, only: %i[index show]
+    resources :siege_weapons, only: %i[index show]
   end
 end
