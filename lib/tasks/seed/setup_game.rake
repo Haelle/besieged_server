@@ -12,7 +12,7 @@ namespace :seed do
     Character.create pseudonyme: 'Estb', account: admin, camp: camp
     Character.create pseudonyme: 'Axi',  account: account, camp: camp
     10.times do |i|
-      SiegeWeapon.create damage: (i+1)*10, camp: camp
+      SiegeWeapon.create damage: (i + 1) * 10, camp: camp
     end
 
     puts 'Game created'.green

@@ -45,12 +45,9 @@ mina deploy
 ```
 
 # TODO:
-Add 'arm' action to siege weapon
-
-the rest is TRB components...
+arm fails if castle destroyed !
 
 only YOU or admin can upate an account
-a lot of actions should only be performed by admin !!!
 => trailblazer operation should handle all creations with contracts & cie
 
 Add concern to check_user_belongs_to_account?

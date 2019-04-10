@@ -1,5 +1,4 @@
 RailsAdmin.config do |config|
-
   ### Popular gems integration
 
   ## == Devise ==
@@ -42,7 +41,7 @@ RailsAdmin.config do |config|
   config.authenticate_with do
     authenticate_or_request_with_http_basic('Login required') do |email, password|
       account = Account.find_by email: email, admin: true
-      account.authenticate(password) if account
+      account&.authenticate(password)
     end
   end
 end

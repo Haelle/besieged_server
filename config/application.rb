@@ -35,6 +35,6 @@ module SharedWorld
     config.middleware.use ActionDispatch::Cookies
     config.middleware.use ActionDispatch::Flash
     config.middleware.use Rack::MethodOverride
-    config.middleware.use ActionDispatch::Session::CookieStore, {:key=>"_shared_world_session"}
+    config.middleware.use ActionDispatch::Session::CookieStore, key: '_shared_world_session'
   end
 end

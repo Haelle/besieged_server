@@ -14,6 +14,5 @@ class GameActions::SiegeWeaponsController < ApplicationController
     else
       render json: { error: arming[:error] }, status: :unprocessable_entity
     end
-
   end
 end

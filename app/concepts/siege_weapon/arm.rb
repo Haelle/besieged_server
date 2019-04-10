@@ -2,7 +2,7 @@ class SiegeWeapon
   class Arm < Trailblazer::Operation
     step :prepare_to_fire
     step :belong_to_same_camp?
-      fail :error_do_not_belong
+    fail :error_do_not_belong
     step :arm
 
     def prepare_to_fire(ctx, siege_weapon:, **)
@@ -10,11 +10,11 @@ class SiegeWeapon
       ctx[:castle] = siege_weapon.camp.castle
     end
 
-    def belong_to_same_camp?(ctx, camp:, character:, **)
+    def belong_to_same_camp?(_, camp:, character:, **)
       camp == character.camp
     end
 
-    def arm(ctx, siege_weapon:, castle:, **)
+    def arm(_, siege_weapon:, castle:, **)
       castle.health_points -= siege_weapon.damage
       castle.save
     end
