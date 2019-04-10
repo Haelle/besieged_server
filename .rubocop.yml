@@ -14,7 +14,10 @@ Metrics/LineLength:
   Max: 100
   Exclude:
     - 'config/**/*'
-  IgnoredPatterns: ['\A#']
+  IgnoredPatterns:
+    - '\A#'
+    - 'ctx\[\:error\]'
+    - 'include error\:'
 
 Style/Documentation:
   Enabled: false
@@ -27,8 +30,17 @@ Style/ClassAndModuleChildren:
   EnforcedStyle: compact
   Exclude:
     - 'app/channels/**/*'
+    - 'app/concepts/**/*'
     - 'config/application.rb'
 
 Style/BlockDelimiters:
   Exclude:
     - 'spec/controllers/resources/**'
+
+Style/SignalException:
+  Exclude:
+    - 'app/concepts/**/*'
+
+Lint/UnreachableCode:
+  Exclude:
+    - 'app/concepts/**/*'
