@@ -13,18 +13,18 @@ module SessionHelper
     }
   end
 
+  def valid_account
+    find_or_create_account
+  end
+
+  private
+
   def valid_tokens
     account = find_or_create_account
     payload = { account_id: account.id }
     session = JWTSessions::Session.new(payload: payload, refresh_payload: payload)
     session.login
   end
-
-  def valid_account
-    find_or_create_account
-  end
-
-  private
 
   def find_or_create_account
     email = 'uniq@example.com'

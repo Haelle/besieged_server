@@ -8,12 +8,9 @@ RSpec.describe Resources::AccountsController, type: :controller do
 
   let(:valid_attributes) { attributes_for :account }
   let(:invalid_attributes) { attributes_for :invalid_account }
-  let(:account) { create :account }
+  let!(:account) { create :account }
 
-  before do
-    account
-    request.headers[JWTSessions.access_header] = valid_access
-  end
+  include_context 'user headers'
 
   describe 'GET #index' do
     it 'returns a success response' do

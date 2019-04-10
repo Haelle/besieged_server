@@ -1,7 +1,5 @@
 RSpec.shared_examples 'unauthorized' do |verb, action, params = nil|
-  before do
-    request.headers[JWTSessions.access_header] = nil
-  end
+  include_context 'empty headers'
 
   it 'returns unauthorized' do
     send verb, action, params: params
