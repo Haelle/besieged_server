@@ -52,3 +52,9 @@ only YOU or admin can upate an account
 
 Add concern to check_user_belongs_to_account?
 Add Sidekiq-cron to handle PA regen & Raid attacks
+
+## créer un ansible juste pour ça
+apt-get install postgresql-contrib
+apt-get install redis
+service sidekiq
+
