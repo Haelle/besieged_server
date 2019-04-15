@@ -1,6 +1,7 @@
 require 'mina/rails'
 require 'mina/git'
 require 'mina/rbenv' # for rbenv support. (https://rbenv.org)
+require 'colorize'
 
 # Basic settings:
 #   domain       - The hostname to SSH to.
@@ -60,6 +61,7 @@ task :deploy do
       in_path(fetch(:current_path)) do
         command %(mkdir -p tmp/)
         command %(touch tmp/restart.txt)
+        invoke :sidekiq
       end
     end
   end
@@ -71,3 +73,8 @@ end
 # For help in making your deploy script, see the Mina documentation:
 #
 #  - https://github.com/mina-deploy/mina/tree/master/docs
+
+task :sidekiq do
+  comment 'Restarting Sidekiq (reloads code)'.green
+  command %(sudo systemctl restart sidekiq_shared_world_production)
+end
