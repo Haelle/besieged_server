@@ -1,0 +1,4 @@
+---
+concurrency: 1
+queues:
+  - shared_world_development_daily_assaults

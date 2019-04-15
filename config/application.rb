@@ -36,5 +36,7 @@ module SharedWorld
     config.middleware.use ActionDispatch::Flash
     config.middleware.use Rack::MethodOverride
     config.middleware.use ActionDispatch::Session::CookieStore, key: '_shared_world_session'
+
+    config.active_job.queue_name_prefix = "shared_world_#{Rails.env}"
   end
 end

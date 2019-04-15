@@ -1,0 +1,4 @@
+daily_assaults:
+  cron: '0 */6 * * *'
+  class: 'DailyAssaultsJob'
+  queue: 'daily_assaults'

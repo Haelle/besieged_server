@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
+  require 'sidekiq/web'
+  require 'sidekiq/cron/web'
+  mount Sidekiq::Web => '/sidekiq'
+
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+
   post :login, to: 'login#create'
   post :refresh, to: 'refresh#create'
 

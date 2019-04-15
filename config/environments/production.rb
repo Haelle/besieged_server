@@ -84,4 +84,6 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.trailblazer.enable_loader = true
+
+  config.active_job.queue_adapter = :sidekiq
 end
