@@ -16,4 +16,15 @@ RSpec.describe Castle, type: :model do
     expect(invalid_castle).to be_invalid
     expect(invalid_castle.errors.messages).to include health_points: ["can't be blank"]
   end
+
+  it 'destroys 2/3 weapons' do
+    castle = create :castle, :with_armed_camp
+    allow(castle).to receive(:target_destroyed?).and_return(true, false, true)
+    expect { castle.counter_attack }.to change { castle.camp.siege_weapons.size }.by(-2)
+  end
+
+  it 'randomy destroys' do
+    castle = Castle.new
+    expect(castle.__send__(:target_destroyed?)).to be_in [true, false]
+  end
 end

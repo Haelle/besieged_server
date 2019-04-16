@@ -1,4 +1,4 @@
 daily_assaults:
-  cron: '0 */6 * * *'
+  cron: '0 */6 * * *' # every 6 hours 0/6/12/18
   class: 'DailyAssaultsJob'
   queue: 'daily_assaults'
