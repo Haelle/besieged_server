@@ -12,7 +12,7 @@ require 'colorize'
 set :application_name, 'shared_world'
 set :domain, 'sw.alxs.fr'
 set :deploy_to, '/var/www/shared_world_production'
-set :repository, 'git@github.com:Haelle/shared_world.git'
+set :repository, 'git@github.com:Haelle/shared_world_server.git'
 set :branch, 'master'
 set :rbenv_path, '/usr/local/rbenv'
 
