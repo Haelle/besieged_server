@@ -4,17 +4,18 @@ default: &default
   host: localhost
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
-  username: shared_world
+  username: the_besieged
   password: password
 
 development:
   <<: *default
-  database: shared_world_development
+  database: the_besieged_development
 
 test:
   <<: *default
-  database: shared_world_test
+  database: the_besieged_test
 
 production:
   <<: *default
-  database: shared_world_production
+  database: the_besieged_production
+  password: <%= Rails.application.credentials.db_password %>

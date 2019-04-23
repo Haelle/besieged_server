@@ -1,13 +1,13 @@
-CREATE ROLE shared_world WITH LOGIN CREATEDB PASSWORD 'password';
-CREATE DATABASE shared_world_production WITH OWNER shared_world;
-CREATE DATABASE shared_world_development WITH OWNER shared_world;
-CREATE DATABASE shared_world_test WITH OWNER shared_world;
+CREATE ROLE the_besieged WITH LOGIN CREATEDB PASSWORD 'password';
+CREATE DATABASE the_besieged_production WITH OWNER the_besieged;
+CREATE DATABASE the_besieged_development WITH OWNER the_besieged;
+CREATE DATABASE the_besieged_test WITH OWNER the_besieged;
 
-\c shared_world_development
+\c the_besieged_development
 CREATE EXTENSION pgcrypto;
 
-\c shared_world_test
+\c the_besieged_test
 CREATE EXTENSION pgcrypto;
 
-\c shared_world_production
+\c the_besieged_production
 CREATE EXTENSION pgcrypto;

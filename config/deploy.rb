@@ -9,15 +9,15 @@ require 'colorize'
 #   repository   - Git repo to clone from. (needed by mina/git)
 #   branch       - Branch name to deploy. (needed by mina/git)
 
-set :application_name, 'shared_world'
-set :domain, 'sw.alxs.fr'
-set :deploy_to, '/var/www/shared_world_production'
-set :repository, 'git@github.com:Haelle/shared_world_server.git'
+set :application_name, 'the_besieged'
+set :domain, 'the-besieged.alxs.fr'
+set :deploy_to, '/var/www/the_besieged_production'
+set :repository, 'git@github.com:Haelle/the_besieged_server.git'
 set :branch, 'master'
 set :rbenv_path, '/usr/local/rbenv'
+set :user, 'deploy'
 
 # Optional settings:
-#   set :user, 'foobar'          # Username in the server to SSH to.
 #   set :port, '30000'           # SSH port number.
 #   set :forward_agent, true     # SSH forward_agent.
 
@@ -77,5 +77,5 @@ end
 
 task :sidekiq do
   comment 'Restarting Sidekiq (reloads code)'.green
-  command %(sudo systemctl restart sidekiq_shared_world_production)
+  command %(sudo systemctl restart sidekiq_the_besieged_production)
 end

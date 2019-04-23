@@ -17,7 +17,7 @@ require 'rails/test_unit/railtie'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module SharedWorld
+module TheBesieged
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
@@ -35,8 +35,8 @@ module SharedWorld
     config.middleware.use ActionDispatch::Cookies
     config.middleware.use ActionDispatch::Flash
     config.middleware.use Rack::MethodOverride
-    config.middleware.use ActionDispatch::Session::CookieStore, key: '_shared_world_session'
+    config.middleware.use ActionDispatch::Session::CookieStore, key: '_the_besieged_session'
 
-    config.active_job.queue_name_prefix = "shared_world_#{Rails.env}"
+    config.active_job.queue_name_prefix = "the_besieged_#{Rails.env}"
   end
 end

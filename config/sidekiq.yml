@@ -1,4 +1,4 @@
 ---
 concurrency: 1
 queues:
-  - shared_world_development_daily_assaults
+  - the_besieged_development_daily_assaults

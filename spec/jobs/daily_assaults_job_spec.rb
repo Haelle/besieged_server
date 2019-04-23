@@ -4,7 +4,7 @@ RSpec.describe DailyAssaultsJob, type: :job do
   it 'is enqueued' do
     expect { described_class.perform_later }
       .to have_enqueued_job
-      .on_queue('shared_world_test_daily_assaults')
+      .on_queue('the_besieged_test_daily_assaults')
   end
 
   it 'launch counter_attack for each castle' do
