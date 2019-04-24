@@ -25,6 +25,8 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 # Admin dashboard
 gem 'rails_admin'
+gem 'execjs'
+gem 'therubyracer'
 
 # Trailblazer for operations
 gem 'trailblazer-rails'
