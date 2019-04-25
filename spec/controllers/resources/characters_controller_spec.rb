@@ -8,20 +8,39 @@ RSpec.describe Resources::CharactersController, type: :controller do
 
   describe 'GET #index' do
     it 'returns a success response' do
-      get :index, params: {}
+      get :index
 
       expect(response).to be_successful
       expect(response_json).to be_an Array
+    end
+
+    it 'returns only characters owned by account in headers' do
+      other_characters = create_list :character, 3
+      my_characters = create_list :character, 2, account: account_from_headers
+      get :index
+
+      expect(response).to be_successful
+      expect(response_json).to contain_exactly(
+        a_hash_including(id: my_characters[0].id),
+        a_hash_including(id: my_characters[1].id)
+      )
     end
   end
 
   describe 'GET #show' do
     it 'returns a success response' do
-      character = create :character
+      character = create :character, account: account_from_headers
       get :show, params: { id: character.to_param }
 
       expect(response).to be_successful
       expect(response_json).to include pseudonyme: 'Kevin'
+    end
+
+    it 'is not authorized to see the character of someone else' do
+      character = create :character
+      get :show, params: { id: character.to_param }
+
+      expect(response).to have_http_status :unauthorized
     end
   end
 end
