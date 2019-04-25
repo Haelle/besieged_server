@@ -22,8 +22,8 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'bootsnap', '>= 1.1.0', require: false
 
 # Admin dashboard
-gem 'rails_admin'
 gem 'execjs'
+gem 'rails_admin'
 gem 'therubyracer'
 
 # Trailblazer for operations
@@ -54,11 +54,11 @@ group :development, :test do
 
   # RSpec
   gem 'factory_bot_rails'
+  gem 'json-schema'
   gem 'mutant-rspec'
   gem 'rspec-its'
   gem 'rspec-rails'
   gem 'shoulda-matchers'
-  gem 'json-schema'
 
   # Code coverage
   gem 'simplecov'

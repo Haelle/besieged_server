@@ -21,6 +21,8 @@ RSpec.describe Resources::CharactersController, type: :controller do
 
       expect(response).to be_successful
       expect(response_json).to match_json_schema 'characters'
+      expect(response_json)
+        .not_to include(a_hash_including(id: other_characters[0].id))
       expect(response_json).to contain_exactly(
         a_hash_including(id: my_characters[0].id),
         a_hash_including(id: my_characters[1].id)

@@ -64,6 +64,7 @@ RSpec.describe Resources::AccountsController, type: :controller do
         new_account = Account.find response_json[:id]
 
         expect(response).to have_http_status(:created)
+        expect(response_json).to include id: new_account.id
       end
     end
 
@@ -73,7 +74,7 @@ RSpec.describe Resources::AccountsController, type: :controller do
 
         expect(response).to have_http_status :unprocessable_entity
         expect(response.content_type).to eq 'application/json'
-        expect(response.body).to match /email.+is invalid/
+        expect(response.body).to match(/email.+is invalid/)
       end
     end
   end
@@ -112,7 +113,7 @@ RSpec.describe Resources::AccountsController, type: :controller do
 
         expect(response).to have_http_status :unprocessable_entity
         expect(response.content_type).to eq 'application/json'
-        expect(response.body).to match /current_password.+can't be blank/
+        expect(response.body).to match(/current_password.+can't be blank/)
       end
     end
   end

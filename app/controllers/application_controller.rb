@@ -8,7 +8,7 @@ class ApplicationController < ActionController::API
   protected
 
   def found_account
-    Account.find payload["account_id"]
+    Account.find payload['account_id']
   end
 
   private

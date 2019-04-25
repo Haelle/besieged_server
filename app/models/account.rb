@@ -3,9 +3,9 @@ class Account < ApplicationRecord
   cattr_reader :current_password
 
   validates :email,
-    uniqueness: true,
-    allow_nil: true,
-    format: { with: /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/ }
+            uniqueness: true,
+            allow_nil: true,
+            format: { with: /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/ }
 
   has_many :characters
 
