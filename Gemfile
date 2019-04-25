@@ -7,8 +7,6 @@ gem 'rails', '~> 5.2.2', '>= 5.2.2.1'
 gem 'pg'
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-# gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
 gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
@@ -37,6 +35,9 @@ gem 'sidekiq-cron'
 
 gem 'colorize'
 
+# JSON Serialization
+gem 'blueprinter'
+
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
 
@@ -57,6 +58,7 @@ group :development, :test do
   gem 'rspec-its'
   gem 'rspec-rails'
   gem 'shoulda-matchers'
+  gem 'json-schema'
 
   # Code coverage
   gem 'simplecov'
