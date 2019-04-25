@@ -5,12 +5,12 @@ class Resources::CampsController < ApplicationController
   def index
     @camps = Camp.all
 
-    render json: @camps
+    render json: CampBlueprint.render(@camps)
   end
 
   # GET /camps/1
   def show
     @camp = Camp.find(params[:id])
-    render json: @camp
+    render json: CampBlueprint.render(@camp)
   end
 end

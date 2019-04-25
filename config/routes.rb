@@ -13,8 +13,9 @@ Rails.application.routes.draw do
 
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
-  post :login, to: 'login#create'
-  post :refresh, to: 'refresh#create'
+  post :login_with_email, to: 'login#login_with_email'
+  post :login,            to: 'login#login_with_id'
+  post :refresh,          to: 'refresh#create'
 
   namespace :game_actions do
     resources :siege_weapons, only: [] do
@@ -23,10 +24,10 @@ Rails.application.routes.draw do
   end
 
   scope module: 'resources' do
-    resources :accounts
-    resources :camps, only: %i[index show]
-    resources :castles, only: %i[index show]
-    resources :characters, only: %i[index show]
+    resources :accounts,      only: %i[show create update destroy]
+    resources :camps,         only: %i[index show]
+    resources :castles,       only: %i[index show]
+    resources :characters,    only: %i[index show]
     resources :siege_weapons, only: %i[index show]
   end
 end

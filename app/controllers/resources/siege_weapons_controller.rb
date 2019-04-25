@@ -5,12 +5,13 @@ class Resources::SiegeWeaponsController < ApplicationController
   def index
     @siege_weapons = SiegeWeapon.all
 
-    render json: @siege_weapons
+    render json: SiegeWeaponBlueprint.render(@siege_weapons)
   end
 
   # GET /siege_weapons/1
   def show
     @siege_weapon = SiegeWeapon.find(params[:id])
-    render json: @siege_weapon
+
+    render json: SiegeWeaponBlueprint.render(@siege_weapon)
   end
 end

@@ -6,5 +6,11 @@ FactoryBot.define do
     factory :invalid_account do
       email { 'invalid email' }
     end
+
+    trait :with_character do
+      after :create do |account|
+        create :character, account: account
+      end
+    end
   end
 end

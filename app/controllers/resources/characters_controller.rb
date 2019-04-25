@@ -7,12 +7,12 @@ class Resources::CharactersController < ApplicationController
   def index
     @characters = Character.where account: found_account
 
-    render json: @characters
+    render json: CharacterBlueprint.render(@characters)
   end
 
   # GET /characters/1
   def show
-    render json: @character
+    render json: CharacterBlueprint.render(@character)
   end
 
   private

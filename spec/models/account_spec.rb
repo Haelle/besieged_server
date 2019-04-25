@@ -29,16 +29,15 @@ RSpec.describe Account, type: :model do
     expect(invalid_account.errors.messages).to include email: ['has already been taken']
   end
 
+  example 'email can be nil' do
+    account = build :account, email: nil
+    expect(account).to be_valid
+  end
+
   it 'needs a password' do
     invalid_account = build :account, password: nil
     expect(invalid_account).to be_invalid
     expect(invalid_account.errors.messages).to include password: ["can't be blank"]
-  end
-
-  it 'never returns password_digest in as_json' do
-    account = create :account
-    expect(account.as_json.key?('password_digest')).to be_falsey
-    expect(account.as_json.key?(:password_digest)).to be_falsey
   end
 
   describe '#update_with_password' do

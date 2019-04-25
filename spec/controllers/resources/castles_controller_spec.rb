@@ -8,10 +8,12 @@ RSpec.describe Resources::CastlesController, type: :controller do
 
   describe 'GET #index' do
     it 'returns a success response' do
-      get :index, params: {}
+      create_list :castle, 3
+      get :index
 
       expect(response).to be_successful
-      expect(response_json).to be_an Array
+      expect(response_json.size).to eq 3
+      expect(response_json).to match_json_schema 'castles'
     end
   end
 
@@ -21,7 +23,7 @@ RSpec.describe Resources::CastlesController, type: :controller do
       get :show, params: { id: castle.to_param }
 
       expect(response).to be_successful
-      expect(response_json).to include health_points: 500
+      expect(response_json).to match_json_schema 'castle'
     end
   end
 end

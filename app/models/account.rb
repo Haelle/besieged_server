@@ -2,8 +2,10 @@ class Account < ApplicationRecord
   has_secure_password
   cattr_reader :current_password
 
-  validates :email, uniqueness: true
-  validates_format_of :email, with: /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/
+  validates :email,
+    uniqueness: true,
+    allow_nil: true,
+    format: { with: /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/ }
 
   has_many :characters
 
@@ -16,10 +18,5 @@ class Account < ApplicationRecord
       errors.add(:current_password, current_password.blank? ? :blank : :invalid)
       false
     end
-  end
-
-  def as_json(options = {})
-    options[:except] ||= :password_digest
-    super
   end
 end

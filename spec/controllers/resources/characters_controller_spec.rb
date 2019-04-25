@@ -11,7 +11,7 @@ RSpec.describe Resources::CharactersController, type: :controller do
       get :index
 
       expect(response).to be_successful
-      expect(response_json).to be_an Array
+      expect(response_json).to match_json_schema 'characters'
     end
 
     it 'returns only characters owned by account in headers' do
@@ -20,6 +20,7 @@ RSpec.describe Resources::CharactersController, type: :controller do
       get :index
 
       expect(response).to be_successful
+      expect(response_json).to match_json_schema 'characters'
       expect(response_json).to contain_exactly(
         a_hash_including(id: my_characters[0].id),
         a_hash_including(id: my_characters[1].id)
@@ -33,7 +34,7 @@ RSpec.describe Resources::CharactersController, type: :controller do
       get :show, params: { id: character.to_param }
 
       expect(response).to be_successful
-      expect(response_json).to include pseudonyme: 'Kevin'
+      expect(response_json).to match_json_schema 'character'
     end
 
     it 'is not authorized to see the character of someone else' do

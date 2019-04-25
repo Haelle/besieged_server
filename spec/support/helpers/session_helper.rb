@@ -13,24 +13,15 @@ module SessionHelper
     }
   end
 
-  def valid_account
-    find_or_create_account
+  def account_from_headers
+    @account_from_headers ||= create :account, email: 'uniq@example.com'
   end
 
   private
 
   def valid_tokens
-    account = find_or_create_account
-    payload = { account_id: account.id }
+    payload = { account_id: account_from_headers.id }
     session = JWTSessions::Session.new(payload: payload, refresh_payload: payload)
     session.login
-  end
-
-  def find_or_create_account
-    email = 'uniq@example.com'
-    existing_account = Account.find_by email: email
-    return existing_account unless existing_account.nil?
-
-    create :account, email: email
   end
 end

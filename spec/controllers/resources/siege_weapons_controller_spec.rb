@@ -8,10 +8,12 @@ RSpec.describe Resources::SiegeWeaponsController, type: :controller do
 
   describe 'GET #index' do
     it 'returns a success response' do
-      get :index, params: {}
+      create_list :siege_weapon, 3
+      get :index
 
       expect(response).to be_successful
-      expect(response_json).to be_an Array
+      expect(response_json.size).to eq 3
+      expect(response_json).to match_json_schema 'siege_weapons'
     end
   end
 
@@ -21,7 +23,7 @@ RSpec.describe Resources::SiegeWeaponsController, type: :controller do
       get :show, params: { id: siege_weapon.to_param }
 
       expect(response).to be_successful
-      expect(response_json).to include damage: 1
+      expect(response_json).to match_json_schema 'siege_weapon'
     end
   end
 end
