@@ -1,0 +1,20 @@
+{
+  "type": "object",
+  "title": "Account",
+  "required": ["id", "email", "characters"],
+  "properties": {
+    "id": {
+      "$ref": "uuid.json"
+    },
+    "email": {
+      "type": "string"
+    },
+    "characters": {
+      "type": "array",
+      "items": {
+        "$ref": "character.json"
+      }
+    }
+  }
+}
+

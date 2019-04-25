@@ -1,0 +1,26 @@
+{
+  "type": "object",
+  "title": "Camp",
+  "required": ["id", "characters", "castle", "siege_weapons"],
+  "properties": {
+    "id": {
+      "$ref": "uuid.json"
+    },
+    "characters": {
+      "type": "array",
+      "items": {
+        "$ref": "character.json"
+      }
+    },
+    "castle": {
+      "$ref": "castle.json"
+    },
+    "siege_weapons": {
+      "type": "array",
+      "items": {
+        "$ref": "siege_weapon.json"
+      }
+    }
+  }
+}
+

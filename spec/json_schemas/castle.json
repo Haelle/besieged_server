@@ -1,0 +1,17 @@
+{
+  "type": "object",
+  "title": "Castle",
+  "required": ["id", "health_points", "camp_id"],
+  "properties": {
+    "id": {
+      "$ref": "uuid.json"
+    },
+    "health_points": {
+      "type": "integer"
+    },
+    "camp_id": {
+      "$ref": "uuid.json"
+    }
+  }
+}
+
