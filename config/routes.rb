@@ -18,6 +18,10 @@ Rails.application.routes.draw do
   post :refresh,          to: 'refresh#create'
 
   namespace :game_actions do
+    resources :camps, only: [] do
+      post :join
+    end
+
     resources :siege_weapons, only: [] do
       post :arm
     end
