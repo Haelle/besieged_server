@@ -23,7 +23,7 @@ Rails.application.routes.draw do
     end
   end
 
-  scope module: 'resources' do
+  namespace :resources do
     resources :accounts,      only: %i[show create update destroy]
     resources :camps,         only: %i[index show]
     resources :castles,       only: %i[index show]
