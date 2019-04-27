@@ -4,6 +4,7 @@ class SiegeWeapon
     step :belong_to_same_camp?
     fail :error_do_not_belong
     step :arm
+    step :set_action_result
 
     def prepare_to_fire(ctx, siege_weapon:, **)
       ctx[:camp] = siege_weapon.camp
@@ -17,6 +18,10 @@ class SiegeWeapon
     def arm(_, siege_weapon:, castle:, **)
       castle.health_points -= siege_weapon.damage
       castle.save
+    end
+
+    def set_action_result(ctx, siege_weapon:, **)
+      ctx[:action_result] = { damages: siege_weapon.damage }
     end
 
     def error_do_not_belong(ctx, siege_weapon:, character:, camp:, **)

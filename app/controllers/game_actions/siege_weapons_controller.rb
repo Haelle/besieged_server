@@ -10,7 +10,7 @@ class GameActions::SiegeWeaponsController < ApplicationController
     arming = SiegeWeapon::Arm.call(siege_weapon: siege_weapon, character: character)
 
     if arming.success?
-      render json: siege_weapon
+      render json: arming[:action_result]
     else
       render json: { error: arming[:error] }, status: :unprocessable_entity
     end
