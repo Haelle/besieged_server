@@ -1,13 +1,12 @@
 class GameActions::SiegeWeaponsController < ApplicationController
   before_action :authorize_access_request!
+  before_action :set_siege_weapon
   before_action :set_character
   before_action :authorize_action_only_to_itself!
 
   # POST /arm
   def arm
-    siege_weapon = SiegeWeapon.find(params[:siege_weapon_id])
-
-    arming = SiegeWeapon::Arm.call(siege_weapon: siege_weapon, character: @character)
+    arming = SiegeWeapon::Arm.call(siege_weapon: @siege_weapon, character: @character)
 
     if arming.success?
       render json: arming[:action_result]
@@ -17,6 +16,10 @@ class GameActions::SiegeWeaponsController < ApplicationController
   end
 
   private
+
+  def set_siege_weapon
+    @siege_weapon = SiegeWeapon.find(params[:siege_weapon_id])
+  end
 
   def set_character
     @character = Character.find params[:character_id]
