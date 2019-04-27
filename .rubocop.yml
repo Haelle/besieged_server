@@ -25,6 +25,7 @@ Style/Documentation:
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'
+    - 'config/routes.rb'
 
 Style/ClassAndModuleChildren:
   EnforcedStyle: compact

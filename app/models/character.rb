@@ -8,12 +8,12 @@ class Character < ApplicationRecord
   private
 
   def only_one_character_per_camp
-    if !camp.nil? && already_a_character_in_camp?
-      errors.add(:camp, 'an account can only have one character per camp')
-    end
+    return if camp.nil? || no_character_already_in_camp?
+
+    errors.add(:camp, 'an account can only have one character per camp')
   end
 
-  def already_a_character_in_camp?
-    camp.characters.where(account: account).any?
+  def no_character_already_in_camp?
+    camp.characters.where(account: account).empty?
   end
 end

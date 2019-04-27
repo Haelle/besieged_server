@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Camp::Join do
-  subject { described_class.call account: account, camp: camp, pseudonyme: pseudonyme}
+  subject { described_class.call account: account, camp: camp, pseudonyme: pseudonyme }
 
   let(:account) { create :account }
   let(:camp) { create :camp }

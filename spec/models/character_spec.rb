@@ -22,10 +22,11 @@ RSpec.describe Character, type: :model do
   it 'is invalid to have 2 characters in the same camp' do
     camp = create :camp
     account = create :account
-    character = create :character, account: account, camp: camp
+    create :character, account: account, camp: camp
     invalid_character = build :character, account: account, camp: camp
 
     expect(invalid_character).to be_invalid
-    expect(invalid_character.errors.messages).to include camp: ['an account can only have one character per camp']
+    expect(invalid_character.errors.messages)
+      .to include camp: ['an account can only have one character per camp']
   end
 end
