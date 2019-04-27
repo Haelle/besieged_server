@@ -21,8 +21,4 @@ class GameActions::SiegeWeaponsController < ApplicationController
   def set_character
     @character = Character.find params[:character_id]
   end
-
-  def authorize_action_only_to_itself!
-    raise Unauthorized unless @character.account == found_account
-  end
 end

@@ -11,6 +11,10 @@ class ApplicationController < ActionController::API
     Account.find payload['account_id']
   end
 
+  def authorize_action_only_to_itself!
+    raise Unauthorized unless @character.account == found_account
+  end
+
   private
 
   def not_authorized

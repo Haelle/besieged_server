@@ -18,10 +18,6 @@ class Resources::CharactersController < ApplicationController
   private
 
   def set_character
-    @character = Character.find(params[:id])
-  end
-
-  def authorize_action_only_to_itself!
-    raise Unauthorized unless @character.account == found_account
+    @character = Character.find params[:id]
   end
 end
