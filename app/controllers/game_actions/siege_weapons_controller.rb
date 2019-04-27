@@ -1,18 +1,28 @@
 class GameActions::SiegeWeaponsController < ApplicationController
   before_action :authorize_access_request!
+  before_action :set_character
+  before_action :authorize_action_only_to_itself!
 
   # POST /arm
   def arm
-    # TODO: check character belongs to account !
     siege_weapon = SiegeWeapon.find(params[:siege_weapon_id])
-    character = Character.find(params[:character_id])
 
-    arming = SiegeWeapon::Arm.call(siege_weapon: siege_weapon, character: character)
+    arming = SiegeWeapon::Arm.call(siege_weapon: siege_weapon, character: @character)
 
     if arming.success?
       render json: arming[:action_result]
     else
       render json: { error: arming[:error] }, status: :unprocessable_entity
     end
+  end
+
+  private
+
+  def set_character
+    @character = Character.find params[:character_id]
+  end
+
+  def authorize_action_only_to_itself!
+    raise Unauthorized unless @character.account == found_account
   end
 end

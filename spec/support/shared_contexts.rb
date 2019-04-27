@@ -13,6 +13,6 @@ end
 RSpec.shared_context 'basic game' do
   let!(:camp) { create :camp }
   let!(:castle) { create :castle, camp: camp }
-  let!(:character) { create :character, camp: camp }
+  let!(:character) { create :character, camp: camp, account: account_from_headers }
   let!(:siege_weapon) { create :siege_weapon, camp: camp }
 end
