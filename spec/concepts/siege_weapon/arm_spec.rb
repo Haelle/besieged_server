@@ -9,10 +9,10 @@ RSpec.describe SiegeWeapon::Arm do
     it { is_expected.to be_success }
 
     it 'damages the castle' do
-      expect { subject }.to change(castle, :health_points).by(-siege_weapon.damage)
+      expect { subject }.to change(castle, :health_points).by(-siege_weapon.damages)
     end
 
-    its([:action_result]) { is_expected.to include damages: siege_weapon.damage }
+    its([:action_result]) { is_expected.to include damages: siege_weapon.damages }
   end
 
   context 'when user does not belongs to same camp as the weapon' do

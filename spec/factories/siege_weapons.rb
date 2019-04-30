@@ -1,10 +1,10 @@
 FactoryBot.define do
   factory :siege_weapon do
-    damage { 1 }
+    damages { 1 }
     camp
 
     factory :invalid_siege_weapon do
-      damage { nil }
+      damages { nil }
     end
   end
 end

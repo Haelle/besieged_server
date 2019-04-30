@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe SiegeWeapon, type: :model do
   it { is_expected.to have_db_column(:id).of_type(:uuid) }
-  it { is_expected.to have_db_column(:damage).of_type(:integer) }
+  it { is_expected.to have_db_column(:damages).of_type(:integer) }
   it { is_expected.to have_db_column(:created_at).of_type(:datetime) }
   it { is_expected.to have_db_column(:updated_at).of_type(:datetime) }
 
@@ -12,9 +12,9 @@ RSpec.describe SiegeWeapon, type: :model do
     expect(build(:siege_weapon)).to be_valid
   end
 
-  it 'has nil damage' do
+  it 'has nil damages' do
     invalid_siege_weapon = build :invalid_siege_weapon
     expect(invalid_siege_weapon).to be_invalid
-    expect(invalid_siege_weapon.errors.messages).to include damage: ["can't be blank"]
+    expect(invalid_siege_weapon.errors.messages).to include damages: ["can't be blank"]
   end
 end

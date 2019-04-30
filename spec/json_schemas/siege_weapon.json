@@ -1,12 +1,12 @@
 {
   "type": "object",
   "title": "Siege weapon",
-  "required": ["id", "damage", "camp_id"],
+  "required": ["id", "damages", "camp_id"],
   "properties": {
     "id": {
       "$ref": "uuid.json"
     },
-    "damage": {
+    "damages": {
       "type": "integer"
     },
     "camp_id": {

@@ -16,7 +16,7 @@ RSpec.describe GameActions::SiegeWeaponsController, type: :controller do
 
       castle.reload
       expect(response).to be_successful
-      expect(response_json).to include damages: siege_weapon.damage
+      expect(response_json).to include damages: siege_weapon.damages
       expect(castle.health_points).to eq 499
     end
 

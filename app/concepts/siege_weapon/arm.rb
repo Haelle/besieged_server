@@ -16,12 +16,12 @@ class SiegeWeapon
     end
 
     def arm(_, siege_weapon:, castle:, **)
-      castle.health_points -= siege_weapon.damage
+      castle.health_points -= siege_weapon.damages
       castle.save
     end
 
     def set_action_result(ctx, siege_weapon:, **)
-      ctx[:action_result] = { damages: siege_weapon.damage }
+      ctx[:action_result] = { damages: siege_weapon.damages }
     end
 
     def error_do_not_belong(ctx, siege_weapon:, character:, camp:, **)
