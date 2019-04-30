@@ -14,13 +14,3 @@ development:
 test:
   <<: *default
   database: the_besieged_test
-
-sandbox:
-  <<: *default
-  database: the_besieged_sandbox
-  password: <%= Rails.application.credentials.db_password_sandbox %>
-
-production:
-  <<: *default
-  database: the_besieged_production
-  password: <%= Rails.application.credentials.db_password_production %>

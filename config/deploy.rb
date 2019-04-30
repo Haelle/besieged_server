@@ -9,7 +9,7 @@ ENV['to'] ||= 'sandbox'
 comment "Deploying on #{ENV['to'].upcase.green}"
 
 set :commit, ENV['tag'] || ENV['commit']
-ensure!(:branch)
+ensure!(:branch) if ENV['to'] == 'production'
 
 set :application_name, 'the_besieged'
 set :domain, 'the-besieged.alxs.fr'
@@ -29,6 +29,7 @@ set :user, 'deploy'
 # set :shared_dirs, fetch(:shared_dirs, []).push('public/assets')
 # set :shared_files, fetch(:shared_files, []).push('config/database.yml', 'config/secrets.yml')
 set :shared_files, fetch(:shared_files, []).push(
+  'config/database.yml',
   'config/master.key',
   'config/sidekiq.yml'
 )
