@@ -20,8 +20,8 @@ class SiegeWeapon
       castle.save
     end
 
-    def set_action_result(ctx, siege_weapon:, **)
-      ctx[:action_result] = { damages: siege_weapon.damages }
+    def set_action_result(ctx, siege_weapon:, castle:, **)
+      ctx[:action_result] = { siege_weapon: siege_weapon, castle: castle }
     end
 
     def error_do_not_belong(ctx, siege_weapon:, character:, camp:, **)
