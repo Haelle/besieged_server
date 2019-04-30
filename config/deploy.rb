@@ -14,6 +14,7 @@ ensure!(:branch)
 set :application_name, 'the_besieged'
 set :domain, 'the-besieged.alxs.fr'
 set :deploy_to, "/var/www/the_besieged_#{ENV['to']}"
+set :rails_env, ENV['to']
 set :repository, 'git@github.com:Haelle/the_besieged_server.git'
 set :rbenv_path, '/usr/local/rbenv'
 set :user, 'deploy'
