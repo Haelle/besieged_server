@@ -1,19 +1,20 @@
 require 'mina/rails'
 require 'mina/git'
-require 'mina/rbenv' # for rbenv support. (https://rbenv.org)
+require 'mina/rbenv'
 require 'colorize'
 
-# Basic settings:
-#   domain       - The hostname to SSH to.
-#   deploy_to    - Path to deploy into.
-#   repository   - Git repo to clone from. (needed by mina/git)
-#   branch       - Branch name to deploy. (needed by mina/git)
+ENV['to'] ||= 'sandbox'
+%w[sandbox production].include?(ENV['to']) || raise("#{ENV['to']} env not available")
+
+comment "Deploying on #{ENV['to'].upcase.green}"
+
+set :commit, ENV['tag'] || ENV['commit']
+ensure!(:branch)
 
 set :application_name, 'the_besieged'
 set :domain, 'the-besieged.alxs.fr'
-set :deploy_to, '/var/www/the_besieged_production'
+set :deploy_to, "/var/www/the_besieged_#{ENV['to']}"
 set :repository, 'git@github.com:Haelle/the_besieged_server.git'
-set :branch, 'master'
 set :rbenv_path, '/usr/local/rbenv'
 set :user, 'deploy'
 
@@ -78,5 +79,5 @@ end
 
 task :sidekiq do
   comment 'Restarting Sidekiq (reloads code)'.green
-  command %(sudo systemctl restart sidekiq_the_besieged_production)
+  command %(sudo systemctl restart sidekiq_the_besieged_#{ENV['to']})
 end
