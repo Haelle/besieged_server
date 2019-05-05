@@ -17,6 +17,7 @@ Metrics/LineLength:
   IgnoredPatterns:
     - '\A#'
     - 'ctx\[\:error\]'
+    - 'its\(\[:error\]\)'
     - 'include error\:'
 
 Style/Documentation:

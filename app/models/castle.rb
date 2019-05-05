@@ -13,6 +13,6 @@ class Castle < ApplicationRecord
   private
 
   def target_destroyed?
-    return rand(10) <= 1 ? true : false;
+    rand(10) <= 1
   end
 end
