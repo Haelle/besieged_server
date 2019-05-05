@@ -1,0 +1,17 @@
+{
+  "type": "object",
+  "title": "Build a siege Weapon",
+  "required": ["camp", "siege_weapon", "status"],
+  "properties": {
+    "camp": {
+      "$ref": "../camp.json"
+    },
+    "siege_weapon": {
+      "$ref": "../siege_weapon.json"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["built"]
+    }
+  }
+}

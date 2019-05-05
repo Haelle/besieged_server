@@ -25,6 +25,8 @@ Rails.application.routes.draw do
     resources :siege_weapons, only: [] do
       post :arm
     end
+
+    post 'siege_weapons/build', to: 'siege_weapons#build'
   end
 
   namespace :resources do

@@ -6,5 +6,10 @@ RSpec.describe GameActions::SiegeWeaponsController, type: :routing do
       expect(post: 'game_actions/siege_weapons/1/arm')
         .to route_to('game_actions/siege_weapons#arm', siege_weapon_id: '1')
     end
+
+    it 'routes to #build' do
+      expect(post: 'game_actions/siege_weapons/build')
+        .to route_to('game_actions/siege_weapons#build')
+    end
   end
 end
