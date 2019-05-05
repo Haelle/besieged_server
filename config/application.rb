@@ -38,5 +38,6 @@ module TheBesieged
     config.middleware.use ActionDispatch::Session::CookieStore, key: '_the_besieged_session'
 
     config.active_job.queue_name_prefix = "the_besieged_#{Rails.env}"
+    config.filter_parameters << :password
   end
 end
