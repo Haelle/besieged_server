@@ -9,7 +9,7 @@ module SessionHelper
 
   def valid_headers
     {
-      "#{JWTSessions.access_header}": valid_access
+      "#{JWTSessions.access_header}": "Bearer #{valid_access}"
     }
   end
 
