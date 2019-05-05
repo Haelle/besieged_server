@@ -2,9 +2,8 @@ class SiegeWeapon
   class Arm < Trailblazer::Operation
     step :prepare_to_fire
     step :belong_to_same_camp?
-    fail :error_do_not_belong
+    fail :error_does_not_belong
     step :arm
-    step :set_action_result
 
     def prepare_to_fire(ctx, siege_weapon:, **)
       ctx[:camp] = siege_weapon.camp
@@ -20,12 +19,8 @@ class SiegeWeapon
       castle.save
     end
 
-    def set_action_result(ctx, siege_weapon:, castle:, **)
-      ctx[:action_result] = { siege_weapon: siege_weapon, castle: castle }
-    end
-
-    def error_do_not_belong(ctx, siege_weapon:, character:, camp:, **)
-      ctx[:error] = "character (#{character.id}) does not belongs to the camp (#{camp.id}) of this weapon (#{siege_weapon.id})"
+    def error_does_not_belong(ctx, siege_weapon:, character:, camp:, **)
+      ctx[:error] = "character (#{character.id}) does not belong to the camp (#{camp.id}) of this weapon (#{siege_weapon.id})"
     end
   end
 end

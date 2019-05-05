@@ -12,10 +12,11 @@ RSpec.describe SiegeWeapon::Arm do
       expect { subject }.to change(castle, :health_points).by(-siege_weapon.damages)
     end
 
-    its([:action_result]) { is_expected.to include siege_weapon: siege_weapon, castle: siege_weapon.camp.castle }
+    its([:siege_weapon]) { is_expected.to eq siege_weapon }
+    its([:castle]) { is_expected.to eq siege_weapon.camp.castle }
 
     it 'returns an updated castle' do
-      updated_castle = subject[:action_result][:castle]
+      updated_castle = subject[:castle]
       expect(updated_castle).to have_attributes health_points: 499
     end
   end
@@ -33,5 +34,7 @@ RSpec.describe SiegeWeapon::Arm do
     it 'does not damage the castle' do
       expect { subject }.not_to change(castle, :health_points)
     end
+
+    its([:error]) { is_expected.to eq "character (#{character.id}) does not belong to the camp (#{camp.id}) of this weapon (#{siege_weapon.id})" }
   end
 end

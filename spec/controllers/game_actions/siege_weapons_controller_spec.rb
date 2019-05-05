@@ -28,7 +28,7 @@ RSpec.describe GameActions::SiegeWeaponsController, type: :controller do
       }
 
       expect(response).to have_http_status :unprocessable_entity
-      expect(response_json).to include error: "character (#{character.id}) does not belongs to the camp (#{other_camp_siege_weapon.camp.id}) of this weapon (#{other_camp_siege_weapon.id})"
+      expect(response_json).to include error: "character (#{character.id}) does not belong to the camp (#{other_camp_siege_weapon.camp.id}) of this weapon (#{other_camp_siege_weapon.id})"
       expect(castle.health_points).to eq 500
     end
 
