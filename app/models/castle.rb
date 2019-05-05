@@ -1,5 +1,5 @@
 class Castle < ApplicationRecord
-  validates :health_points, presence: true
+  validates :health_points, numericality: { greater_than_or_equal_to: 0 }
   belongs_to :camp
 
   def counter_attack

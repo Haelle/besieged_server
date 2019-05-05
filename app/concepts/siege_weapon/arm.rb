@@ -16,6 +16,7 @@ class SiegeWeapon
 
     def arm(_, siege_weapon:, castle:, **)
       castle.health_points -= siege_weapon.damages
+      castle.health_points = 0 if castle.health_points <= 0
       castle.save
     end
 

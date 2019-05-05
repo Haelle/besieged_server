@@ -14,7 +14,11 @@ RSpec.describe Castle, type: :model do
   it 'has nil health_points' do
     invalid_castle = build :invalid_castle
     expect(invalid_castle).to be_invalid
-    expect(invalid_castle.errors.messages).to include health_points: ["can't be blank"]
+    expect(invalid_castle.errors.messages).to include health_points: ['is not a number']
+  end
+
+  it 'cannot have negative health points' do
+    expect(build(:castle, health_points: -5)).to be_invalid
   end
 
   it 'destroys 2/3 weapons' do

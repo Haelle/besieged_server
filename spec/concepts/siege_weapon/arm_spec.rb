@@ -21,6 +21,21 @@ RSpec.describe SiegeWeapon::Arm do
     end
   end
 
+  context 'when castle is destroyed' do
+    include_context 'basic game'
+
+    before do
+      castle.update health_points: 10
+      siege_weapon.update damages: 100
+    end
+
+    it { is_expected.to be_success }
+
+    it 'change health points to 0' do
+      expect(subject[:castle].health_points).to eq 0
+    end
+  end
+
   context 'when user does not belongs to same camp as the weapon' do
     let!(:camp) { create :camp }
     let!(:castle) { create :castle, camp: camp }
