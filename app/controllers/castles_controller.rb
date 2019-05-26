@@ -1,4 +1,4 @@
-class Resources::CastlesController < ApplicationController
+class CastlesController < ApplicationController
   before_action :authorize_access_request!
 
   # GET /castles

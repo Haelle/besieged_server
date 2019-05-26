@@ -17,23 +17,25 @@ Rails.application.routes.draw do
   post :login,            to: 'login#login_with_id'
   post :refresh,          to: 'refresh#create'
 
-  namespace :game_actions do
-    resources :camps, only: [] do
-      post :join
-    end
+  resources :characters, only: %i[show]
+  resources :castles,    only: %i[index show]
 
-    resources :siege_weapons, only: [] do
-      post :arm
+  resources :accounts, only: %i[show create update destroy] do
+    resources :characters, only: [] do
+      get :index, on: :collection, to: 'characters#index_by_account'
     end
-
-    post 'siege_weapons/build', to: 'siege_weapons#build'
   end
 
-  namespace :resources do
-    resources :accounts,      only: %i[show create update destroy]
-    resources :camps,         only: %i[index show]
-    resources :castles,       only: %i[index show]
-    resources :characters,    only: %i[index show]
-    resources :siege_weapons, only: %i[index show]
+  resources :camps, only: %i[index show] do
+    post 'siege_weapons/build', to: 'siege_weapons#build'
+    post 'characters/join', to: 'characters#join'
+
+    resources :siege_weapons, only: %i[index show] do
+      post :arm, on: :member
+    end
+
+    resources :characters, only: [] do
+      get :index, on: :collection, to: 'characters#index_by_camp'
+    end
   end
 end

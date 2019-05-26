@@ -1,4 +1,4 @@
-class Resources::CampsController < ApplicationController
+class CampsController < ApplicationController
   before_action :authorize_access_request!
 
   # GET /camps

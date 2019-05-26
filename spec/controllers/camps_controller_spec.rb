@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Resources::CampsController, type: :controller do
+RSpec.describe CampsController, type: :controller do
   it_behaves_like 'unauthorized', :get, :index
   it_behaves_like 'unauthorized', :get, :show, id: 1
 

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Resources::AccountsController, type: :controller do
+RSpec.describe AccountsController, type: :controller do
   it_behaves_like 'unauthorized', :get, :show, id: 1
   it_behaves_like 'unauthorized', :put, :update, id: 1
   it_behaves_like 'unauthorized', :delete, :destroy, id: 1
