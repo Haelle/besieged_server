@@ -95,7 +95,9 @@ RSpec.describe SiegeWeaponsController, type: :controller do
     end
 
     it 'returns unprocessable_entity' do
-      allow(SiegeWeapon::Arm).to receive(:call).and_return(trb_result_failure_with(error: 'something wrong'))
+      allow(SiegeWeapon::Arm)
+        .to receive(:call)
+        .and_return(trb_result_failure_with(error: 'something wrong'))
 
       post :arm, params: {
         id: siege_weapon.id,
@@ -155,7 +157,9 @@ RSpec.describe SiegeWeaponsController, type: :controller do
     end
 
     it 'return unprocessable_entity' do
-      allow(SiegeWeapon::Build).to receive(:call).and_return(trb_result_failure_with(error: 'something wrong'))
+      allow(SiegeWeapon::Build)
+        .to receive(:call)
+        .and_return(trb_result_failure_with(error: 'something wrong'))
 
       post :build, params: {
         camp_id: camp.id,

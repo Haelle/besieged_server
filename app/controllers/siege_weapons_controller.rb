@@ -2,6 +2,7 @@ class SiegeWeaponsController < ApplicationController
   before_action :authorize_access_request!
   before_action :set_camp
   before_action :set_character, only: %i[arm build]
+  before_action :set_siege_weapon, only: %i[arm]
   before_action :authorize_action_only_to_itself!, only: %i[arm build]
 
   # GET /camps/1/siege_weapons
@@ -22,8 +23,8 @@ class SiegeWeaponsController < ApplicationController
 
   # POST camps/1/siege_weapon/2/arm
   def arm
-    siege_weapon = @camp.siege_weapons.find params[:id]
-    arming = SiegeWeapon::Arm.call(siege_weapon: siege_weapon, character: @character)
+    arming = SiegeWeapon::Arm.call(siege_weapon: @siege_weapon, character: @character)
+
     if arming.success?
       weapon_hash = SiegeWeaponBlueprint.render_as_hash arming[:siege_weapon]
       castle_hash = CastleBlueprint.render_as_hash      arming[:castle]
@@ -31,8 +32,6 @@ class SiegeWeaponsController < ApplicationController
     else
       render json: { error: arming[:error] }, status: :unprocessable_entity
     end
-  rescue ActiveRecord::RecordNotFound
-    render json: { error: 'siege weapon not found' }, status: :not_found
   end
 
   # POST /camps/1/siege_weapons/build
@@ -60,5 +59,11 @@ class SiegeWeaponsController < ApplicationController
     @character = @camp.characters.find params[:character_id]
   rescue ActiveRecord::RecordNotFound
     render json: { error: 'character not found' }, status: :not_found
+  end
+
+  def set_siege_weapon
+    @siege_weapon = @camp.siege_weapons.find params[:id]
+  rescue ActiveRecord::RecordNotFound
+    render json: { error: 'siege weapon not found' }, status: :not_found
   end
 end
