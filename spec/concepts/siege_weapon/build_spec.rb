@@ -17,6 +17,12 @@ RSpec.describe SiegeWeapon::Build do
       expect(new_weapon).to be_persisted
     end
 
+    it 'build a new weapon with a random name' do
+      new_weapon = camp.siege_weapons.find_by id: subject[:siege_weapon].id
+      expect(new_weapon.name).to be_a String
+      expect(new_weapon.name.size).to be > 5
+    end
+
     its([:camp]) { is_expected.to eq camp }
     its([:status]) { is_expected.to eq 'built' }
   end

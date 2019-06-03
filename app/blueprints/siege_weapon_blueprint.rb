@@ -1,4 +1,4 @@
 class SiegeWeaponBlueprint < Blueprinter::Base
   identifier :id
-  fields :damages, :camp_id
+  fields :damages, :name, :camp_id
 end

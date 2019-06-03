@@ -1,3 +1,5 @@
+require 'name_generator'
+
 class SiegeWeapon
   class Build < Trailblazer::Operation
     step :belong_to_same_camp?
@@ -5,12 +7,14 @@ class SiegeWeapon
     step :build
     step :set_results
 
+    DEFAULT_SYLLABLES_COUNT = 3
+
     def belong_to_same_camp?(_, camp:, character:, **)
       camp == character.camp
     end
 
     def build(ctx, camp:, **)
-      ctx[:siege_weapon] = SiegeWeapon.new camp: camp, damages: random_damages
+      ctx[:siege_weapon] = SiegeWeapon.new camp: camp, damages: random_damages, name: random_name
       ctx[:siege_weapon].save && camp.reload
     end
 
@@ -26,6 +30,11 @@ class SiegeWeapon
 
     def random_damages
       [*1..10].sample * 10
+    end
+
+    def random_name
+      generator = ::NameGenerator::Main.new
+      generator.next_name DEFAULT_SYLLABLES_COUNT
     end
   end
 end

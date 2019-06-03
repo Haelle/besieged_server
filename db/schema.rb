@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_30_102503) do
+ActiveRecord::Schema.define(version: 2019_06_03_101829) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 2019_04_30_102503) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.uuid "camp_id"
+    t.string "name"
     t.index ["camp_id"], name: "index_siege_weapons_on_camp_id"
   end
 
