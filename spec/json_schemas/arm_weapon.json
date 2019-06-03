@@ -4,10 +4,10 @@
   "required": ["siege_weapon", "castle"],
   "properties": {
     "siege_weapon": {
-      "$ref": "../siege_weapon.json"
+      "$ref": "siege_weapon.json"
     },
     "castle": {
-      "$ref": "../castle.json"
+      "$ref": "castle.json"
     }
   }
 }

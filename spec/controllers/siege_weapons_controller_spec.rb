@@ -57,7 +57,7 @@ RSpec.describe SiegeWeaponsController, type: :controller do
 
       castle.reload
       expect(response).to be_successful
-      expect(response_json).to match_json_schema 'game_actions/arm'
+      expect(response_json).to match_json_schema 'arm_weapon'
       expect(castle.health_points).to eq 499
     end
 
@@ -121,7 +121,7 @@ RSpec.describe SiegeWeaponsController, type: :controller do
 
       camp.reload
       expect(response).to be_successful
-      expect(response_json).to match_json_schema 'game_actions/build'
+      expect(response_json).to match_json_schema 'build_weapon'
       expect(camp.siege_weapons.size).to eq 1
       expect(camp.siege_weapons.first.camp_id).to eq camp.id
     end
