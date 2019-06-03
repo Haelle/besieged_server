@@ -192,6 +192,7 @@ GEM
     mutant-rspec (0.8.24)
       mutant (~> 0.8.24)
       rspec-core (>= 3.4.0, < 4.0.0)
+    name-generator (0.2.0)
     nested_form (0.3.2)
     nio4r (2.3.1)
     nokogiri (1.10.2)
@@ -415,6 +416,7 @@ DEPENDENCIES
   listen (>= 3.0.5, < 3.2)
   mina
   mutant-rspec
+  name-generator
   pg
   pry
   pry-byebug
