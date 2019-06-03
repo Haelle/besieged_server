@@ -16,6 +16,9 @@ RSpec.describe SiegeWeapon, type: :model do
   it 'has nil damages' do
     invalid_siege_weapon = build :invalid_siege_weapon
     expect(invalid_siege_weapon).to be_invalid
-    expect(invalid_siege_weapon.errors.messages).to include damages: ["can't be blank"], name: ["can't be blank"]
+    expect(invalid_siege_weapon.errors.messages).to include(
+      damages: ["can't be blank"],
+      name: ["can't be blank"]
+    )
   end
 end

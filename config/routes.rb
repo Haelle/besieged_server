@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   post :login,            to: 'login#login_with_id'
   post :refresh,          to: 'refresh#create'
 
-  get 'names/generate(/:syllables_count)', to: 'names#generate', defaults: { syllables_count: 3 }
+  get 'names/generate(/:syllables_count)', to: 'names#generate', defaults: { syllables_count: '3' }
 
   resources :characters, only: %i[show]
   resources :castles,    only: %i[index show]
