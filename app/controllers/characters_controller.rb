@@ -47,6 +47,10 @@ class CharactersController < ApplicationController
   end
 
   def joining
-    @joining ||= Camp::Join.call account: found_account, camp: @camp, pseudonyme: params[:pseudonyme]
+    @joining ||= Camp::Join.call(
+      account: found_account,
+      camp: @camp,
+      pseudonyme: params[:pseudonyme]
+    )
   end
 end

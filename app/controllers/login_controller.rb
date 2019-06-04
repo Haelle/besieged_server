@@ -28,7 +28,7 @@ class LoginController < ApplicationController
   end
 
   def jwt_session
-      JWTSessions::Session.new(payload: payload, refresh_payload: payload)
+    JWTSessions::Session.new(payload: payload, refresh_payload: payload)
   end
 
   def payload

@@ -35,7 +35,11 @@ class SiegeWeaponsController < ApplicationController
   def build
     @operation_result = building
     if @operation_result.success?
-      render json: { camp: camp_hash, siege_weapon: weapon_hash, status: @operation_result[:status] }
+      render json: {
+        camp: camp_hash,
+        siege_weapon: weapon_hash,
+        status: @operation_result[:status]
+      }
     else
       render json: { error: @operation_result[:error] }, status: :unprocessable_entity
     end
