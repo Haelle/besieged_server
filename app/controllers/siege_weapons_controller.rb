@@ -23,27 +23,21 @@ class SiegeWeaponsController < ApplicationController
 
   # POST camps/1/siege_weapon/2/arm
   def arm
-    arming = SiegeWeapon::Arm.call(siege_weapon: @siege_weapon, character: @character)
-
-    if arming.success?
-      weapon_hash = SiegeWeaponBlueprint.render_as_hash arming[:siege_weapon]
-      castle_hash = CastleBlueprint.render_as_hash      arming[:castle]
+    @operation_result = arming
+    if @operation_result.success?
       render json: { siege_weapon: weapon_hash, castle: castle_hash }
     else
-      render json: { error: arming[:error] }, status: :unprocessable_entity
+      render json: { error: @operation_result[:error] }, status: :unprocessable_entity
     end
   end
 
   # POST /camps/1/siege_weapons/build
   def build
-    building = SiegeWeapon::Build.call(camp: @camp, character: @character)
-
-    if building.success?
-      weapon_hash = SiegeWeaponBlueprint.render_as_hash building[:siege_weapon]
-      camp_hash   = CampBlueprint.render_as_hash        building[:camp]
-      render json: { camp: camp_hash, siege_weapon: weapon_hash, status: building[:status] }
+    @operation_result = building
+    if @operation_result.success?
+      render json: { camp: camp_hash, siege_weapon: weapon_hash, status: @operation_result[:status] }
     else
-      render json: { error: building[:error] }, status: :unprocessable_entity
+      render json: { error: @operation_result[:error] }, status: :unprocessable_entity
     end
   end
 
@@ -65,5 +59,25 @@ class SiegeWeaponsController < ApplicationController
     @siege_weapon = @camp.siege_weapons.find params[:id]
   rescue ActiveRecord::RecordNotFound
     render json: { error: 'siege weapon not found' }, status: :not_found
+  end
+
+  def arming
+    @arming ||= SiegeWeapon::Arm.call(siege_weapon: @siege_weapon, character: @character)
+  end
+
+  def building
+    @building ||= SiegeWeapon::Build.call(camp: @camp, character: @character)
+  end
+
+  def camp_hash
+    CampBlueprint.render_as_hash @operation_result[:camp]
+  end
+
+  def castle_hash
+    CastleBlueprint.render_as_hash @operation_result[:castle]
+  end
+
+  def weapon_hash
+    SiegeWeaponBlueprint.render_as_hash @operation_result[:siege_weapon]
   end
 end

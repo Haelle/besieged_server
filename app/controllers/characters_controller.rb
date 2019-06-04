@@ -25,9 +25,6 @@ class CharactersController < ApplicationController
 
   # POST /camps/1/characters/join
   def join
-    pseudo = params[:pseudonyme]
-    joining = Camp::Join.call(account: found_account, camp: @camp, pseudonyme: pseudo)
-
     if joining.success?
       render json: CharacterBlueprint.render(joining[:action_result][:character])
     else
@@ -47,5 +44,9 @@ class CharactersController < ApplicationController
     @character = Character.find params[:id]
   rescue ActiveRecord::RecordNotFound
     render json: { error: 'character not found' }, status: :not_found
+  end
+
+  def joining
+    @joining ||= Camp::Join.call account: found_account, camp: @camp, pseudonyme: params[:pseudonyme]
   end
 end

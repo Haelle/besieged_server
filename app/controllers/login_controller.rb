@@ -16,13 +16,23 @@ class LoginController < ApplicationController
   private
 
   def render_jwt_session
-    if @account.authenticate(params[:password])
-      payload = { account_id: @account.id }
-      session = JWTSessions::Session.new(payload: payload, refresh_payload: payload)
-      render json: session.login
+    if authenticated?
+      render json: jwt_session.login
     else
       render json: { error: 'wrong password' }, status: :unauthorized
     end
+  end
+
+  def authenticated?
+    @account.authenticate(params[:password])
+  end
+
+  def jwt_session
+      JWTSessions::Session.new(payload: payload, refresh_payload: payload)
+  end
+
+  def payload
+    { account_id: @account.id }
   end
 
   def render_account_not_foud
