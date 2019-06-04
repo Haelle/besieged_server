@@ -70,6 +70,7 @@ group :development, :test do
   gem 'simplecov-console'
 
   # ruby syntax analyze
+  gem 'flog'
   gem 'rubocop', require: false
   gem 'rubocop-checkstyle_formatter', require: false
   gem 'rubocop-performance', require: false

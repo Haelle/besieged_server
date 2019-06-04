@@ -31,8 +31,16 @@ rspec
 
 ## Mutant
 
+Check mutation code resistance:
+
 ```
 RAILS_ENV=test bundle exec mutant -r ./config/environment --use rspec ClassName
+```
+
+## Flog
+Check code complexity
+```
+flog -g app
 ```
 
 # Services (job queues, cache servers, search engines, etc.)
