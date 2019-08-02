@@ -3,7 +3,7 @@ FactoryBot.define do
     initialize_with { new attributes }
 
     name { :palisade }
-    tags { [:wall, :defense_structure] }
+    tags { %i[wall defense_structure] }
     damages { 0 }
     health_points { 150 }
     max_health_points { 150 }

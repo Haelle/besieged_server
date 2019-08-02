@@ -5,7 +5,8 @@ RSpec.describe Assault::DamageDispatcher do
     described_class.call(
       total_damages: damages,
       damage_range: range,
-      targets: targets)
+      targets: targets
+    )
   end
 
   let(:damages) { 10 }
@@ -50,7 +51,7 @@ RSpec.describe Assault::DamageDispatcher do
 
   describe 'with range 4..4' do
     let(:range) { 4..4 }
-    let(:stronger_citizen) {build :citizen, health_points: 11 }
+    let(:stronger_citizen) { build :citizen, health_points: 11 }
     let(:targets) { [stronger_citizen] }
 
     it 'does not damage more than expected' do
@@ -121,7 +122,8 @@ RSpec.describe Assault::DamageDispatcher do
       described_class.call(
         total_damages: 10,
         targets: dead_targets,
-        damage_range: 2..2)
+        damage_range: 2..2
+      )
     end
     expect(dead_targets).to all be_dead
   end

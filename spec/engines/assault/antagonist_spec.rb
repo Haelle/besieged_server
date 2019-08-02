@@ -4,7 +4,7 @@ RSpec.describe Assault::Antagonist do
   subject do
     described_class.new(
       name: 'Name',
-      tags: [:something, :nothing],
+      tags: %i[something nothing],
       damages: 5,
       damage_range: 1..2,
       health_points: 10,

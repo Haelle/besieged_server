@@ -28,7 +28,7 @@ Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f 
 if ARGV.grep(/spec\.rb/).empty?
   require 'simplecov'
   require 'simplecov-console'
-  SimpleCov.formatter = SimpleCov.formatter = SimpleCov::Formatter::Console
+  SimpleCov.formatter = SimpleCov::Formatter::Console
   SimpleCov.start 'rails' do
     add_filter '/app/channels/'
     add_filter '/app/jobs/application_job.rb'

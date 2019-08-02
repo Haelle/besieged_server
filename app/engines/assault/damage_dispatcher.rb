@@ -13,7 +13,7 @@ class Assault::DamageDispatcher
   end
 
   def internal_call
-    while @remaining_damages > 0
+    while @remaining_damages.positive?
       break if survivors.empty?
 
       survivors.each do |target|

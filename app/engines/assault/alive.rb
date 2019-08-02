@@ -9,7 +9,7 @@ module Assault::Alive
     @health_points = [@health_points + value, @max_health_points].min
     @health_points - hp_before
   end
-  alias_method :repair, :heal
+  alias repair heal
 
   def injure(value)
     return 0 if dead?
@@ -18,12 +18,12 @@ module Assault::Alive
     @health_points = [0, @health_points - value].max
     hp_before - @health_points
   end
-  alias_method :damage, :injure
+  alias damage injure
 
   def alive?
     @health_points.positive?
   end
-  alias_method :working?, :alive?
+  alias working? alive?
 
   def full_life?
     @health_points == @max_health_points
@@ -37,6 +37,5 @@ module Assault::Alive
   def dead?
     @health_points.zero?
   end
-  alias_method :destroyed?, :dead?
-
+  alias destroyed? dead?
 end

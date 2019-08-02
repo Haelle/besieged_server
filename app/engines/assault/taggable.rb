@@ -1,7 +1,7 @@
 module Assault::Taggable
   attr_accessor :tags
 
-  TAGS = [:citizen, :defense_structure, :wall, :infantry, :archer]
+  TAGS = %i[citizen defense_structure wall infantry archer].freeze
 
   # if citizen? is called
   # checks if its a valid tag & if tag is found

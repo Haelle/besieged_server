@@ -17,7 +17,8 @@ class Assault::Antagonist
     result = Assault::DamageDispatcher.call(
       total_damages: @remaining_damages,
       damage_range: @damage_range,
-      targets: targets)
+      targets: targets
+    )
 
     @remaining_damages -= result.values.sum
 
