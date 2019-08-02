@@ -12,4 +12,5 @@ before_script:
   - mv config/master.key.travis config/master.key
   - mv config/credentials.yml.enc.travis config/credentials.yml.enc
 script:
+  - bundle exec rubocop
   - bundle exec rspec
