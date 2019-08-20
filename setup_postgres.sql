@@ -1,13 +1,13 @@
-CREATE ROLE the_besieged WITH LOGIN CREATEDB PASSWORD 'password';
-CREATE DATABASE the_besieged_production WITH OWNER the_besieged;
-CREATE DATABASE the_besieged_development WITH OWNER the_besieged;
-CREATE DATABASE the_besieged_test WITH OWNER the_besieged;
+CREATE ROLE besieged WITH LOGIN CREATEDB PASSWORD 'password';
+CREATE DATABASE besieged_production WITH OWNER besieged;
+CREATE DATABASE besieged_development WITH OWNER besieged;
+CREATE DATABASE besieged_test WITH OWNER besieged;
 
-\c the_besieged_development
+\c besieged_development
 CREATE EXTENSION pgcrypto;
 
-\c the_besieged_test
+\c besieged_test
 CREATE EXTENSION pgcrypto;
 
-\c the_besieged_production
+\c besieged_production
 CREATE EXTENSION pgcrypto;

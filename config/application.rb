@@ -35,9 +35,9 @@ module TheBesieged
     config.middleware.use ActionDispatch::Cookies
     config.middleware.use ActionDispatch::Flash
     config.middleware.use Rack::MethodOverride
-    config.middleware.use ActionDispatch::Session::CookieStore, key: '_the_besieged_session'
+    config.middleware.use ActionDispatch::Session::CookieStore, key: '_besieged_session'
 
-    config.active_job.queue_name_prefix = "the_besieged_#{Rails.env}"
+    config.active_job.queue_name_prefix = "besieged_#{Rails.env}"
     config.filter_parameters << :password
   end
 end

@@ -11,11 +11,11 @@ comment "Deploying on #{ENV['to'].upcase.green}"
 set :commit, ENV['tag'] || ENV['commit']
 ensure!(:branch) if ENV['to'] == 'production'
 
-set :application_name, 'the_besieged'
-set :domain, 'the-besieged.alxs.fr'
-set :deploy_to, "/var/www/the_besieged_#{ENV['to']}"
+set :application_name, 'besieged'
+set :domain, 'besieged.alxs.fr'
+set :deploy_to, "/var/www/besieged_#{ENV['to']}"
 set :rails_env, ENV['to']
-set :repository, 'git@github.com:Haelle/the_besieged_server.git'
+set :repository, 'git@github.com:Haelle/besieged_server.git'
 set :rbenv_path, '/usr/local/rbenv'
 set :user, 'deploy'
 
@@ -81,5 +81,5 @@ end
 
 task :sidekiq do
   comment 'Restarting Sidekiq (reloads code)'.green
-  command %(sudo systemctl restart sidekiq_the_besieged_#{ENV['to']})
+  command %(sudo systemctl restart sidekiq_besieged_#{ENV['to']})
 end
