@@ -17,6 +17,7 @@ set :deploy_to, "/var/www/besieged_#{ENV['to']}"
 set :rails_env, ENV['to']
 set :repository, 'git@github.com:Haelle/besieged_server.git'
 set :rbenv_path, '/usr/local/rbenv'
+set :bundle_bin, '/usr/local/rbenv/shims/bundle'
 set :user, 'deploy'
 
 # Optional settings:
@@ -67,6 +68,7 @@ task :deploy do
         command %(mkdir -p tmp/)
         command %(touch tmp/restart.txt)
         invoke :sidekiq
+        invoke :create_admin
       end
     end
   end
@@ -82,4 +84,9 @@ end
 task :sidekiq do
   comment 'Restarting Sidekiq (reloads code)'.green
   command %(sudo systemctl restart sidekiq_besieged_#{ENV['to']})
+end
+
+task :create_admin do
+  comment 'Creating admin user'.green
+  command %{#{fetch(:rake)} seed:create_admin}
 end
