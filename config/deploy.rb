@@ -88,5 +88,5 @@ end
 
 task :create_admin do
   comment 'Creating admin user'.green
-  command %{#{fetch(:rake)} seed:create_admin}
+  command %(#{fetch(:rake)} seed:create_admin)
 end
