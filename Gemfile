@@ -66,8 +66,8 @@ group :development, :test do
   gem 'shoulda-matchers'
 
   # Code coverage
-  gem 'simplecov'
-  gem 'simplecov-console'
+  gem 'simplecov', require: false
+  gem 'simplecov-console', require: false
 
   # ruby syntax analyze
   gem 'flog'
