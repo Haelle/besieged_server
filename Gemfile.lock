@@ -209,7 +209,7 @@ GEM
       byebug (~> 11.0)
       pry (~> 0.10)
     public_suffix (3.1.1)
-    puma (3.12.1)
+    puma (3.12.2)
     raabro (1.1.6)
     rack (2.0.7)
     rack-pjax (1.1.0)
@@ -419,7 +419,7 @@ DEPENDENCIES
   pg
   pry
   pry-byebug
-  puma (~> 3.11)
+  puma (~> 3.12)
   rails (~> 5.2.2, >= 5.2.2.1)
   rails_admin
   redis (~> 4.0)
