@@ -1,0 +1,2 @@
+class Trebuchet < SiegeMachine
+end

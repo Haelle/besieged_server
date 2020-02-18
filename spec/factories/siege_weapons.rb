@@ -9,4 +9,8 @@ FactoryBot.define do
       name { nil }
     end
   end
+
+  factory :catapult, parent: :siege_machine, class: Catapult
+  factory :ballista, parent: :siege_machine, class: Ballista
+  factory :trebuchet, parent: :siege_machine, class: Trebuchet
 end

@@ -1,0 +1,2 @@
+class Ballista < SiegeMachine
+end
