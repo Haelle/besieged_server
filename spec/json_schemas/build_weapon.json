@@ -1,13 +1,13 @@
 {
   "type": "object",
   "title": "Build a siege Weapon",
-  "required": ["camp", "siege_weapon", "status"],
+  "required": ["camp", "siege_machine", "status"],
   "properties": {
     "camp": {
       "$ref": "camp.json"
     },
-    "siege_weapon": {
-      "$ref": "siege_weapon.json"
+    "siege_machine": {
+      "$ref": "siege_machine.json"
     },
     "status": {
       "type": "string",

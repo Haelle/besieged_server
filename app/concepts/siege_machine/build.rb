@@ -1,6 +1,6 @@
 require 'name_generator'
 
-class SiegeWeapon
+class SiegeMachine
   class Build < Trailblazer::Operation
     step :belong_to_same_camp?
     fail :error_does_not_belong
@@ -14,8 +14,8 @@ class SiegeWeapon
     end
 
     def build(ctx, camp:, **)
-      ctx[:siege_weapon] = SiegeWeapon.new camp: camp, damages: random_damages, name: random_name
-      ctx[:siege_weapon].save && camp.reload
+      ctx[:siege_machine] = SiegeMachine.new camp: camp, damages: random_damages, name: random_name
+      ctx[:siege_machine].save && camp.reload
     end
 
     def set_results(ctx, **)

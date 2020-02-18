@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe SiegeWeapon::Arm do
-  subject { described_class.call siege_weapon: siege_weapon, character: character }
+RSpec.describe SiegeMachine::Arm do
+  subject { described_class.call siege_machine: siege_machine, character: character }
 
   context 'when arming went fine' do
     include_context 'basic game'
@@ -9,11 +9,11 @@ RSpec.describe SiegeWeapon::Arm do
     it { is_expected.to be_success }
 
     it 'damages the castle' do
-      expect { subject }.to change(castle, :health_points).by(-siege_weapon.damages)
+      expect { subject }.to change(castle, :health_points).by(-siege_machine.damages)
     end
 
-    its([:siege_weapon]) { is_expected.to eq siege_weapon }
-    its([:castle]) { is_expected.to eq siege_weapon.camp.castle }
+    its([:siege_machine]) { is_expected.to eq siege_machine }
+    its([:castle]) { is_expected.to eq siege_machine.camp.castle }
 
     it 'returns an updated castle' do
       updated_castle = subject[:castle]
@@ -26,7 +26,7 @@ RSpec.describe SiegeWeapon::Arm do
 
     before do
       castle.update health_points: 10
-      siege_weapon.update damages: 100
+      siege_machine.update damages: 100
     end
 
     it { is_expected.to be_success }
@@ -39,7 +39,7 @@ RSpec.describe SiegeWeapon::Arm do
   context 'when user does not belongs to same camp as the weapon' do
     let!(:camp) { create :camp }
     let!(:castle) { create :castle, camp: camp }
-    let!(:siege_weapon) { create :siege_weapon, camp: camp }
+    let!(:siege_machine) { create :siege_machine, camp: camp }
 
     let(:another_camp) { create :camp }
     let(:character) { create :character, camp: another_camp }
@@ -50,6 +50,6 @@ RSpec.describe SiegeWeapon::Arm do
       expect { subject }.not_to change(castle, :health_points)
     end
 
-    its([:error]) { is_expected.to eq "character (#{character.id}) does not belong to the camp (#{camp.id}) of this weapon (#{siege_weapon.id})" }
+    its([:error]) { is_expected.to eq "character (#{character.id}) does not belong to the camp (#{camp.id}) of this weapon (#{siege_machine.id})" }
   end
 end

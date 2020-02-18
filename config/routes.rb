@@ -29,10 +29,10 @@ Rails.application.routes.draw do
   end
 
   resources :camps, only: %i[index show] do
-    post 'siege_weapons/build', to: 'siege_weapons#build'
+    post 'siege_machines/build', to: 'siege_machines#build'
     post 'characters/join', to: 'characters#join'
 
-    resources :siege_weapons, only: %i[index show] do
+    resources :siege_machines, only: %i[index show] do
       post :arm, on: :member
     end
 

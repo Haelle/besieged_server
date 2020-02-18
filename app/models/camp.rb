@@ -1,10 +1,10 @@
 class Camp < ApplicationRecord
   has_one :castle
   has_many :characters
-  has_many :siege_weapons
+  has_many :siege_machines
 
   def undergo_assault
-    siege_weapons.each do |weapon|
+    siege_machines.each do |weapon|
       yield weapon
     end
   end

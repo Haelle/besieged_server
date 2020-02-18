@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe SiegeWeaponsController, type: :controller do
+RSpec.describe SiegeMachinesController, type: :controller do
   it_behaves_like 'unauthorized', :get, :index, camp_id: 1
   it_behaves_like 'unauthorized', :get, :show, camp_id: 1, id: 0
   it_behaves_like 'unauthorized', :post, :arm, camp_id: 1, id: 1
@@ -10,22 +10,22 @@ RSpec.describe SiegeWeaponsController, type: :controller do
   describe 'GET #index' do
     it 'returns a success response' do
       camp = create :camp
-      create_list :siege_weapon, 3, camp: camp
+      create_list :siege_machine, 3, camp: camp
       get :index, params: { camp_id: camp.id }
 
       expect(response).to be_successful
       expect(response_json.size).to eq 3
-      expect(response_json).to match_json_schema 'siege_weapons'
+      expect(response_json).to match_json_schema 'siege_machines'
     end
   end
 
   describe 'GET #show' do
     it 'returns a success response' do
-      siege_weapon = create :siege_weapon
-      get :show, params: { camp_id: siege_weapon.camp.id, id: siege_weapon.to_param }
+      siege_machine = create :siege_machine
+      get :show, params: { camp_id: siege_machine.camp.id, id: siege_machine.to_param }
 
       expect(response).to be_successful
-      expect(response_json).to match_json_schema 'siege_weapon'
+      expect(response_json).to match_json_schema 'siege_machine'
     end
 
     it 'returns a weapon not found' do
@@ -37,8 +37,8 @@ RSpec.describe SiegeWeaponsController, type: :controller do
     end
 
     it 'returns a camp not found' do
-      siege_weapon = create :siege_weapon
-      get :show, params: { camp_id: 'not found', id: siege_weapon.id }
+      siege_machine = create :siege_machine
+      get :show, params: { camp_id: 'not found', id: siege_machine.id }
 
       expect(response).to have_http_status :not_found
       expect(response_json).to include error: 'camp not found'
@@ -50,8 +50,8 @@ RSpec.describe SiegeWeaponsController, type: :controller do
 
     it 'arms the weapon' do
       post :arm, params: {
-        id: siege_weapon.id,
-        camp_id: siege_weapon.camp.id,
+        id: siege_machine.id,
+        camp_id: siege_machine.camp.id,
         character_id: character.id
       }
 
@@ -74,7 +74,7 @@ RSpec.describe SiegeWeaponsController, type: :controller do
 
     it 'return camp not found' do
       post :arm, params: {
-        id: siege_weapon.id,
+        id: siege_machine.id,
         camp_id: 'not found',
         character_id: character.id
       }
@@ -85,7 +85,7 @@ RSpec.describe SiegeWeaponsController, type: :controller do
 
     it 'returns character not found' do
       post :arm, params: {
-        id: siege_weapon.id,
+        id: siege_machine.id,
         camp_id: camp.id,
         character_id: 'not found'
       }
@@ -95,13 +95,13 @@ RSpec.describe SiegeWeaponsController, type: :controller do
     end
 
     it 'returns unprocessable_entity' do
-      allow(SiegeWeapon::Arm)
+      allow(SiegeMachine::Arm)
         .to receive(:call)
         .and_return(trb_result_failure_with(error: 'something wrong'))
 
       post :arm, params: {
-        id: siege_weapon.id,
-        camp_id: siege_weapon.camp.id,
+        id: siege_machine.id,
+        camp_id: siege_machine.camp.id,
         character_id: character.id
       }
 
@@ -122,8 +122,8 @@ RSpec.describe SiegeWeaponsController, type: :controller do
       camp.reload
       expect(response).to be_successful
       expect(response_json).to match_json_schema 'build_weapon'
-      expect(camp.siege_weapons.size).to eq 1
-      expect(camp.siege_weapons.first.camp_id).to eq camp.id
+      expect(camp.siege_machines.size).to eq 1
+      expect(camp.siege_machines.first.camp_id).to eq camp.id
     end
 
     it 'cannot build instead of someone else' do
@@ -157,7 +157,7 @@ RSpec.describe SiegeWeaponsController, type: :controller do
     end
 
     it 'return unprocessable_entity' do
-      allow(SiegeWeapon::Build)
+      allow(SiegeMachine::Build)
         .to receive(:call)
         .and_return(trb_result_failure_with(error: 'something wrong'))
 

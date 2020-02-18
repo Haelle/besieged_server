@@ -12,7 +12,7 @@ namespace :seed do
     Character.create pseudonyme: 'Estb', account: admin, camp: camp
     Character.create pseudonyme: 'Axi',  account: account, camp: camp
     10.times do |i|
-      SiegeWeapon.create damages: (i + 1) * 10, camp: camp
+      SiegeMachine.create damages: (i + 1) * 10, camp: camp
     end
 
     puts 'Game created'.green
@@ -24,7 +24,7 @@ namespace :seed do
     Character.destroy_all
     Account.destroy_all
     Castle.destroy_all
-    SiegeWeapon.destroy_all
+    SiegeMachine.destroy_all
     Camp.destroy_all
   end
 end

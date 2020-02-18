@@ -1,7 +1,7 @@
 {
   "type": "object",
   "title": "Camp",
-  "required": ["id", "characters", "castle", "siege_weapons"],
+  "required": ["id", "characters", "castle", "siege_machines"],
   "properties": {
     "id": {
       "$ref": "uuid.json"
@@ -15,10 +15,10 @@
     "castle": {
       "$ref": "castle.json"
     },
-    "siege_weapons": {
+    "siege_machines": {
       "type": "array",
       "items": {
-        "$ref": "siege_weapon.json"
+        "$ref": "siege_machine.json"
       }
     }
   }
