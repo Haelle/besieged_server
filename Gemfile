@@ -27,7 +27,7 @@ gem 'rails_admin'
 gem 'therubyracer'
 
 # Trailblazer for operations
-gem 'trailblazer-rails'
+gem 'trailblazer'
 
 # Queue system with cron
 gem 'sidekiq'
