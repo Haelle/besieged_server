@@ -46,7 +46,5 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
-  config.trailblazer.enable_loader = false
-
   config.active_job.queue_adapter = :sidekiq
 end

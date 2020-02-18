@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe SiegeWeapon::Build do
+RSpec.describe SiegeMachine::Build do
   subject { described_class.call camp: camp, character: character }
 
   context 'when building went fine' do
@@ -9,16 +9,16 @@ RSpec.describe SiegeWeapon::Build do
     it { is_expected.to be_success }
 
     it 'builds a new weapon' do
-      expect { subject }.to change(camp.siege_weapons, :count).by 1
+      expect { subject }.to change(camp.siege_machines, :count).by 1
     end
 
     it 'returns the new weapon' do
-      new_weapon = camp.siege_weapons.find_by id: subject[:siege_weapon].id
+      new_weapon = camp.siege_machines.find_by id: subject[:siege_machine].id
       expect(new_weapon).to be_persisted
     end
 
     it 'build a new weapon with a random name' do
-      new_weapon = camp.siege_weapons.find_by id: subject[:siege_weapon].id
+      new_weapon = camp.siege_machines.find_by id: subject[:siege_machine].id
       expect(new_weapon.name).to be_a String
       expect(new_weapon.name.size).to be >= 5
     end
@@ -34,7 +34,7 @@ RSpec.describe SiegeWeapon::Build do
     it { is_expected.to be_failure }
 
     it 'does not build the weapon' do
-      expect { subject }.not_to change(camp.siege_weapons, :count)
+      expect { subject }.not_to change(camp.siege_machines, :count)
     end
 
     its([:error]) { is_expected.to eq "character (#{character.id}) does not belong to the camp (#{camp.id})" }

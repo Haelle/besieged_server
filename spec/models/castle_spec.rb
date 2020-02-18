@@ -24,7 +24,7 @@ RSpec.describe Castle, type: :model do
   it 'destroys 2/3 weapons' do
     castle = create :castle, :with_armed_camp
     allow(castle).to receive(:target_destroyed?).and_return(true, false, true)
-    expect { castle.counter_attack }.to change { castle.camp.siege_weapons.size }.by(-2)
+    expect { castle.counter_attack }.to change { castle.camp.siege_machines.size }.by(-2)
   end
 
   it 'randomy destroys' do

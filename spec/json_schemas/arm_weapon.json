@@ -1,10 +1,10 @@
 {
   "type": "object",
   "title": "Arm a siege Weapon",
-  "required": ["siege_weapon", "castle"],
+  "required": ["siege_machine", "castle"],
   "properties": {
-    "siege_weapon": {
-      "$ref": "siege_weapon.json"
+    "siege_machine": {
+      "$ref": "siege_machine.json"
     },
     "castle": {
       "$ref": "castle.json"

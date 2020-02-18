@@ -1,6 +1,6 @@
 {
   "type": "array",
   "items": {
-    "$ref": "siege_weapon.json"
+    "$ref": "siege_machine.json"
   }
 }

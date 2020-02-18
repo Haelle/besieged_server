@@ -1,0 +1,2 @@
+class Catapult < SiegeMachine
+end
