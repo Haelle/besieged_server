@@ -19,25 +19,19 @@ Rails.application.routes.draw do
 
   get 'names/generate(/:syllables_count)', to: 'names#generate', defaults: { syllables_count: '4' }
 
-  resources :characters, only: %i[show]
-  resources :castles,    only: %i[index show]
-
-  resources :accounts, only: %i[show create update destroy] do
-    resources :characters, only: [] do
-      get :index, on: :collection, to: 'characters#index_by_account'
-    end
+  resources :accounts, shallow: true do
+    resources :characters
   end
 
-  resources :camps, only: %i[index show] do
-    post 'siege_machines/build', to: 'siege_machines#build'
-    post 'characters/join', to: 'characters#join'
+  resources :castles
 
-    resources :siege_machines, only: %i[index show] do
+  resources :camps, shallow: true do
+    post :build, on: :member
+    post :join, on: :member
+
+    resources :characters
+    resources :siege_machines do
       post :arm, on: :member
-    end
-
-    resources :characters, only: [] do
-      get :index, on: :collection, to: 'characters#index_by_camp'
     end
   end
 end
