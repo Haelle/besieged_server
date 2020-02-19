@@ -9,8 +9,8 @@ namespace :seed do
     account = Account.create email: 'test@example.com', password: 'password'
     camp = Camp.create
     Castle.create health_points: 500, camp: camp
-    Character.create pseudonyme: 'Estb', account: admin, camp: camp
-    Character.create pseudonyme: 'Axi',  account: account, camp: camp
+    Character.create pseudonym: 'Estb', account: admin, camp: camp
+    Character.create pseudonym: 'Axi',  account: account, camp: camp
     10.times do |i|
       SiegeMachine.create damages: (i + 1) * 10, camp: camp
     end
