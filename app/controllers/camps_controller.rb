@@ -1,4 +1,7 @@
 class CampsController < ApplicationController
+  include OperationResultToHash
+  include SetModelFromIds
+
   before_action :authorize_access_request!
   before_action :set_camp, only: %i[show join build]
   before_action :set_character, only: %i[build]
@@ -41,18 +44,6 @@ class CampsController < ApplicationController
 
   private
 
-  def set_camp
-    @camp ||= Camp.find params[:id]
-  rescue ActiveRecord::RecordNotFound
-    render json: { error: 'camp not found' }, status: :not_found
-  end
-
-  def set_character
-    @character = Character.find params[:character_id]
-  rescue ActiveRecord::RecordNotFound
-    render json: { error: 'character not found' }, status: :not_found
-  end
-
   def building
     @building ||= SiegeMachine::Build.call(camp: @camp, character: @character)
   end
@@ -63,13 +54,5 @@ class CampsController < ApplicationController
       camp: @camp,
       pseudonyme: params[:pseudonyme]
     )
-  end
-
-  def camp_hash
-    CampBlueprint.render_as_hash @operation_result[:camp]
-  end
-
-  def weapon_hash
-    SiegeMachineBlueprint.render_as_hash @operation_result[:siege_machine]
   end
 end

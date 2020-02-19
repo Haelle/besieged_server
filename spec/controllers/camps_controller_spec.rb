@@ -120,7 +120,7 @@ RSpec.describe CampsController, type: :controller do
     it 'return unprocessable_entity' do
       allow(SiegeMachine::Build)
         .to receive(:call)
-              .and_return(trb_result_failure_with(error: 'something wrong'))
+        .and_return(trb_result_failure_with(error: 'something wrong'))
 
       post :build, params: {
         id: camp.id,

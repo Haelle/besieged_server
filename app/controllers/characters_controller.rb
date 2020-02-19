@@ -1,4 +1,6 @@
 class CharactersController < ApplicationController
+  include SetModelFromIds
+
   before_action :authorize_access_request!
   before_action :set_character,                    only: %i[show]
   before_action :authorize_action_only_to_itself!, only: %i[show]
@@ -21,13 +23,5 @@ class CharactersController < ApplicationController
   # GET /characters/1
   def show
     render json: CharacterBlueprint.render(@character)
-  end
-
-  private
-
-  def set_character
-    @character = Character.find params[:id]
-  rescue ActiveRecord::RecordNotFound
-    render json: { error: 'character not found' }, status: :not_found
   end
 end
