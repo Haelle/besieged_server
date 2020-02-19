@@ -1,5 +1,5 @@
 class Character < ApplicationRecord
-  validates :pseudonyme, presence: true
+  validates :pseudonym, presence: true
   validate :only_one_character_per_camp
 
   belongs_to :account

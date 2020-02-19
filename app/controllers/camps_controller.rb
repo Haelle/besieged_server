@@ -52,7 +52,7 @@ class CampsController < ApplicationController
     @joining ||= Camp::Join.call(
       account: found_account,
       camp: @camp,
-      pseudonyme: params[:pseudonyme]
+      pseudonym: params[:pseudonym]
     )
   end
 end

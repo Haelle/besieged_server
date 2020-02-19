@@ -1,12 +1,12 @@
 {
   "type": "object",
   "title": "Character",
-  "required": ["id", "pseudonyme", "camp_id"],
+  "required": ["id", "pseudonym", "camp_id"],
   "properties": {
     "id": {
       "$ref": "uuid.json"
     },
-    "pseudonyme": {
+    "pseudonym": {
       "type": "string"
     },
     "camp_id": {

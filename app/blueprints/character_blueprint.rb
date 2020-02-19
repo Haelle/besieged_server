@@ -1,4 +1,4 @@
 class CharacterBlueprint < Blueprinter::Base
   identifier :id
-  fields :pseudonyme, :camp_id
+  fields :pseudonym, :camp_id
 end

@@ -1,11 +1,11 @@
 FactoryBot.define do
   factory :character do
-    pseudonyme { 'Kevin' }
+    pseudonym { 'Kevin' }
     account
     camp
 
     factory :invalid_character do
-      pseudonyme { nil }
+      pseudonym { nil }
     end
   end
 end

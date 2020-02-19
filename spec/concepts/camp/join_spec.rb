@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe Camp::Join do
-  subject { described_class.call account: account, camp: camp, pseudonyme: pseudonyme }
+  subject { described_class.call account: account, camp: camp, pseudonym: pseudonym }
 
   let(:account) { create :account }
   let(:camp) { create :camp }
-  let(:pseudonyme) { 'pseudo' }
+  let(:pseudonym) { 'pseudo' }
 
   context 'when join went fine' do
     it { is_expected.to be_success }
@@ -17,7 +17,7 @@ RSpec.describe Camp::Join do
     it 'creates a character linked to account & camp' do
       subject
       new_character = Character.last
-      expect(new_character).to have_attributes pseudonyme: pseudonyme
+      expect(new_character).to have_attributes pseudonym: pseudonym
       expect(new_character.camp).to eq camp
       expect(new_character.account).to eq account
     end

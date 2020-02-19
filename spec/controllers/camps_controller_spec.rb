@@ -37,23 +37,23 @@ RSpec.describe CampsController, type: :controller do
 
   describe 'POST #join' do
     let(:camp) { create :camp }
-    let(:pseudonyme) { 'pseudo' }
+    let(:pseudonym) { 'pseudo' }
 
     it 'joins the camp' do
       post :join, params: {
         id: camp.id,
-        pseudonyme: pseudonyme
+        pseudonym: pseudonym
       }
 
       expect(response).to be_successful
       expect(response_json).to match_json_schema 'character'
-      expect(response_json).to include pseudonyme: pseudonyme
+      expect(response_json).to include pseudonym: pseudonym
     end
 
     it 'cannot join the camp' do
       post :join, params: {
         id: 'not a camp id',
-        pseudonyme: pseudonyme
+        pseudonym: pseudonym
       }
 
       expect(response).to have_http_status :not_found
@@ -63,7 +63,7 @@ RSpec.describe CampsController, type: :controller do
       create :character, account: account_from_headers, camp: camp
       post :join, params: {
         id: camp.id,
-        pseudonyme: pseudonyme
+        pseudonym: pseudonym
       }
 
       expect(response).to have_http_status :unprocessable_entity
