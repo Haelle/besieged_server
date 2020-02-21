@@ -14,6 +14,24 @@ RSpec.describe CharacterAction, type: :model do
   it { is_expected.to belong_to :camp }
   it { is_expected.to belong_to :character }
 
+  describe '#target' do
+    it 'links target to target_type and id' do
+      catapult = create :catapult
+      action = create :character_action
+      action.target = catapult
+
+      expect(action.target_id).to eq catapult.id
+      expect(action.target_type).to eq catapult.class.to_s
+    end
+
+    it 'links target type and id to a target' do
+      catapult = create :catapult
+      action = create :character_action, target_id: catapult.id, target_type: catapult.class.name
+
+      expect(action.target).to eq catapult
+    end
+  end
+
   describe '#valid?' do
     it 'is valid' do
       expect(build(:character_action)).to be_valid
