@@ -5,6 +5,10 @@ class Character < ApplicationRecord
   belongs_to :account
   belongs_to :camp
 
+  def exhausted?
+    false
+  end
+
   private
 
   def only_one_character_per_camp

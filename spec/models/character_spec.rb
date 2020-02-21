@@ -29,4 +29,13 @@ RSpec.describe Character, type: :model do
     expect(invalid_character.errors.messages)
       .to include camp: ['an account can only have one character per camp']
   end
+
+  context '#exhausted?' do
+    it 'is not exhausted' do
+      character = create :character
+      expect(character).not_to be_exhausted
+    end
+
+    it 'is exhausted'
+  end
 end
