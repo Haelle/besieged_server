@@ -16,14 +16,14 @@ RSpec.describe LoginController, type: :controller do
       subject
       access_token = response_json[:access]
       decoded_token = JWTSessions::Token.decode(access_token).first
-      expect(decoded_token['account_id']).to eq Account.last.id
+      expect(decoded_token['account_id']).to eq account.id
     end
 
     it 'has valid refresh token' do
       subject
       access_token = response_json[:refresh]
       decoded_token = JWTSessions::Token.decode(access_token).first
-      expect(decoded_token['account_id']).to eq Account.last.id
+      expect(decoded_token['account_id']).to eq account.id
     end
   end
 

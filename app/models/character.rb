@@ -18,6 +18,10 @@ class Character < ApplicationRecord
   end
 
   def no_character_already_in_camp?
-    camp.characters.where(account: account).empty?
+    camp
+      .characters
+      .where(account: account)
+      .reject { |c| c == self }
+      .empty?
   end
 end
