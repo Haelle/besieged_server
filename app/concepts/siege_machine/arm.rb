@@ -24,7 +24,7 @@ class SiegeMachine
 
     private
 
-    def arm_callback(_character, castle, params)
+    def arm_callback(castle, params)
       siege_machine = params[:siege_machine]
       castle.lock!
 

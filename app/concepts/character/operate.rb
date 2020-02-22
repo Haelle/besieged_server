@@ -2,8 +2,8 @@ class Character
   class Operate < Trailblazer::Operation
     step Wrap(WithinTransaction) {
       step :lock
-      step :character_not_exhauted?
-      fail :log_character_exhauted, fail_fast: true
+      step :character_not_exhausted?
+      fail :log_character_exhausted, fail_fast: true
       step :decrement_character_points
       fail :log_decrement_failed, fail_fast: true
       step :execute_callback
@@ -17,7 +17,7 @@ class Character
       target.lock!
     end
 
-    def character_not_exhauted?(_, character:, **)
+    def character_not_exhausted?(_, character:, **)
       !character.exhausted?
     end
 
@@ -26,15 +26,11 @@ class Character
       true
     end
 
-    # rubocop:disable Metrics/ParameterLists
-    def execute_callback(_, character:, target:, params:, callback:, **)
-      callback.call(
-        character,
-        target,
-        params
-      )
+    def execute_callback(_, target:, params:, callback:, **)
+      callback.call(target, params)
     end
 
+    # rubocop:disable Metrics/ParameterLists
     def persist_current_action(ctx, character:, action_type:, target:, params:, **)
       ctx[:action] = CharacterAction.create(
         camp: character.camp,
@@ -45,7 +41,7 @@ class Character
       )
     end
 
-    def log_character_exhauted(ctx, character:, **)
+    def log_character_exhausted(ctx, character:, **)
       ctx[:error] = "#{character.pseudonym} is exhausted, wait to get more points"
     end
 

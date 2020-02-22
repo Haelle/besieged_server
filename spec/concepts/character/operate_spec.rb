@@ -16,7 +16,7 @@ describe Character::Operate, :trb do
   let(:params) { { 'new_name' => 'this is a new name' } }
   let(:action_type) { 'update_machine_name' }
   let(:callback) do
-    ->(_character, target, params) { target.update(name: params['new_name']) }
+    ->(target, params) { target.update(name: params['new_name']) }
   end
 
   shared_examples 'locking resources' do
@@ -91,7 +91,7 @@ describe Character::Operate, :trb do
 
   context 'when callback returns a falsey result' do
     let(:callback) do
-      ->(_character, _target, _params) { return false }
+      ->(_target, _params) { return false }
     end
 
     it { is_expected.to be_failure }
