@@ -1,5 +1,31 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV['RAILS_ENV'] ||= 'test'
+
+# Test coverage options (activated only if rspec is run without arguments)
+# Simplecov HAVE TO be loaded first
+if ARGV.grep(/spec\.rb/).empty?
+  require 'simplecov'
+  require 'simplecov-console'
+
+  # it will fail CI if:
+  SimpleCov.minimum_coverage 95
+  SimpleCov.minimum_coverage_by_file 80
+
+  # only console
+  SimpleCov.formatter = SimpleCov.formatter = SimpleCov::Formatter::Console
+  # console & HTML
+  # SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new([
+  #   SimpleCov::Formatter::HTMLFormatter,
+  #   SimpleCov::Formatter::Console,
+  # ])
+
+  SimpleCov.start 'rails' do
+    add_filter '/app/channels/'
+    add_filter '/app/jobs/application_job.rb'
+    add_filter '/app/mailers/application_mailer.rb'
+  end
+end
+
 require File.expand_path('../config/environment', __dir__)
 require 'rspec/rails'
 require 'sidekiq/testing'
@@ -23,30 +49,6 @@ Sidekiq::Testing.fake!
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 
 Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
-
-# Test coverage options (activated only if rspec is run without arguments)
-if ARGV.grep(/spec\.rb/).empty?
-  require 'simplecov'
-  require 'simplecov-console'
-
-  # it will fail CI if:
-  SimpleCov.minimum_coverage 95
-  SimpleCov.minimum_coverage_by_file 80
-
-  # only console
-  SimpleCov.formatter = SimpleCov.formatter = SimpleCov::Formatter::Console
-  # console & HTML
-  # SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new([
-  #   SimpleCov::Formatter::HTMLFormatter,
-  #   SimpleCov::Formatter::Console,
-  # ])
-
-  SimpleCov.start 'rails' do
-    add_filter '/app/channels/'
-    add_filter '/app/jobs/application_job.rb'
-    add_filter '/app/mailers/application_mailer.rb'
-  end
-end
 
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
