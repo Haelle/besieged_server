@@ -118,7 +118,7 @@ RSpec.describe CampsController, type: :controller do
     end
 
     it 'return unprocessable_entity' do
-      allow(SiegeMachine::Build)
+      allow(Camp::Build)
         .to receive(:call)
         .and_return(trb_result_failure_with(error: 'something wrong'))
 

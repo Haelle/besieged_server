@@ -1,6 +1,6 @@
 require 'name_generator'
 
-class SiegeMachine
+class Camp
   class Build < Trailblazer::Operation
     step :belong_to_same_camp?
     fail :error_does_not_belong

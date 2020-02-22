@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe SiegeMachine::Build do
+RSpec.describe Camp::Build do
   subject { described_class.call camp: camp, character: character }
 
   context 'when building went fine' do
