@@ -104,12 +104,12 @@ describe Character::Operate, :trb do
     end
 
     it 'stores an error' do
-      expect(subject[:error]).to eq "An error occured during #{action_type}"
+      expect(subject[:error]).to eq "An error occurred during #{action_type}"
     end
 
     it 'logs an error' do
       expect(Rails.logger).to receive(:error)
-        .with("#{action_type} by Kevin (#{character.id}) on SiegeMachines::Catapult - #{catapult.name} (#{catapult.id}) failed")
+        .with("#{action_type} by Kevin (#{character.id}) on SiegeMachines::Catapult (#{catapult.id}) failed")
       subject
     end
   end

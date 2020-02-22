@@ -54,9 +54,9 @@ class Character
     end
 
     def log_callback_failed(ctx, action_type:, character:, target:, **)
-      ctx[:error] = "An error occured during #{action_type}"
+      ctx[:error] = "An error occurred during #{action_type}"
 
-      Rails.logger.error "#{action_type} by #{character.pseudonym} (#{character.id}) on #{target.class} - #{target.name} (#{target.id}) failed"
+      Rails.logger.error "#{action_type} by #{character.pseudonym} (#{character.id}) on #{target.class} (#{target.id}) failed"
     end
 
     def log_persist_action_failed(ctx, action_type:, params:, character:, target:, **)

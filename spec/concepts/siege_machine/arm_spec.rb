@@ -19,6 +19,17 @@ RSpec.describe SiegeMachine::Arm do
       updated_castle = subject[:castle]
       expect(updated_castle).to have_attributes health_points: 499
     end
+
+    it 'persists a CharacterAction with expected values' do
+      action = subject[:action]
+      expect(action).to be_a CharacterAction
+      expect(action).to be_persisted
+      expect(action.character).to eq character
+      expect(action.camp).to eq character.camp
+      expect(action.action_type).to eq 'arm'
+      expect(action.action_params).to eq('siege_machine' => siege_machine.as_json)
+      expect(action.target).to eq castle
+    end
   end
 
   context 'when castle is destroyed' do
@@ -33,6 +44,17 @@ RSpec.describe SiegeMachine::Arm do
 
     it 'change health points to 0' do
       expect(subject[:castle].health_points).to eq 0
+    end
+
+    it 'persists a CharacterAction with expected values' do
+      action = subject[:action]
+      expect(action).to be_a CharacterAction
+      expect(action).to be_persisted
+      expect(action.character).to eq character
+      expect(action.camp).to eq character.camp
+      expect(action.action_type).to eq 'arm'
+      expect(action.action_params).to eq('siege_machine' => siege_machine.as_json)
+      expect(action.target).to eq castle
     end
   end
 
@@ -51,5 +73,34 @@ RSpec.describe SiegeMachine::Arm do
     end
 
     its([:error]) { is_expected.to eq "character (#{character.id}) does not belong to the camp (#{camp.id}) of this weapon (#{siege_machine.id})" }
+
+    it 'does not persist a character action' do
+      expect { subject }.not_to change(CharacterAction, :count)
+    end
   end
+
+  context 'when callback failed' do
+    include_context 'basic game'
+
+    before do
+      allow(castle).to receive(:save).and_return false
+    end
+
+    it { is_expected.to be_failure }
+
+    it 'does not decrement character points'
+
+    it 'does not damage the castle' do
+      expect { subject; castle.reload }.not_to change(castle, :health_points)
+    end
+
+    its([:error]) { is_expected.to eq 'An error occurred during arm' }
+
+    it 'does not persist a character action' do
+      expect { subject }.not_to change(CharacterAction, :count)
+    end
+  end
+
+  # TODO: exhausted shared example
+  context 'when character is exhausted'
 end
