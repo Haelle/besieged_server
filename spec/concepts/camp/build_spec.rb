@@ -7,6 +7,10 @@ RSpec.describe Camp::Build, :trb do
     include_context 'basic game'
 
     let(:built_machine) { subject[:siege_machine] }
+    let(:target) { camp }
+    let(:action_params) { { 'siege_machine_type' => 'catapult' } }
+
+    it_behaves_like 'CharacterAction saved', 'build'
 
     it { is_expected.to be_success }
 
@@ -20,17 +24,6 @@ RSpec.describe Camp::Build, :trb do
     its([:camp]) { is_expected.to eq camp }
     its([:status]) { is_expected.to eq 'built' }
     its([:siege_machine]) { is_expected.to eq built_machine }
-
-    it 'persists a CharacterAction with expected values' do
-      action = subject[:action]
-      expect(action).to be_a CharacterAction
-      expect(action).to be_persisted
-      expect(action.character).to eq character
-      expect(action.camp).to eq character.camp
-      expect(action.action_type).to eq 'build'
-      expect(action.action_params).to eq('siege_machine_type' => 'catapult')
-      expect(action.target).to eq camp
-    end
   end
 
   context 'when user does not belongs to this camp' do
