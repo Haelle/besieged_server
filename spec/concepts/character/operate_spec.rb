@@ -109,7 +109,7 @@ describe Character::Operate, :trb do
 
     it 'logs an error' do
       expect(Rails.logger).to receive(:error)
-        .with("#{action_type} by Kevin (#{character.id}) on SiegeMachines::Catapult (#{catapult.id}) failed")
+        .with("#{action_type} by Kevin (#{character.id}) on SiegeMachine (#{catapult.id}) failed")
       subject
     end
   end
@@ -137,7 +137,7 @@ describe Character::Operate, :trb do
 
     it 'logs an error' do
       expect(Rails.logger).to receive(:error)
-        .with("CharacterAction persist failed (character: #{character.id}, action type: #{action_type}, params: #{params}, target: SiegeMachines::Catapult - #{catapult.id})")
+        .with("CharacterAction persist failed (character: #{character.id}, action type: #{action_type}, params: #{params}, target: SiegeMachine - #{catapult.id})")
       subject
     end
   end
