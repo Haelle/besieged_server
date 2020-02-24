@@ -66,16 +66,10 @@ RSpec.describe SiegeMachine::Arm do
     let(:another_camp) { create :camp }
     let(:character) { create :character, camp: another_camp }
 
-    it { is_expected.to be_failure }
+    it_behaves_like 'interfering with another camp'
 
     it 'does not damage the castle' do
       expect { subject }.not_to change(castle, :health_points)
-    end
-
-    its([:error]) { is_expected.to eq "character (#{character.id}) does not belong to the camp (#{camp.id}) of this weapon (#{siege_machine.id})" }
-
-    it 'does not persist a character action' do
-      expect { subject }.not_to change(CharacterAction, :count)
     end
   end
 

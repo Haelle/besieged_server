@@ -43,16 +43,10 @@ RSpec.describe Camp::Build do
     let(:camp) { create :camp }
     let(:character) { create :character, account: account_from_headers }
 
-    it { is_expected.to be_failure }
+    it_behaves_like 'interfering with another camp'
 
     it 'does not build the weapon' do
       expect { subject }.not_to change(camp.siege_machines, :count)
-    end
-
-    its([:error]) { is_expected.to eq "character (#{character.id}) does not belong to the camp (#{camp.id})" }
-
-    it 'does not persist a character action' do
-      expect { subject }.not_to change(CharacterAction, :count)
     end
   end
 

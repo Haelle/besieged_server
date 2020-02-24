@@ -2,6 +2,8 @@ require 'name_generator'
 
 class Camp
   class Build < Trailblazer::Operation
+    include OperationHelper
+
     step :setup_context
     step :belong_to_same_camp?
     fail :error_does_not_belong
@@ -17,17 +19,9 @@ class Camp
       ctx[:callback] = method :build_callback
     end
 
-    def belong_to_same_camp?(_, camp:, character:, **)
-      camp == character.camp
-    end
-
     def set_results(ctx, **)
       ctx[:siege_machine] = @new_machine
       ctx[:status] = 'built'
-    end
-
-    def error_does_not_belong(ctx, camp:, character:, **)
-      ctx[:error] = "character (#{character.id}) does not belong to the camp (#{camp.id})"
     end
 
     private

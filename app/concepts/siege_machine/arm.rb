@@ -1,5 +1,7 @@
 class SiegeMachine
   class Arm < Trailblazer::Operation
+    include OperationHelper
+
     step :prepare_to_fire
     step :belong_to_same_camp?
     fail :error_does_not_belong
@@ -12,14 +14,6 @@ class SiegeMachine
       ctx[:target] = siege_machine.camp.castle
       ctx[:params] = { siege_machine: siege_machine }
       ctx[:callback] = method :arm_callback
-    end
-
-    def belong_to_same_camp?(_, camp:, character:, **)
-      camp == character.camp
-    end
-
-    def error_does_not_belong(ctx, siege_machine:, character:, camp:, **)
-      ctx[:error] = "character (#{character.id}) does not belong to the camp (#{camp.id}) of this weapon (#{siege_machine.id})"
     end
 
     private
