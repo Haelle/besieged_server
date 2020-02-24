@@ -1,10 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Camp::Build do
-  subject { described_class.call camp: camp, character: character }
+  subject { described_class.call camp: camp, character: character, siege_machine_type: 'catapult' }
 
   context 'when building went fine' do
     include_context 'basic game'
+
+    let(:latest_machine) { SiegeMachine.order('created_at desc').first }
 
     it { is_expected.to be_success }
 
@@ -13,18 +15,28 @@ RSpec.describe Camp::Build do
     end
 
     it 'returns the new weapon' do
-      new_weapon = camp.siege_machines.find_by id: subject[:siege_machine].id
-      expect(new_weapon).to be_persisted
+      expect(latest_machine).to be_persisted
     end
 
     it 'build a new weapon with a random name' do
-      new_weapon = camp.siege_machines.find_by id: subject[:siege_machine].id
-      expect(new_weapon.name).to be_a String
-      expect(new_weapon.name.size).to be >= 5
+      expect(latest_machine.name).to be_a String
+      expect(latest_machine.name.size).to be >= 5
     end
 
     its([:camp]) { is_expected.to eq camp }
     its([:status]) { is_expected.to eq 'built' }
+    its([:siege_machine]) { is_expected.to eq latest_machine }
+
+    it 'persists a CharacterAction with expected values' do
+      action = subject[:action]
+      expect(action).to be_a CharacterAction
+      expect(action).to be_persisted
+      expect(action.character).to eq character
+      expect(action.camp).to eq character.camp
+      expect(action.action_type).to eq 'build'
+      expect(action.action_params).to eq('siege_machine_type' => 'catapult')
+      expect(action.target).to eq camp
+    end
   end
 
   context 'when user does not belongs to this camp' do
@@ -38,5 +50,31 @@ RSpec.describe Camp::Build do
     end
 
     its([:error]) { is_expected.to eq "character (#{character.id}) does not belong to the camp (#{camp.id})" }
+
+    it 'does not persist a character action' do
+      expect { subject }.not_to change(CharacterAction, :count)
+    end
+  end
+
+  context 'when build callback failed' do
+    include_context 'basic game'
+
+    before do
+      allow(SiegeMachine).to receive(:create).and_return false
+    end
+
+    it { is_expected.to be_failure }
+
+    it 'does not decrement character points'
+
+    it 'does not create a catapult' do
+      expect { subject; camp.reload }.not_to change(camp.siege_machines, :count)
+    end
+
+    its([:error]) { is_expected.to eq 'An error occurred during build' }
+
+    it 'does not persist a character action' do
+      expect { subject }.not_to change(CharacterAction, :count)
+    end
   end
 end

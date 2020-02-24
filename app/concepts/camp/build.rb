@@ -2,23 +2,27 @@ require 'name_generator'
 
 class Camp
   class Build < Trailblazer::Operation
+    step :setup_context
     step :belong_to_same_camp?
     fail :error_does_not_belong
-    step :build
+    step Subprocess Character::Operate
     step :set_results
 
     DEFAULT_SYLLABLES_COUNT = 3
+
+    def setup_context(ctx, camp:, siege_machine_type:, **)
+      ctx[:action_type] = 'build'
+      ctx[:params] = { siege_machine_type: siege_machine_type }
+      ctx[:target] = camp
+      ctx[:callback] = method :build_callback
+    end
 
     def belong_to_same_camp?(_, camp:, character:, **)
       camp == character.camp
     end
 
-    def build(ctx, camp:, **)
-      ctx[:siege_machine] = SiegeMachine.new camp: camp, damages: random_damages, name: random_name
-      ctx[:siege_machine].save && camp.reload
-    end
-
     def set_results(ctx, **)
+      ctx[:siege_machine] = @new_machine
       ctx[:status] = 'built'
     end
 
@@ -27,6 +31,11 @@ class Camp
     end
 
     private
+
+    def build_callback(camp, _params)
+      # TODO: SiegeMachineFactory.create :catapult ?
+      @new_machine = SiegeMachine.create camp: camp, damages: random_damages, name: random_name
+    end
 
     def random_damages
       [*1..10].sample * 10

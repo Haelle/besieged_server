@@ -77,7 +77,8 @@ RSpec.describe CampsController, type: :controller do
     it 'builds a new weapon' do
       post :build, params: {
         id: camp.id,
-        character_id: character.id
+        character_id: character.id,
+        siege_machine_type: 'catapult'
       }
 
       camp.reload
@@ -91,7 +92,8 @@ RSpec.describe CampsController, type: :controller do
       another_character = create :character, camp: camp
       post :build, params: {
         id: camp.id,
-        character_id: another_character.id
+        character_id: another_character.id,
+        siege_machine_type: 'catapult'
       }
 
       expect(response).to have_http_status :unauthorized
@@ -100,7 +102,8 @@ RSpec.describe CampsController, type: :controller do
     it 'return camp not found' do
       post :build, params: {
         id: 'not found',
-        character_id: character.id
+        character_id: character.id,
+        siege_machine_type: 'catapult'
       }
 
       expect(response).to have_http_status :not_found
@@ -110,7 +113,8 @@ RSpec.describe CampsController, type: :controller do
     it 'returns character not found' do
       post :build, params: {
         id: camp.id,
-        character_id: 'not found'
+        character_id: 'not found',
+        siege_machine_type: 'catapult'
       }
 
       expect(response).to have_http_status :not_found
@@ -124,7 +128,8 @@ RSpec.describe CampsController, type: :controller do
 
       post :build, params: {
         id: camp.id,
-        character_id: character.id
+        character_id: character.id,
+        siege_machine_type: 'catapult'
       }
 
       expect(response).to have_http_status :unprocessable_entity

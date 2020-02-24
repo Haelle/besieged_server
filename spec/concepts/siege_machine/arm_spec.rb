@@ -79,7 +79,7 @@ RSpec.describe SiegeMachine::Arm do
     end
   end
 
-  context 'when callback failed' do
+  context 'when arm callback failed' do
     include_context 'basic game'
 
     before do
