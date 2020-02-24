@@ -26,9 +26,9 @@ class Camp
 
     private
 
-    def build_callback(camp, _params)
+    def build_callback(camp, params)
       # TODO: SiegeMachineFactory.create :catapult ?
-      @new_machine = SiegeMachine.create camp: camp, damages: random_damages, name: random_name
+      @new_machine = SiegeMachine.create camp: camp, damages: random_damages, name: random_name, siege_machine_type: params[:siege_machine_type]
     end
 
     def random_damages

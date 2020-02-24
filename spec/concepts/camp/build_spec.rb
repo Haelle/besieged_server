@@ -6,7 +6,7 @@ RSpec.describe Camp::Build do
   context 'when building went fine' do
     include_context 'basic game'
 
-    let(:latest_machine) { SiegeMachine.order('created_at desc').first }
+    let(:built_machine) { subject[:siege_machine] }
 
     it { is_expected.to be_success }
 
@@ -15,17 +15,21 @@ RSpec.describe Camp::Build do
     end
 
     it 'returns the new weapon' do
-      expect(latest_machine).to be_persisted
+      expect(built_machine).to be_persisted
+    end
+
+    it 'builds a machine o the expected type' do
+      expect(built_machine.siege_machine_type).to eq 'catapult'
     end
 
     it 'build a new weapon with a random name' do
-      expect(latest_machine.name).to be_a String
-      expect(latest_machine.name.size).to be >= 5
+      expect(built_machine.name).to be_a String
+      expect(built_machine.name.size).to be >= 5
     end
 
     its([:camp]) { is_expected.to eq camp }
     its([:status]) { is_expected.to eq 'built' }
-    its([:siege_machine]) { is_expected.to eq latest_machine }
+    its([:siege_machine]) { is_expected.to eq built_machine }
 
     it 'persists a CharacterAction with expected values' do
       action = subject[:action]
