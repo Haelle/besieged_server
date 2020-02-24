@@ -36,7 +36,7 @@ gem 'sidekiq-cron'
 gem 'colorize'
 
 # Game friendly name generator
-gem 'name-generator', require: false
+gem 'name-generator', require: 'name_generator'
 
 # JSON Serialization
 gem 'blueprinter'

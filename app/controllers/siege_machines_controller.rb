@@ -18,8 +18,6 @@ class SiegeMachinesController < ApplicationController
   # GET /camps/1/siege_machines/2
   def show
     render json: SiegeMachineBlueprint.render(@siege_machine)
-  rescue ActiveRecord::RecordNotFound
-    render json: { error: 'siege weapon not found' }, status: :not_found
   end
 
   # POST camps/1/siege_machine/2/arm

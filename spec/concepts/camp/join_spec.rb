@@ -16,13 +16,13 @@ RSpec.describe Camp::Join do
 
     it 'creates a character linked to account & camp' do
       subject
-      new_character = Character.last
+      new_character = subject[:character]
       expect(new_character).to have_attributes pseudonym: pseudonym
       expect(new_character.camp).to eq camp
       expect(new_character.account).to eq account
     end
 
-    its([:action_result]) { is_expected.to include character: Character.last }
+    its([:action_result]) { is_expected.to include character: be_a(Character) }
   end
 
   context 'when account already have a character in the camp' do

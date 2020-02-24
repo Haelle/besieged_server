@@ -5,6 +5,10 @@ class Character < ApplicationRecord
   belongs_to :account
   belongs_to :camp
 
+  def exhausted?
+    false
+  end
+
   private
 
   def only_one_character_per_camp
@@ -14,6 +18,10 @@ class Character < ApplicationRecord
   end
 
   def no_character_already_in_camp?
-    camp.characters.where(account: account).empty?
+    camp
+      .characters
+      .where(account: account)
+      .reject { |c| c == self }
+      .empty?
   end
 end

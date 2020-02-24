@@ -45,7 +45,7 @@ class CampsController < ApplicationController
   private
 
   def building
-    @building ||= SiegeMachine::Build.call(camp: @camp, character: @character)
+    @building ||= Camp::Build.call(camp: @camp, character: @character, siege_machine_type: params[:siege_machine_type])
   end
 
   def joining

@@ -49,3 +49,6 @@ Style/HashTransformKeys:
 
 Style/HashTransformValues:
   Enabled: true
+
+Style/Semicolon:
+  AllowAsExpressionSeparator: true

@@ -3,8 +3,13 @@ require 'rails_helper'
 RSpec.describe SiegeMachine::Arm do
   subject { described_class.call siege_machine: siege_machine, character: character }
 
+  let(:target) { castle }
+  let(:action_params) { { 'siege_machine' => siege_machine.as_json } }
+
   context 'when arming went fine' do
     include_context 'basic game'
+
+    it_behaves_like 'CharacterAction saved', 'arm'
 
     it { is_expected.to be_success }
 
@@ -29,6 +34,8 @@ RSpec.describe SiegeMachine::Arm do
       siege_machine.update damages: 100
     end
 
+    it_behaves_like 'CharacterAction saved', 'arm'
+
     it { is_expected.to be_success }
 
     it 'change health points to 0' do
@@ -44,12 +51,35 @@ RSpec.describe SiegeMachine::Arm do
     let(:another_camp) { create :camp }
     let(:character) { create :character, camp: another_camp }
 
-    it { is_expected.to be_failure }
+    it_behaves_like 'interfering with another camp'
 
     it 'does not damage the castle' do
       expect { subject }.not_to change(castle, :health_points)
     end
-
-    its([:error]) { is_expected.to eq "character (#{character.id}) does not belong to the camp (#{camp.id}) of this weapon (#{siege_machine.id})" }
   end
+
+  context 'when arm callback failed' do
+    include_context 'basic game'
+
+    before do
+      allow(castle).to receive(:save).and_return false
+    end
+
+    it { is_expected.to be_failure }
+
+    it 'does not decrement character points'
+
+    it 'does not damage the castle' do
+      expect { subject; castle.reload }.not_to change(castle, :health_points)
+    end
+
+    its([:error]) { is_expected.to eq 'An error occurred during arm' }
+
+    it 'does not persist a character action' do
+      expect { subject }.not_to change(CharacterAction, :count)
+    end
+  end
+
+  # TODO: exhausted shared example
+  context 'when character is exhausted'
 end

@@ -1,2 +1,0 @@
-class Catapult < SiegeMachine
-end
