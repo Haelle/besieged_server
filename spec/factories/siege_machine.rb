@@ -1,5 +1,6 @@
 FactoryBot.define do
   factory :siege_machine do
+    siege_machine_type { 'catapult' }
     damages { 1 }
     name { 'random name' }
     camp

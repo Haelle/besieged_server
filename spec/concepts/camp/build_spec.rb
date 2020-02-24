@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Camp::Build do
+RSpec.describe Camp::Build, :trb do
   subject { described_class.call camp: camp, character: character, siege_machine_type: 'catapult' }
 
   context 'when building went fine' do
@@ -10,21 +10,11 @@ RSpec.describe Camp::Build do
 
     it { is_expected.to be_success }
 
-    it 'builds a new weapon' do
-      expect { subject }.to change(camp.siege_machines, :count).by 1
-    end
-
-    it 'returns the new weapon' do
-      expect(built_machine).to be_persisted
-    end
-
-    it 'builds a machine o the expected type' do
-      expect(built_machine.siege_machine_type).to eq 'catapult'
-    end
-
-    it 'build a new weapon with a random name' do
-      expect(built_machine.name).to be_a String
-      expect(built_machine.name.size).to be >= 5
+    it 'forwards creation to SiegeMachine::Create' do
+      expect(SiegeMachine::Create).to receive(:call)
+        .with(camp: camp, siege_machine_type: 'catapult')
+        .and_call_original
+      subject
     end
 
     its([:camp]) { is_expected.to eq camp }
@@ -58,7 +48,7 @@ RSpec.describe Camp::Build do
     include_context 'basic game'
 
     before do
-      allow(SiegeMachine).to receive(:create).and_return false
+      allow(SiegeMachine::Create).to receive(:call).and_return(trb_result_failure)
     end
 
     it { is_expected.to be_failure }

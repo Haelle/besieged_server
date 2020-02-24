@@ -1,5 +1,3 @@
-require 'name_generator'
-
 class Camp
   class Build < Trailblazer::Operation
     include OperationHelper
@@ -9,8 +7,6 @@ class Camp
     fail :error_does_not_belong
     step Subprocess Character::Operate
     step :set_results
-
-    DEFAULT_SYLLABLES_COUNT = 3
 
     def setup_context(ctx, camp:, siege_machine_type:, **)
       ctx[:action_type] = 'build'
@@ -27,17 +23,11 @@ class Camp
     private
 
     def build_callback(camp, params)
-      # TODO: SiegeMachineFactory.create :catapult ?
-      @new_machine = SiegeMachine.create camp: camp, damages: random_damages, name: random_name, siege_machine_type: params[:siege_machine_type]
-    end
+      operation = SiegeMachine::Create.call(camp: camp, siege_machine_type: params[:siege_machine_type])
 
-    def random_damages
-      [*1..10].sample * 10
-    end
+      @new_machine = operation[:siege_machine] if operation.success?
 
-    def random_name
-      generator = ::NameGenerator::Main.new
-      generator.next_name DEFAULT_SYLLABLES_COUNT
+      operation.success?
     end
   end
 end
