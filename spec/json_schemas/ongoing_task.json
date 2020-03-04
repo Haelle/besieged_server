@@ -1,0 +1,22 @@
+{
+  "type": "object",
+  "title": "Ongoing tasks",
+  "require": ["id", "type", "action_points_spent", "action_points_required", "repeatable"],
+  "properties": {
+    "id": {
+      "$ref": "uuid.json"
+    },
+    "type": {
+      "type": "string"
+    },
+    "action_points_spent": {
+      "type": "integer"
+    },
+    "action_points_required": {
+      "type": "integer"
+    },
+    "repeatable": {
+      "type": "boolean"
+    }
+  }
+}

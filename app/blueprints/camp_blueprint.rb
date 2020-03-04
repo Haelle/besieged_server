@@ -4,4 +4,5 @@ class CampBlueprint < Blueprinter::Base
   association :castle,         blueprint: CastleBlueprint
   association :characters,     blueprint: CharacterBlueprint
   association :siege_machines, blueprint: SiegeMachineBlueprint
+  association :buildings,      blueprint: BuildingBlueprint
 end

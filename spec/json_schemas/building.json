@@ -1,15 +1,12 @@
 {
   "type": "object",
-  "title": "Siege weapon",
-  "required": ["id", "damages", "name", "camp_id", "ongoing_tasks"],
+  "title": "Building",
+  "required": ["id", "building_type", "camp_id", "ongoing_tasks"],
   "properties": {
     "id": {
       "$ref": "uuid.json"
     },
-    "damages": {
-      "type": "integer"
-    },
-    "name": {
+    "building_type": {
       "type": "string"
     },
     "camp_id": {
@@ -23,4 +20,3 @@
     }
   }
 }
-

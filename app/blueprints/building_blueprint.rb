@@ -1,6 +1,6 @@
-class SiegeMachineBlueprint < Blueprinter::Base
+class BuildingBlueprint < Blueprinter::Base
   identifier :id
-  fields :damages, :name, :camp_id
+  fields :building_type, :camp_id
 
   association :ongoing_tasks, blueprint: OngoingTaskBlueprint
 end
