@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   post :refresh,          to: 'refresh#create'
 
   get 'names/generate(/:syllables_count)', to: 'names#generate', defaults: { syllables_count: '4' }
+  get :profile, to: 'accounts#profile'
 
   resources :accounts, shallow: true do
     resources :characters

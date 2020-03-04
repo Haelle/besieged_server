@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe AccountsController, type: :controller do
   it_behaves_like 'unauthorized', :get, :show, id: 1
+  it_behaves_like 'unauthorized', :get, :profile
   it_behaves_like 'unauthorized', :put, :update, id: 1
   it_behaves_like 'unauthorized', :delete, :destroy, id: 1
   it_behaves_like 'not found', :get, :show
@@ -30,6 +31,16 @@ RSpec.describe AccountsController, type: :controller do
       expect(response).to have_http_status :ok
       expect(response_json).to match_json_schema 'account'
       expect(response_json[:characters].size).to eq 3
+    end
+  end
+
+  describe 'GET #profile' do
+    it 'returns all the account informations' do
+      get :profile
+
+      expect(response).to have_http_status :ok
+      expect(response_json).to match_json_schema 'account'
+      expect(response_json[:id]).to eq account.id
     end
   end
 
