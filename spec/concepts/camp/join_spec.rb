@@ -17,7 +17,10 @@ RSpec.describe Camp::Join do
     it 'creates a character linked to account & camp' do
       subject
       new_character = subject[:character]
-      expect(new_character).to have_attributes pseudonym: pseudonym
+      expect(new_character).to have_attributes(
+        pseudonym: pseudonym,
+        action_points: 6
+      )
       expect(new_character.camp).to eq camp
       expect(new_character.account).to eq account
     end

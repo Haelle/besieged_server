@@ -21,5 +21,11 @@ FactoryBot.define do
     factory :trebuchet do
       siege_machine_type { 'trebuchet' }
     end
+
+    trait :with_ongoing_tasks do
+      after :create do |machine|
+        create_list :arm_task, 3, taskable: machine
+      end
+    end
   end
 end

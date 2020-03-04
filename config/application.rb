@@ -21,6 +21,7 @@ module Besieged
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
+    config.time_zone = 'Europe/Paris'
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
@@ -39,5 +40,8 @@ module Besieged
 
     config.active_job.queue_name_prefix = "besieged_#{Rails.env}"
     config.filter_parameters << :password
+
+    config.siege_machines = config_for('game_data/siege_machines')
+    config.buildings = config_for('game_data/buildings')
   end
 end

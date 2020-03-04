@@ -8,6 +8,7 @@ class Camp
       ctx[:character] = Character.create(
         account: account,
         camp: camp,
+        action_points: 6,
         pseudonym: pseudonym
       )
 

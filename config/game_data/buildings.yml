@@ -1,0 +1,37 @@
+---
+# When adding an item here add the test in spec/concepts/building/create_spec.rb
+default: &default
+  tactical_operation_center:
+    ongoing_tasks:
+      - type: 'OngoingTasks::Building::ErectTask'
+        action_points_required: 50
+        repeatable: false
+        params:
+          building_type: 'siege_machine_workshop'
+
+  siege_machine_workshop:
+    ongoing_tasks:
+      - type: 'OngoingTasks::Building::AssembleTask'
+        action_points_required: 10
+        repeatable: true
+        params:
+          siege_machine_type: 'ballista'
+      - type: 'OngoingTasks::Building::AssembleTask'
+        action_points_required: 20
+        repeatable: true
+        params:
+          siege_machine_type: 'catapult'
+      - type: 'OngoingTasks::Building::AssembleTask'
+        action_points_required: 40
+        repeatable: true
+        params:
+          siege_machine_type: 'trebuchet'
+
+development:
+  <<: *default
+test:
+  <<: *default
+sandbox:
+  <<: *default
+production:
+  <<: *default

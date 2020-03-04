@@ -1,7 +1,7 @@
 {
   "type": "object",
   "title": "Siege weapon",
-  "required": ["id", "damages", "name", "camp_id"],
+  "required": ["id", "damages", "name", "camp_id", "ongoing_tasks"],
   "properties": {
     "id": {
       "$ref": "uuid.json"
@@ -14,6 +14,12 @@
     },
     "camp_id": {
       "$ref": "uuid.json"
+    },
+    "ongoing_tasks": {
+      "type": "array",
+      "items": {
+        "$ref": "ongoing_task.json"
+      }
     }
   }
 }

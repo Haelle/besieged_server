@@ -1,0 +1,22 @@
+{
+  "type": "object",
+  "title": "Building",
+  "required": ["id", "building_type", "camp_id", "ongoing_tasks"],
+  "properties": {
+    "id": {
+      "$ref": "uuid.json"
+    },
+    "building_type": {
+      "type": "string"
+    },
+    "camp_id": {
+      "$ref": "uuid.json"
+    },
+    "ongoing_tasks": {
+      "type": "array",
+      "items": {
+        "$ref": "ongoing_task.json"
+      }
+    }
+  }
+}

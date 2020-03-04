@@ -63,6 +63,7 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'json-schema'
   gem 'mutant-rspec'
+  gem 'rspec-collection_matchers'
   gem 'rspec-its'
   gem 'rspec-rails'
   gem 'shoulda-matchers'

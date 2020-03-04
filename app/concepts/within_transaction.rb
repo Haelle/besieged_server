@@ -4,9 +4,9 @@ class WithinTransaction
     last_semantic = 'failure'
 
     ActiveRecord::Base.transaction do
-      step_result = yield
+      end_event, (_ctx, _options) = yield
 
-      last_semantic = step_result.first.as_json.dig('options', 'semantic')
+      last_semantic = end_event.as_json.dig('options', 'semantic')
 
       raise ActiveRecord::Rollback if last_semantic != 'success'
     end
@@ -14,5 +14,7 @@ class WithinTransaction
     signal = last_semantic == 'success' ? Trailblazer::Operation::Railway.pass! : Trailblazer::Operation::Railway.fail!
 
     [signal, [ctx, flow_options]]
+  rescue Trailblazer::Activity::Circuit::IllegalSignalError
+    [Trailblazer::Operation::Railway.fail!, [ctx, flow_options]]
   end
 end

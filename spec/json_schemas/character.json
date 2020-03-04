@@ -1,7 +1,7 @@
 {
   "type": "object",
   "title": "Character",
-  "required": ["id", "pseudonym", "camp_id"],
+  "required": ["id", "pseudonym", "camp_id", "action_points", "max_action_points", "action_point_regeneration_rate"],
   "properties": {
     "id": {
       "$ref": "uuid.json"
@@ -11,6 +11,15 @@
     },
     "camp_id": {
       "$ref": "uuid.json"
+    },
+    "action_points": {
+      "type": "integer"
+    },
+    "max_action_points": {
+      "type": "integer"
+    },
+    "action_point_regeneration_rate": {
+      "type": "integer"
     }
   }
 }

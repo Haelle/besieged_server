@@ -16,7 +16,7 @@ class AccountsController < ApplicationController
     if @account.save
       render json: AccountBlueprint.render(@account), status: :created
     else
-      render json: @account.errors, status: :unprocessable_entity
+      render json: @account.errors, status: :bad_request
     end
   end
 
@@ -25,7 +25,7 @@ class AccountsController < ApplicationController
     if @account.update_with_password(account_params)
       render json: AccountBlueprint.render(@account)
     else
-      render json: @account.errors, status: :unprocessable_entity
+      render json: @account.errors, status: :bad_request
     end
   end
 
@@ -39,6 +39,8 @@ class AccountsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_account
     @account = Account.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    render json: { error: $ERROR_INFO.message }, status: :not_found
   end
 
   # Only allow a trusted parameter "white list" through.

@@ -1,15 +1,18 @@
 FactoryBot.define do
   factory :castle do
     health_points { 500 }
-    camp
 
     factory :invalid_castle do
       health_points { nil }
     end
 
     trait :with_armed_camp do
-      before :create do |castle|
-        create :camp, :with_weapons, castle: castle
+      after :build do |castle|
+        create :camp,
+          :with_siege_machines,
+          :with_buildings,
+          :with_characters,
+          castle: castle
       end
     end
   end
