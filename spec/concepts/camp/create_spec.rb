@@ -15,11 +15,7 @@ RSpec.describe Camp::Create do
     end
 
     describe 'the tactical operation center' do
-      subject do
-        operation[:camp]
-          .buildings
-          .find { |b| b.building_type == 'tactical_operation_center' }
-      end
+      subject { operation[:camp].toc }
 
       it { is_expected.to be_a Building }
       it { is_expected.to be_persisted }

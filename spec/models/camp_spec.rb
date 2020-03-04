@@ -10,6 +10,15 @@ RSpec.describe Camp, type: :model do
   it { is_expected.to have_many(:buildings).dependent(:destroy) }
   it { is_expected.to have_one(:castle).dependent(:destroy) }
 
+  describe '#tactical_operation_center' do
+    subject { create :camp, :with_buildings }
+
+    its(:tactical_operation_center) { is_expected.to be_a Building }
+    its(:tactical_operation_center) { is_expected.to have_attributes(building_type: 'tactical_operation_center') }
+    its(:toc) { is_expected.to be_a Building }
+    its(:toc) { is_expected.to have_attributes(building_type: 'tactical_operation_center') }
+  end
+
   describe '#undergo_assault' do
     subject { create :camp }
 

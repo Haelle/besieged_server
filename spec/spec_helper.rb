@@ -78,6 +78,7 @@ RSpec.configure do |config|
   end
 
   config.include ResponseHelper
+  config.include RequestHelper, type: :request
   config.include SessionHelper
   config.include TrailblazerHelper::RSpec
 
