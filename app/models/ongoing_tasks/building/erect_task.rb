@@ -1,4 +1,6 @@
 class OngoingTasks::Building::ErectTask < OngoingTask
+  has_paper_trail
+
   def camp
     @camp ||= building.camp
   end

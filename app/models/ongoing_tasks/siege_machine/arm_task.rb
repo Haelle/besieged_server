@@ -1,4 +1,6 @@
 class OngoingTasks::SiegeMachine::ArmTask < OngoingTask
+  has_paper_trail
+
   def camp
     @camp ||= siege_machine.camp
   end

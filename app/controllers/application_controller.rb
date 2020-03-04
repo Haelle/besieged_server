@@ -5,8 +5,22 @@ class ApplicationController < ActionController::API
   rescue_from JWTSessions::Errors::Unauthorized, with: :not_authorized
   rescue_from Unauthorized,                      with: :not_authorized
   before_action :set_raven_context
+  before_action :set_paper_trail_whodunnit
 
   protected
+
+  def user_for_paper_trail
+    !found_character.nil? ? found_character.id : 'character not found'
+  end
+
+  def found_character
+    @found_character ||= begin
+                           id = params[:character_id] || params[:id]
+                           Character.find id
+                         end
+  rescue ActiveRecord::RecordNotFound
+    nil
+  end
 
   def set_raven_context
     Raven.extra_context params: params.to_unsafe_h, url: request.url

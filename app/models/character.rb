@@ -1,4 +1,5 @@
 class Character < ApplicationRecord
+  has_paper_trail
   validates :pseudonym, presence: true
   validate :only_one_character_per_camp,
     :action_points_must_be_within_allowed_range

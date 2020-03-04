@@ -1,4 +1,5 @@
 class Camp < ApplicationRecord
+  has_paper_trail
   has_one :castle, dependent: :destroy
   has_many :characters, dependent: :destroy
   has_many :siege_machines, dependent: :destroy

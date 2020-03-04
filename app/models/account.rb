@@ -1,4 +1,5 @@
 class Account < ApplicationRecord
+  has_paper_trail
   has_secure_password
   cattr_reader :current_password
 

@@ -1,4 +1,5 @@
 class Building < ApplicationRecord
+  has_paper_trail
   belongs_to :camp
   has_many :ongoing_tasks, dependent: :destroy, as: :taskable
 

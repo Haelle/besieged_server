@@ -1,4 +1,6 @@
 class OngoingTasks::Building::AssembleTask < OngoingTask
+  has_paper_trail
+
   def target
     @assembled_siege_machine
   end

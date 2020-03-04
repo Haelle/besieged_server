@@ -1,4 +1,5 @@
 class Castle < ApplicationRecord
+  has_paper_trail
   validates :health_points, numericality: { greater_than_or_equal_to: 0 }
   belongs_to :camp
 
