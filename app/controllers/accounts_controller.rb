@@ -1,8 +1,13 @@
 class AccountsController < ApplicationController
   # allow access without tokens only for create action
-  before_action :authorize_access_request!, only: %i[show update destroy]
+  before_action :authorize_access_request!, only: %i[profile show update destroy]
   before_action :set_account, only: %i[show update destroy]
   before_action :authorize_action_only_on_itself!, only: %i[show update destroy]
+
+  # GET /profile
+  def profile
+    render json: AccountBlueprint.render(found_account)
+  end
 
   # GET /accounts/1
   def show
