@@ -51,6 +51,3 @@ flog -g app
 mina setup
 mina deploy
 ```
-
-# TODO:
-arm fails if castle destroyed !

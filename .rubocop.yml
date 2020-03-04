@@ -52,3 +52,9 @@ Style/HashTransformValues:
 
 Style/Semicolon:
   AllowAsExpressionSeparator: true
+
+Layout/ArgumentAlignment:
+  EnforcedStyle: with_fixed_indentation
+
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
