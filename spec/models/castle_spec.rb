@@ -8,7 +8,7 @@ RSpec.describe Castle, type: :model do
   it { is_expected.to belong_to(:camp) }
 
   it 'is valid' do
-    expect(build(:castle)).to be_valid
+    expect(build(:castle, :with_armed_camp)).to be_valid
   end
 
   it 'has nil health_points' do
@@ -21,10 +21,13 @@ RSpec.describe Castle, type: :model do
     expect(build(:castle, health_points: -5)).to be_invalid
   end
 
-  it 'destroys 2/3 weapons' do
+  it 'destroys 3/5 machines' do
     castle = create :castle, :with_armed_camp
-    allow(castle).to receive(:target_destroyed?).and_return(true, false, true)
-    expect { castle.counter_attack }.to change { castle.camp.siege_machines.size }.by(-2)
+    allow(castle)
+      .to receive(:target_destroyed?)
+      .and_return(true, false, true, false, true)
+
+    expect { castle.counter_attack }.to change { castle.camp.siege_machines.size }.by(-3)
   end
 
   it 'randomy destroys' do
