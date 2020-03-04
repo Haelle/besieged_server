@@ -1,0 +1,38 @@
+---
+# When adding an item here add the test in spec/concepts/siege_machine/create_spec.rb
+default: &default
+  catapult:
+    minimum_damages: 50
+    maximum_damages: 100
+    step_damages: 10
+    ongoing_tasks:
+      - type: 'OngoingTasks::SiegeMachine::ArmTask'
+        action_points_required: 10
+        repeatable: true
+
+  ballista:
+    minimum_damages: 10
+    maximum_damages: 40
+    step_damages: 1
+    ongoing_tasks:
+      - type: 'OngoingTasks::SiegeMachine::ArmTask'
+        action_points_required: 5
+        repeatable: true
+
+  trebuchet:
+    minimum_damages: 150
+    maximum_damages: 350
+    step_damages: 10
+    ongoing_tasks:
+      - type: 'OngoingTasks::SiegeMachine::ArmTask'
+        action_points_required: 20
+        repeatable: true
+
+development:
+  <<: *default
+test:
+  <<: *default
+sandbox:
+  <<: *default
+production:
+  <<: *default

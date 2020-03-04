@@ -40,5 +40,8 @@ module Besieged
 
     config.active_job.queue_name_prefix = "besieged_#{Rails.env}"
     config.filter_parameters << :password
+
+    config.siege_machines = config_for('game_data/siege_machines')
+    config.buildings = config_for('game_data/buildings')
   end
 end
