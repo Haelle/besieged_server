@@ -4,17 +4,12 @@ RSpec.describe CharactersController, type: :controller do
   it_behaves_like 'unauthorized', :get, :index, camp_id: 0
   it_behaves_like 'unauthorized', :get, :index, account_id: 0
   it_behaves_like 'unauthorized', :get, :show, id: 0
+  it_behaves_like 'not found', :get, :show
+  it_behaves_like 'not found', :get, :index, { camp_id: 'not found' }, Camp
 
   include_context 'user headers'
 
   describe 'GET #index_by_camp' do
-    it 'returns 404 error' do
-      get :index, params: { camp_id: 'id not found' }
-
-      expect(response).to have_http_status :not_found
-      expect(response_json).to include error: 'camp not found'
-    end
-
     it 'returns a success response' do
       camp = create :camp
       get :index, params: { camp_id: camp.id }
@@ -80,13 +75,6 @@ RSpec.describe CharactersController, type: :controller do
       get :show, params: { id: character.to_param }
 
       expect(response).to have_http_status :unauthorized
-    end
-
-    it 'returns character not found' do
-      get :show, params: { id: 'not found' }
-
-      expect(response).to have_http_status :not_found
-      expect(response_json).to include error: 'character not found'
     end
   end
 end

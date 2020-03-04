@@ -4,6 +4,7 @@ RSpec.describe AccountsController, type: :controller do
   it_behaves_like 'unauthorized', :get, :show, id: 1
   it_behaves_like 'unauthorized', :put, :update, id: 1
   it_behaves_like 'unauthorized', :delete, :destroy, id: 1
+  it_behaves_like 'not found', :get, :show
 
   let(:valid_attributes)   { attributes_for :account }
   let(:invalid_attributes) { attributes_for :invalid_account }
@@ -16,6 +17,7 @@ RSpec.describe AccountsController, type: :controller do
       get :show, params: { id: account.to_param }
 
       expect(response).to be_successful
+      expect(response).to have_http_status :ok
       expect(response_json).not_to include 'password'
       expect(response_json).to match_json_schema 'account'
     end
@@ -25,6 +27,7 @@ RSpec.describe AccountsController, type: :controller do
       get :show, params: { id: account.to_param }
 
       expect(response).to be_successful
+      expect(response).to have_http_status :ok
       expect(response_json).to match_json_schema 'account'
       expect(response_json[:characters].size).to eq 3
     end
@@ -72,7 +75,7 @@ RSpec.describe AccountsController, type: :controller do
       it 'renders a JSON response with errors for the new account' do
         post :create, params: { account: invalid_attributes }
 
-        expect(response).to have_http_status :unprocessable_entity
+        expect(response).to have_http_status :bad_request
         expect(response.content_type).to eq 'application/json; charset=utf-8'
         expect(response.body).to match(/email.+is invalid/)
       end
@@ -111,7 +114,7 @@ RSpec.describe AccountsController, type: :controller do
       it 'renders a JSON response with errors for the account' do
         put :update, params: { id: account.to_param, account: invalid_attributes }
 
-        expect(response).to have_http_status :unprocessable_entity
+        expect(response).to have_http_status :bad_request
         expect(response.content_type).to eq 'application/json; charset=utf-8'
         expect(response.body).to match(/current_password.+can't be blank/)
       end

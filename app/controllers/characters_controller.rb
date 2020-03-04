@@ -17,7 +17,7 @@ class CharactersController < ApplicationController
 
     render json: CharacterBlueprint.render(characters)
   rescue ActiveRecord::RecordNotFound
-    render json: { error: 'camp not found' }, status: :not_found
+    render json: { error: $ERROR_INFO.message }, status: :not_found
   end
 
   # GET /characters/1
