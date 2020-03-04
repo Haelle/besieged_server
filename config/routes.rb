@@ -26,12 +26,24 @@ Rails.application.routes.draw do
   resources :castles
 
   resources :camps, shallow: true do
-    post :build, on: :member
     post :join, on: :member
 
     resources :characters
-    resources :siege_machines do
-      post :arm, on: :member
+
+    resources :buildings do
+      resources :ongoing_tasks
     end
+
+    resources :siege_machines do
+      resources :ongoing_tasks
+    end
+  end
+
+  resources :ongoing_tasks do
+    post :continue, on: :member
+    # synonyms
+    post :erect, on: :member, to: 'ongoing_tasks#continue'
+    post :assemble, on: :member, to: 'ongoing_tasks#continue'
+    post :arm, on: :member, to: 'ongoing_tasks#continue'
   end
 end

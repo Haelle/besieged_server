@@ -13,10 +13,5 @@ RSpec.describe CampsController, type: :routing do
     it 'routes to #join' do
       expect(post: '/camps/1/join').to route_to('camps#join', id: '1')
     end
-
-    it 'routes to #build' do
-      # TODO: move it to POST /siege_workshop/:id/build post: { type: :catapult }
-      expect(post: 'camps/1/build').to route_to('camps#build', id: '1')
-    end
   end
 end
