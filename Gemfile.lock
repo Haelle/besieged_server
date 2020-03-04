@@ -208,6 +208,10 @@ GEM
     nokogiri (1.10.8)
       mini_portile2 (~> 2.4.0)
     open4 (1.3.4)
+    paper_trail (10.3.1)
+      activerecord (>= 4.2)
+      request_store (~> 1.1)
+    paper_trail-association_tracking (2.0.0)
     parallel (1.19.1)
     parser (2.7.0.2)
       ast (~> 2.4.0)
@@ -284,6 +288,8 @@ GEM
       declarative (< 0.1.0)
       declarative-option (< 0.2.0)
       uber (< 0.2.0)
+    request_store (1.5.0)
+      rack (>= 1.4)
     rexml (3.2.4)
     rspec-collection_matchers (1.2.0)
       rspec-expectations (>= 2.99.0.beta1)
@@ -430,6 +436,8 @@ DEPENDENCIES
   mina
   mutant-rspec
   name-generator
+  paper_trail
+  paper_trail-association_tracking
   pg
   pry
   pry-byebug

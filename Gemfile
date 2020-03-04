@@ -49,6 +49,10 @@ gem 'sentry-raven'
 # Create and validate JWT for request headers
 gem 'jwt_sessions'
 
+# Tracking changes of models
+gem 'paper_trail'
+gem 'paper_trail-association_tracking'
+
 group :development, :test do
   gem 'awesome_print'
 

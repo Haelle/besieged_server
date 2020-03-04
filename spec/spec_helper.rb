@@ -29,6 +29,7 @@ end
 require File.expand_path('../config/environment', __dir__)
 require 'rspec/rails'
 require 'sidekiq/testing'
+require 'paper_trail/frameworks/rspec'
 
 Sidekiq::Testing.fake!
 
