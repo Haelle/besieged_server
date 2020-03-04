@@ -28,5 +28,19 @@ FactoryBot.define do
     trait :for_siege_machine do
       association :taskable, factory: :siege_machine
     end
+
+    factory :arm_task, class: OngoingTasks::SiegeMachine::ArmTask do
+      for_siege_machine
+    end
+
+    factory :erect_task, class: OngoingTasks::Building::ErectTask do
+      params { { building_type: 'siege_machine_workshop' } }
+      for_building
+    end
+
+    factory :assemble_task, class: OngoingTasks::Building::AssembleTask do
+      params { { siege_machine_type: 'catapult' } }
+      for_building
+    end
   end
 end
