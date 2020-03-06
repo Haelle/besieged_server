@@ -14,11 +14,11 @@ RSpec.describe SiegeMachine::Create do
 
     its([:error]) { is_expected.to be_nil }
 
-    it 'builds a new weapon' do
+    it "builds a new #{machine_type}" do
       expect { subject }.to change(camp.siege_machines, :count).by 1
     end
 
-    it 'returns the new weapon' do
+    it 'returns the new machine' do
       expect(assembled_machine).to be_persisted
     end
 
@@ -30,7 +30,12 @@ RSpec.describe SiegeMachine::Create do
       expect(assembled_machine.camp).to be camp
     end
 
-    it 'build a new weapon with a random name' do
+    it 'build a new machine with a valid position' do
+      expect(assembled_machine.position).to be_an Integer
+      expect(assembled_machine.position).to eq 0
+    end
+
+    it 'build a new machine with a random name' do
       expect(assembled_machine.name).to be_a String
       expect(assembled_machine.name.size).to be >= 5
     end

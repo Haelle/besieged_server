@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :siege_machine do
     damages { 1 }
+    sequence(:position)
     name { 'random name' }
     camp
 
