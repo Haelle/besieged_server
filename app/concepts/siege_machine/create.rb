@@ -24,6 +24,7 @@ class SiegeMachine
       ctx[:assembled_siege_machine] = klass.new(
         camp: camp,
         damages: random_damages(config),
+        position: klass.next_position_vacancy(camp),
         name: random_name
       )
     end
