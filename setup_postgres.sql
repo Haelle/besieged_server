@@ -1,4 +1,4 @@
-CREATE ROLE besieged WITH LOGIN CREATEDB PASSWORD 'password';
+CREATE ROLE besieged WITH LOGIN CREATEDB SUPERUSER PASSWORD 'password';
 CREATE DATABASE besieged_production WITH OWNER besieged;
 CREATE DATABASE besieged_development WITH OWNER besieged;
 CREATE DATABASE besieged_test WITH OWNER besieged;

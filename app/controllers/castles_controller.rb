@@ -12,5 +12,7 @@ class CastlesController < ApplicationController
   def show
     @castle = Castle.find(params[:id])
     render json: CastleBlueprint.render(@castle)
+  rescue ActiveRecord::RecordNotFound
+    render json: { error: $ERROR_INFO.message }, status: :not_found
   end
 end

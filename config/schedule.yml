@@ -1,4 +1,12 @@
+---
 daily_assaults:
-  cron: '0 */6 * * *' # every 6 hours 0/6/12/18
+  description: 'Every 6 hours, castles are attacking the camps'
+  cron: '0 */6 * * * Europe/Paris'
   class: 'DailyAssaultsJob'
   queue: 'daily_assaults'
+
+regenerate_action_points:
+  description: 'Every 6 hours, every characters get 6 more action points'
+  cron: '0 */6 * * * Europe/Paris'
+  class: 'RegenerateCharacterActionPointsJob'
+  queue: 'regenerate_action_points'

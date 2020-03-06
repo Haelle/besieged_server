@@ -4,11 +4,12 @@ class Camp
     fail :log_errors
     step :set_action_result
 
-    def save(ctx, account:, camp:, pseudonyme:, **)
+    def save(ctx, account:, camp:, pseudonym:, **)
       ctx[:character] = Character.create(
         account: account,
         camp: camp,
-        pseudonyme: pseudonyme
+        action_points: 6,
+        pseudonym: pseudonym
       )
 
       ctx[:character].persisted?

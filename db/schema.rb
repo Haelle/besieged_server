@@ -2,15 +2,15 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# Note that this schema.rb definition is the authoritative source for your
-# database schema. If you need to create the application database on another
-# system, you should be using db:schema:load, not running all the migrations
-# from scratch. The latter is a flawed and unsustainable approach (the more migrations
-# you'll amass, the slower it'll run and the greater likelihood for issues).
+# This file is the source Rails uses to define your schema when running `rails
+# db:schema:load`. When creating a new database, `rails db:schema:load` tends to
+# be faster and is potentially less error prone than running all of your
+# migrations from scratch. Old migrations may fail to apply correctly if those
+# migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_03_101829) do
+ActiveRecord::Schema.define(version: 2020_03_06_125517) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -22,6 +22,14 @@ ActiveRecord::Schema.define(version: 2019_06_03_101829) do
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "buildings", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "type"
+    t.uuid "camp_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["camp_id"], name: "index_buildings_on_camp_id"
   end
 
   create_table "camps", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -38,24 +46,41 @@ ActiveRecord::Schema.define(version: 2019_06_03_101829) do
   end
 
   create_table "characters", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "pseudonyme"
+    t.string "pseudonym"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.uuid "account_id"
     t.uuid "camp_id"
+    t.integer "action_points", default: 0
     t.index ["account_id"], name: "index_characters_on_account_id"
     t.index ["camp_id"], name: "index_characters_on_camp_id"
   end
 
-  create_table "siege_weapons", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "ongoing_tasks", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "type"
+    t.json "params"
+    t.integer "action_points_spent", default: 0
+    t.integer "action_points_required", default: 1
+    t.boolean "repeatable", default: false
+    t.uuid "taskable_id"
+    t.string "taskable_type"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["taskable_id", "taskable_type"], name: "index_ongoing_tasks_on_taskable_id_and_taskable_type"
+  end
+
+  create_table "siege_machines", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.integer "damages"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.uuid "camp_id"
     t.string "name"
-    t.index ["camp_id"], name: "index_siege_weapons_on_camp_id"
+    t.string "type"
+    t.integer "position"
+    t.index ["camp_id"], name: "index_siege_machines_on_camp_id"
   end
 
+  add_foreign_key "buildings", "camps"
   add_foreign_key "castles", "camps"
   add_foreign_key "characters", "accounts"
 end

@@ -2,6 +2,10 @@ require 'rails_helper'
 
 RSpec.describe AccountsController, type: :routing do
   describe 'routing' do
+    it 'routes to #profile' do
+      expect(get: '/profile').to route_to('accounts#profile')
+    end
+
     it 'routes to #show' do
       expect(get: '/accounts/1').to route_to('accounts#show', id: '1')
     end

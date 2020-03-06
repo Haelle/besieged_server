@@ -1,19 +1,28 @@
 require 'rails_helper'
 
 RSpec.describe Camp, type: :model do
+  it { is_expected.to have_db_column(:id).of_type(:uuid) }
   it { is_expected.to have_db_column(:created_at).of_type(:datetime) }
   it { is_expected.to have_db_column(:updated_at).of_type(:datetime) }
 
-  it { is_expected.to have_many :characters }
-  it { is_expected.to have_many :siege_weapons }
-  it { is_expected.to have_one :castle }
+  it { is_expected.to have_many(:characters).dependent(:destroy) }
+  it { is_expected.to have_many(:siege_machines).dependent(:destroy) }
+  it { is_expected.to have_many(:buildings).dependent(:destroy) }
+  it { is_expected.to have_one(:castle).dependent(:destroy) }
+
+  describe '#Building::TacticalOperationCenter' do
+    subject { create :camp, :with_buildings }
+
+    its(:tactical_operation_center) { is_expected.to be_a Buildings::TacticalOperationCenter }
+    its(:toc) { is_expected.to be_a Buildings::TacticalOperationCenter }
+  end
 
   describe '#undergo_assault' do
-    subject { create :camp, :with_weapons }
+    subject { create :camp }
 
-    it 'yield all weapons to the attacking method' do
+    it 'yield all siege_machines to the attacking method' do
       expect { |block| subject.undergo_assault(&block) }
-        .to yield_successive_args(*subject.siege_weapons)
+        .to yield_successive_args(*subject.siege_machines)
     end
   end
 end

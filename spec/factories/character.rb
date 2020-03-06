@@ -1,11 +1,16 @@
 FactoryBot.define do
   factory :character do
-    pseudonyme { 'Kevin' }
+    pseudonym { 'Kevin' }
+    action_points { 6 }
     account
     camp
 
     factory :invalid_character do
-      pseudonyme { nil }
+      pseudonym { nil }
+    end
+
+    trait :exhausted do
+      action_points { 0 }
     end
   end
 end

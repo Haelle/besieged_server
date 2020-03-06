@@ -1,24 +1,18 @@
 require 'rails_helper'
 
 RSpec.describe CharactersController, type: :controller do
-  it_behaves_like 'unauthorized', :get, :index_by_account, account_id: 0
-  it_behaves_like 'unauthorized', :get, :index_by_camp, camp_id: 0
+  it_behaves_like 'unauthorized', :get, :index, camp_id: 0
+  it_behaves_like 'unauthorized', :get, :index, account_id: 0
   it_behaves_like 'unauthorized', :get, :show, id: 0
-  it_behaves_like 'unauthorized', :post, :join, camp_id: 1
+  it_behaves_like 'not found', :get, :show
+  it_behaves_like 'not found', :get, :index, { camp_id: 'not found' }, Camp
 
   include_context 'user headers'
 
   describe 'GET #index_by_camp' do
-    it 'returns 404 error' do
-      get :index_by_camp, params: { camp_id: 'id not found' }
-
-      expect(response).to have_http_status :not_found
-      expect(response_json).to include error: 'camp not found'
-    end
-
     it 'returns a success response' do
       camp = create :camp
-      get :index_by_camp, params: { camp_id: camp.id }
+      get :index, params: { camp_id: camp.id }
 
       expect(response).to be_successful
       expect(response_json).to match_json_schema 'characters'
@@ -30,7 +24,7 @@ RSpec.describe CharactersController, type: :controller do
       other_camp = create :camp
       other_characters = create_list :character, 3, camp: other_camp
 
-      get :index_by_camp, params: { camp_id: my_camp.id }
+      get :index, params: { camp_id: my_camp.id }
 
       expect(response).to be_successful
       expect(response_json).to match_json_schema 'characters'
@@ -45,7 +39,7 @@ RSpec.describe CharactersController, type: :controller do
 
   describe 'GET #index_by_account' do
     it 'returns a success response' do
-      get :index_by_account, params: { account_id: 1 }
+      get :index, params: { account_id: 1 }
 
       expect(response).to be_successful
       expect(response_json).to match_json_schema 'characters'
@@ -54,7 +48,7 @@ RSpec.describe CharactersController, type: :controller do
     it 'returns only characters owned by account in headers' do
       other_characters = create_list :character, 3
       my_characters = create_list :character, 2, account: account_from_headers
-      get :index_by_account, params: { account_id: account_from_headers.id }
+      get :index, params: { account_id: account_from_headers.id }
 
       expect(response).to be_successful
       expect(response_json).to match_json_schema 'characters'
@@ -81,48 +75,6 @@ RSpec.describe CharactersController, type: :controller do
       get :show, params: { id: character.to_param }
 
       expect(response).to have_http_status :unauthorized
-    end
-
-    it 'returns character not found' do
-      get :show, params: { id: 'not found' }
-
-      expect(response).to have_http_status :not_found
-      expect(response_json).to include error: 'character not found'
-    end
-  end
-
-  describe 'POST #join' do
-    let(:camp) { create :camp }
-    let(:pseudonyme) { 'pseudo' }
-
-    it 'joins the camp' do
-      post :join, params: {
-        camp_id: camp.id,
-        pseudonyme: pseudonyme
-      }
-
-      expect(response).to be_successful
-      expect(response_json).to match_json_schema 'character'
-      expect(response_json).to include pseudonyme: pseudonyme
-    end
-
-    it 'cannot join the camp' do
-      post :join, params: {
-        camp_id: 'random string',
-        pseudonyme: pseudonyme
-      }
-
-      expect(response).to have_http_status :not_found
-    end
-
-    it 'cannot join twice a camp' do
-      create :character, account: account_from_headers, camp: camp
-      post :join, params: {
-        camp_id: camp.id,
-        pseudonyme: pseudonyme
-      }
-
-      expect(response).to have_http_status :unprocessable_entity
     end
   end
 end

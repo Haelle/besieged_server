@@ -1,0 +1,20 @@
+{
+  "type": "object",
+  "title": "Ongoing task result",
+  "required": ["ongoing_task", "status", "target_class", "target_id"],
+  "properties": {
+    "ongoing_task": {
+      "$ref": "ongoing_task.json"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["ongoing", "completed"]
+    },
+    "target_class": {
+      "type": "string"
+    },
+    "target_id": {
+      "$ref": "uuid.json"
+    }
+  }
+}

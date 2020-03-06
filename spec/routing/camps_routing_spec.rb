@@ -9,5 +9,9 @@ RSpec.describe CampsController, type: :routing do
     it 'routes to #show' do
       expect(get: '/camps/1').to route_to('camps#show', id: '1')
     end
+
+    it 'routes to #join' do
+      expect(post: '/camps/1/join').to route_to('camps#join', id: '1')
+    end
   end
 end

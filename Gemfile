@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2.2', '>= 5.2.2.1'
+gem 'rails'
 # Use postgresql
 gem 'pg'
 # Use Puma as the app server
@@ -27,7 +27,7 @@ gem 'rails_admin'
 gem 'therubyracer'
 
 # Trailblazer for operations
-gem 'trailblazer-rails'
+gem 'trailblazer'
 
 # Queue system with cron
 gem 'sidekiq'
@@ -36,7 +36,7 @@ gem 'sidekiq-cron'
 gem 'colorize'
 
 # Game friendly name generator
-gem 'name-generator', require: false
+gem 'name-generator', require: 'name_generator'
 
 # JSON Serialization
 gem 'blueprinter'
@@ -54,20 +54,23 @@ group :development, :test do
 
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  gem 'debase'
   gem 'pry'
   gem 'pry-byebug'
+  gem 'ruby-debug-ide'
 
   # RSpec
   gem 'factory_bot_rails'
   gem 'json-schema'
   gem 'mutant-rspec'
+  gem 'rspec-collection_matchers'
   gem 'rspec-its'
   gem 'rspec-rails'
   gem 'shoulda-matchers'
 
   # Code coverage
-  gem 'simplecov'
-  gem 'simplecov-console'
+  gem 'simplecov', require: false
+  gem 'simplecov-console', require: false
 
   # ruby syntax analyze
   gem 'flog'
@@ -79,10 +82,5 @@ end
 
 group :development do
   gem 'listen', '>= 3.0.5', '< 3.2'
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
-  gem 'spring-commands-rspec'
-  gem 'spring-watcher-listen', '~> 2.0.0'
-
   gem 'mina'
 end
