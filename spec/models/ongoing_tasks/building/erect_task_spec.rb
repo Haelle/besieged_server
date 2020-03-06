@@ -8,8 +8,7 @@ RSpec.describe OngoingTasks::Building::ErectTask do
   it 'set the target after the callback' do
     subject.on_completion_callback
     target = subject.target
-    expect(target).to be_a Building
-    expect(target.building_type).to eq 'siege_machine_workshop'
+    expect(target).to be_a Buildings::SiegeMachineWorkshop
     expect(target.ongoing_tasks).to have_exactly(3).items
   end
 
@@ -31,7 +30,7 @@ RSpec.describe OngoingTasks::Building::ErectTask do
       before do
         allow(Building::Create)
           .to receive(:call)
-          .with(camp: camp, building_type: 'siege_machine_workshop')
+          .with(camp: camp, type: 'Buildings::SiegeMachineWorkshop')
           .and_return(trb_result_failure_with(error: 'dummy error'))
       end
 

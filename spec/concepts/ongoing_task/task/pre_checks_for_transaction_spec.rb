@@ -7,7 +7,7 @@ RSpec.describe OngoingTask::Task::PreChecksForTransaction do
   let(:workshop) do
     camp
       .buildings
-      .find { |b| b.building_type == 'siege_machine_workshop' }
+      .find { |b| b.is_a? Buildings::SiegeMachineWorkshop }
   end
   let(:ongoing_task) { workshop.ongoing_tasks.first }
 

@@ -1,5 +1,9 @@
 class SiegeMachine
   class Create < Trailblazer::Operation
+    include CreateHelper
+
+    step :find_klass
+    step :type_to_snake_case
     step :setup_configuration
     fail :set_error_type_not_found
     step :build
@@ -10,16 +14,15 @@ class SiegeMachine
 
     DEFAULT_SYLLABLES_COUNT = 3
 
-    def setup_configuration(ctx, siege_machine_type:, **)
+    def setup_configuration(ctx, snake_type:, **)
       ctx[:config] = Rails
         .configuration
-        .siege_machines[siege_machine_type.to_sym]
+        .siege_machines[snake_type]
     end
 
-    def build(ctx, camp:, siege_machine_type:, config:, **)
-      ctx[:assembled_siege_machine] = SiegeMachine.new(
+    def build(ctx, camp:, klass:, config:, **)
+      ctx[:assembled_siege_machine] = klass.new(
         camp: camp,
-        siege_machine_type: siege_machine_type,
         damages: random_damages(config),
         name: random_name
       )
@@ -38,8 +41,8 @@ class SiegeMachine
       ctx[:assembled_siege_machine] = nil
     end
 
-    def set_error_type_not_found(ctx, siege_machine_type:, **)
-      ctx[:error] = "#{siege_machine_type} type is not found"
+    def set_error_type_not_found(ctx, type:, **)
+      ctx[:error] = "#{type} type is not found"
     end
 
     private

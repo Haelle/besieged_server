@@ -1,14 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe SiegeMachine::Create do
-  subject { described_class.call camp: camp, siege_machine_type: type }
+  subject { described_class.call camp: camp, type: type }
 
   let(:camp) { create :camp }
   let(:assembled_machine) { subject[:assembled_siege_machine] }
 
   shared_examples 'a valid configuration' do |machine_type|
     let(:type) { machine_type }
-    let(:config) { Rails.configuration.siege_machines[machine_type.to_sym] }
+    let(:config) { Rails.configuration.siege_machines[subject[:snake_type]] }
 
     it { is_expected.to be_success }
 
@@ -23,7 +23,7 @@ RSpec.describe SiegeMachine::Create do
     end
 
     it 'builds a machine o the expected type' do
-      expect(assembled_machine.siege_machine_type).to eq type
+      expect(assembled_machine).to be_a subject[:klass]
     end
 
     it 'belongs to the right camp' do
@@ -52,9 +52,9 @@ RSpec.describe SiegeMachine::Create do
     end
   end
 
-  it_behaves_like 'a valid configuration', 'catapult'
-  it_behaves_like 'a valid configuration', 'ballista'
-  it_behaves_like 'a valid configuration', 'trebuchet'
+  it_behaves_like 'a valid configuration', 'SiegeMachines::Catapult'
+  it_behaves_like 'a valid configuration', 'SiegeMachines::Ballista'
+  it_behaves_like 'a valid configuration', 'SiegeMachines::Trebuchet'
 
   context 'when there is a nested error' do
     before do
@@ -75,7 +75,7 @@ RSpec.describe SiegeMachine::Create do
         )
     end
 
-    let(:type) { 'catapult' }
+    let(:type) { 'SiegeMachines::Catapult' }
 
     it { is_expected.to be_failure }
 
@@ -84,7 +84,7 @@ RSpec.describe SiegeMachine::Create do
     end
 
     it 'does not build anything' do
-      expect { subject }.not_to change(SiegeMachine, :count)
+      expect { subject }.not_to change(SiegeMachines::Catapult, :count)
     end
 
     it 'does not return anyhting' do

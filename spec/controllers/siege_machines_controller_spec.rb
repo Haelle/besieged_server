@@ -14,14 +14,14 @@ RSpec.describe SiegeMachinesController, type: :controller do
       get :index, params: { camp_id: camp.id }
 
       expect(response).to be_successful
-      expect(response_json.size).to eq 5
+      expect(response_json.size).to eq 10
       expect(response_json).to match_json_schema 'siege_machines'
     end
   end
 
   describe 'GET #show' do
     it 'returns a success response' do
-      siege_machine = create :siege_machine
+      siege_machine = create :trebuchet
       get :show, params: { id: siege_machine.to_param }
 
       expect(response).to be_successful

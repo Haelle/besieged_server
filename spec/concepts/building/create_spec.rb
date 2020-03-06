@@ -1,14 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe Building::Create do
-  subject { described_class.call camp: camp, building_type: type }
+  subject { described_class.call camp: camp, type: type }
 
   let(:camp) { create :camp }
   let(:erected_building) { subject[:erected_building] }
 
   shared_examples 'a valid configuration' do |building_type|
     let(:type) { building_type }
-    let(:config) { Rails.configuration.buildings[type.to_sym] }
+    let(:config) { Rails.configuration.buildings[subject[:snake_type]] }
 
     it { is_expected.to be_success }
 
@@ -23,7 +23,7 @@ RSpec.describe Building::Create do
     end
 
     it 'erect a building of the expected type' do
-      expect(erected_building.building_type).to eq type
+      expect(erected_building).to be_a subject[:klass]
     end
 
     it 'belongs to the right camp' do
@@ -36,11 +36,11 @@ RSpec.describe Building::Create do
     end
   end
 
-  it_behaves_like 'a valid configuration', 'siege_machine_workshop'
-  it_behaves_like 'a valid configuration', 'tactical_operation_center'
+  it_behaves_like 'a valid configuration', 'Buildings::SiegeMachineWorkshop'
+  it_behaves_like 'a valid configuration', 'Buildings::TacticalOperationCenter'
 
   describe 'erecting an invalid building' do
-    let(:type) { 'siege_machine_workshop' }
+    let(:type) { 'Buildings::SiegeMachineWorkshop' }
 
     before do
       allow(Rails.configuration).to receive(:buildings)

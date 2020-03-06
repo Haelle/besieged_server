@@ -8,7 +8,7 @@ class OngoingTasks::Building::ErectTask < OngoingTask
   end
 
   def on_completion_callback
-    operation = Building::Create.call(camp: camp, building_type: params['building_type'])
+    operation = Building::Create.call(camp: camp, type: params['type'])
 
     if operation.success?
       @erected_building = operation[:erected_building]

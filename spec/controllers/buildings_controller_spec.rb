@@ -20,7 +20,7 @@ RSpec.describe BuildingsController, type: :controller do
 
   describe 'GET #show' do
     it 'returns a success response' do
-      building = create :building
+      building = create :workshop
       get :show, params: { id: building.to_param }
 
       expect(response).to be_successful

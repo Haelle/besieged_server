@@ -9,6 +9,7 @@ RSpec.describe Camp::Create do
     it { is_expected.to be_success }
     its([:camp]) { is_expected.to be_a Camp }
     its([:camp]) { is_expected.to be_persisted }
+    its([:error]) { is_expected.to be_nil }
 
     it 'create a new camp' do
       expect { subject }.to change(Camp, :count).by 1

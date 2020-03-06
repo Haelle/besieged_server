@@ -25,7 +25,7 @@ class Camp
       operation = Building::Create
         .call(
           camp: camp,
-          building_type: 'tactical_operation_center'
+          type: Buildings::TacticalOperationCenter
         )
 
       operation.success?

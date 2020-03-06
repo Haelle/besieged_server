@@ -9,7 +9,7 @@ class OngoingTasks::Building::AssembleTask < OngoingTask
 
   def on_completion_callback
     operation = SiegeMachine::Create
-      .call(camp: camp, siege_machine_type: params['siege_machine_type'])
+      .call(camp: camp, type: params['type'])
 
     if operation.success?
       @assembled_siege_machine = operation[:assembled_siege_machine]

@@ -8,8 +8,7 @@ RSpec.describe OngoingTasks::Building::AssembleTask do
   it 'set the target after the callback' do
     subject.on_completion_callback
     target = subject.target
-    expect(target).to be_a SiegeMachine
-    expect(target.siege_machine_type).to eq 'catapult'
+    expect(target).to be_a SiegeMachines::Catapult
     expect(target.ongoing_tasks).to have_exactly(1).items
   end
 
@@ -31,7 +30,7 @@ RSpec.describe OngoingTasks::Building::AssembleTask do
       before do
         allow(SiegeMachine::Create)
           .to receive(:call)
-          .with(camp: camp, siege_machine_type: 'catapult')
+          .with(camp: camp, type: 'SiegeMachines::Catapult')
           .and_return(trb_result_failure_with(error: 'dummy error'))
       end
 

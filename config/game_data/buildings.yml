@@ -7,7 +7,7 @@ default: &default
         action_points_required: 50
         repeatable: false
         params:
-          building_type: 'siege_machine_workshop'
+          type: 'Buildings::SiegeMachineWorkshop'
 
   siege_machine_workshop:
     ongoing_tasks:
@@ -15,17 +15,17 @@ default: &default
         action_points_required: 10
         repeatable: true
         params:
-          siege_machine_type: 'ballista'
+          type: 'SiegeMachines::Ballista'
       - type: 'OngoingTasks::Building::AssembleTask'
         action_points_required: 20
         repeatable: true
         params:
-          siege_machine_type: 'catapult'
+          type: 'SiegeMachines::Catapult'
       - type: 'OngoingTasks::Building::AssembleTask'
         action_points_required: 40
         repeatable: true
         params:
-          siege_machine_type: 'trebuchet'
+          type: 'SiegeMachines::Trebuchet'
 
 development:
   <<: *default

@@ -5,9 +5,7 @@ class Camp < ApplicationRecord
   has_many :buildings, dependent: :destroy
 
   def tactical_operation_center
-    buildings.find do |building|
-      building.building_type == 'tactical_operation_center'
-    end
+    buildings.find { |b| b.is_a? Buildings::TacticalOperationCenter }
   end
   alias toc tactical_operation_center
 

@@ -12,7 +12,9 @@ FactoryBot.define do
 
     trait :with_siege_machines do
       after :create do |camp|
-        create_list :siege_machine, 5, :with_ongoing_tasks, camp: camp
+        create_list :catapult, 3, :with_arm_task, camp: camp
+        create_list :ballista, 5, :with_arm_task, camp: camp
+        create_list :trebuchet, 2, :with_arm_task, camp: camp
       end
     end
 

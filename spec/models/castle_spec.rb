@@ -21,11 +21,11 @@ RSpec.describe Castle, type: :model do
     expect(build(:castle, health_points: -5)).to be_invalid
   end
 
-  it 'destroys 3/5 machines' do
+  it 'destroys 3/8 machines' do
     castle = create :castle, :with_armed_camp
     allow(castle)
       .to receive(:target_destroyed?)
-      .and_return(true, false, true, false, true)
+      .and_return(true, false, true, false, true, false, false, false)
 
     expect { castle.counter_attack }.to change { castle.camp.siege_machines.size }.by(-3)
   end

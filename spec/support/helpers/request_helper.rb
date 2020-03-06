@@ -1,37 +1,39 @@
 module RequestHelper
   def erect_workshop_task
-    toc
+    camp
+      .toc
       .ongoing_tasks
-      .find { |t| t.params['building_type'] == 'siege_machine_workshop' }
+      .find { |t| t.params['type'] == 'Buildings::SiegeMachineWorkshop' }
   end
 
   def assemble_task_of(machine_type)
     workshop
       .ongoing_tasks
-      .find { |t| t.params['siege_machine_type'] == machine_type }
+      .find { |t| t.params['type'] == machine_type.name }
   end
 
   def arm_task_of(machine_type)
     get_siege_machine_type(machine_type)
       .first
       .ongoing_tasks
-      .find { |t| t.is_a?(OngoingTasks::SiegeMachine::ArmTask) }
+      .find { |t| t.is_a? OngoingTasks::SiegeMachine::ArmTask }
   end
 
   def workshop
     camp
+      .reload
       .buildings
-      .find_by(building_type: 'siege_machine_workshop')
+      .find { |b| b.is_a? Buildings::SiegeMachineWorkshop }
   end
 
   def get_siege_machine_type(machine_type)
     camp
       .siege_machines
-      .where(siege_machine_type: machine_type)
+      .select { |m| m.is_a? machine_type }
   end
 
   def catapults
-    get_siege_machine_type 'catapult'
+    get_siege_machine_type SiegeMachines::Catapult
   end
 
   def catapult

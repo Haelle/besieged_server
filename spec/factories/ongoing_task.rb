@@ -34,12 +34,12 @@ FactoryBot.define do
     end
 
     factory :erect_task, class: OngoingTasks::Building::ErectTask do
-      params { { building_type: 'siege_machine_workshop' } }
+      params { { type: 'Buildings::SiegeMachineWorkshop' } }
       for_building
     end
 
     factory :assemble_task, class: OngoingTasks::Building::AssembleTask do
-      params { { siege_machine_type: 'catapult' } }
+      params { { type: 'SiegeMachines::Catapult' } }
       for_building
     end
   end

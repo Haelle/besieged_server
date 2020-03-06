@@ -12,11 +12,12 @@ RSpec.describe 'Buildings ongoing tasks', type: :request do
   end
 
   context 'with a workshop' do
-    before { Building::Create.call(camp: camp, building_type: 'siege_machine_workshop') }
+    before { Building::Create.call camp: camp, type: Buildings::SiegeMachineWorkshop }
+
     it 'assemble a catapult' do
       expect(catapults).to have_exactly(0).items
 
-      complete_task assemble_task_of('catapult')
+      complete_task assemble_task_of(SiegeMachines::Catapult)
 
       expect(catapults).to have_exactly(1).items
       expect(catapults.first.ongoing_tasks).to have_exactly(1).items

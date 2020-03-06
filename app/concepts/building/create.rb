@@ -1,5 +1,9 @@
 class Building
   class Create < Trailblazer::Operation
+    include CreateHelper
+
+    step :find_klass
+    step :type_to_snake_case
     step :setup_configuration
     fail :set_error_type_not_found
     step :build
@@ -8,17 +12,14 @@ class Building
     step :save
     fail :clear_data
 
-    def setup_configuration(ctx, building_type:, **)
+    def setup_configuration(ctx, snake_type:, **)
       ctx[:config] = Rails
         .configuration
-        .buildings[building_type.to_sym]
+        .buildings[snake_type.to_sym]
     end
 
-    def build(ctx, camp:, building_type:, **)
-      ctx[:erected_building] = Building.new(
-        camp: camp,
-        building_type: building_type
-      )
+    def build(ctx, camp:, klass:, **)
+      ctx[:erected_building] = klass.new(camp: camp)
     end
 
     def set_ongoing_task_create_params(ctx, erected_building:, config:, **)
@@ -34,8 +35,8 @@ class Building
       ctx[:erected_building] = nil
     end
 
-    def set_error_type_not_found(ctx, building_type:, **)
-      ctx[:error] = "#{building_type} type is not found"
+    def set_error_type_not_found(ctx, type:, **)
+      ctx[:error] = "#{type} type is not found"
     end
   end
 end

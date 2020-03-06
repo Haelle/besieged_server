@@ -42,7 +42,7 @@ RSpec.describe OngoingTasksController, type: :controller do
 
   describe 'GET #index by siege machine' do
     it 'returns a success response' do
-      catapult = create :catapult, :with_ongoing_tasks
+      catapult = create :catapult, :with_arm_task
       get :index, params: { siege_machine_id: catapult.id }
 
       expect(response).to be_successful
