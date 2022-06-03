@@ -14,7 +14,7 @@ RSpec.describe 'Sidekiq job schedule' do
     quietly { Sidekiq::Cron::Job.destroy_all! }
   end
 
-  let(:every_6_hours_regex) { /\d{4}-\d{2}-\d{2} (00|06|12|18):\d{2}:\d{2} \+0100/ }
+  let(:every_6_hours_regex) { /\d{4}-\d{2}-\d{2} (00|06|12|18):\d{2}:\d{2} \+0200/ }
 
   describe '#DailyAssaultJob' do
     let(:job_name) { 'daily_assaults' }

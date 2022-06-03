@@ -1,0 +1,59 @@
+name: Tests
+on: [push]
+jobs:
+  run-rspec:
+    name: Run RSpec
+    runs-on: ubuntu-20.04
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_USER: besieged
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: besieged_test
+          POSTGRES_PORT: 5432
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+      redis:
+        image: redis
+        ports: ["6379:6379"]
+        options: --entrypoint redis-server
+
+    steps:
+      - name: Dump Github context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Create database users
+        env:
+          POSTGRES_USER: besieged
+          POSTGRES_DB: besieged_test
+          PGPASSWORD: password
+        run: |
+          psql -h localhost -U ${{ env.POSTGRES_USER }} -d ${{ env.POSTGRES_DB }} -f `pwd`/setup_postgres.sql
+
+      - name: Create database
+        run: bundle exec rails db:create db:schema:load RAILS_ENV=test
+
+      - name: Create dummy secret files
+        run: |
+          mv config/master.key.travis config/master.key
+          mv config/credentials.yml.enc.travis config/credentials.yml.enc
+
+      - name: Run RSpec
+        run: bundle exec rspec
